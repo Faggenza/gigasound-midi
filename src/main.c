@@ -7,6 +7,7 @@
 #include "stm32f4xx_ll_usart.h"
 #include "stdio.h"
 #include "stdarg.h"
+#include <string.h>
 
 #define LED_PIN LL_GPIO_PIN_5
 #define LED_GPIO_PORT GPIOA
@@ -18,6 +19,16 @@ static void MX_ADC1_Init(void);
 
 UART_HandleTypeDef huart1;
 static void MX_USART2_UART_Init(void);
+
+void _Error_Handler(char *file, int line)
+{
+    /* USER CODE BEGIN Error_Handler_Debug */
+    /* User can add his own implementation to report the HAL error return state */
+    while (1)
+    {
+    }
+    /* USER CODE END Error_Handler_Debug */
+}
 
 void UART_Printf(const char *fmt, ...)
 {
@@ -107,15 +118,6 @@ static void MX_ADC1_Init(void)
         _Error_Handler(__FILE__, __LINE__);
     }
 }
-void _Error_Handler(char *file, int line)
-{
-    /* USER CODE BEGIN Error_Handler_Debug */
-    /* User can add his own implementation to report the HAL error return state */
-    while (1)
-    {
-    }
-    /* USER CODE END Error_Handler_Debug */
-}
 
 static void MX_USART2_UART_Init(void)
 {
@@ -196,8 +198,10 @@ int main(void)
     while (1)
     {
         uint8_t buff = 0x41;
-        HAL_UART_Transmit(&huart1, &buff, 1, HAL_MAX_DELAY);
-        // UART_Printf("A");
+        LL_GPIO_TogglePin(LED_GPIO_PORT, LED_PIN);
+
+        // HAL_UART_Transmit(&huart1, &buff, 1, HAL_MAX_DELAY);
+        UART_Printf("A");
         LL_mDelay(500);
     }
     while (1)
