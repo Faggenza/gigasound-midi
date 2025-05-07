@@ -21,13 +21,16 @@ int main(void)
   MX_ADC1_Init();
   MX_USART2_UART_Init();
 
-  HAL_ADC_Start(&hadc1);
-
   while (1)
   {
-    // HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
+    HAL_ADC_Start(&hadc1);
+    if (HAL_ADC_PollForConversion(&hadc1, 100) != HAL_OK)
+    {
+      puts("Timeout adc\n");
+      continue;
+    }
+    HAL_ADC_Stop(&hadc1);
     uint32_t adc_val = HAL_ADC_GetValue(&hadc1);
-    printf("ADC: %04lu\n", adc_val); // 0 .. 4095
-    HAL_Delay(50);
+    printf("%04lu\n", adc_val); // 0 .. 4095
   }
 }

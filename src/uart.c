@@ -16,6 +16,12 @@ int printf(const char *format, ...)
     return strlen(buffer);
 }
 
+int puts(const char *str)
+{
+    HAL_UART_Transmit(&huart2, (unsigned char *)str, strlen(str), 100);
+    return strlen(str);
+}
+
 void MX_USART2_UART_Init(void)
 {
     huart2.Instance = USART2;
