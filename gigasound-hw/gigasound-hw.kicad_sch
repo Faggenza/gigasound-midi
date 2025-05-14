@@ -10887,72 +10887,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 36.83 97.79 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "812f23fe-62dc-41f3-a172-252fe21e60aa")
-		(property "Reference" "TPC12"
-			(at 31.75 97.79 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "~"
-			(at 31.75 96.52 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
-			(at 36.83 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 36.83 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 36.83 97.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "e58516ec-1e43-4510-bdd4-636370b38f4e")
-		)
-		(instances
-			(project "gigasound-hw"
-				(path "/8926df81-91df-4835-b346-b30b02cc5690"
-					(reference "TPC12")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 138.43 116.84 270)
 		(unit 1)
@@ -14040,6 +13974,7 @@
 		)
 		(pin "53"
 			(uuid "8c842a04-a56f-4c58-ad9e-61385a70b0a9")
+			(alternate "SPI3_MOSI")
 		)
 		(pin "25"
 			(uuid "ff5d03d3-8915-4621-9028-faefd9c3f006")
