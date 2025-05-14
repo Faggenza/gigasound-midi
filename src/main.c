@@ -10,6 +10,11 @@ void Error_Handler(void)
   __disable_irq();
   asm volatile("bkpt 0");
 }
+volatile uint8_t adc_complete = 0;
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
+{
+  adc_complete = 1;
+}
 
 int main(void)
 {
@@ -24,6 +29,8 @@ int main(void)
   MX_USART1_UART_Init();
   MX_SPI3_Init();
 
+  uint16_t adc_buff[11] = {0};
+
   // Turn all LEDs off
   for (size_t i = 0; i < N_LED; i++)
   {
@@ -33,6 +40,7 @@ int main(void)
   HAL_SPI_Transmit(&hspi3, led_buff, LED_BUFF_N, 1000);
 
   HAL_SPI_Transmit_DMA(&hspi3, led_buff, LED_BUFF_N);
+  HAL_ADC_Start_DMA(&hadc1, (uint32_t *)adc_buff, 11);
   uint32_t i = 0;
   while (1)
   {
@@ -45,14 +53,16 @@ int main(void)
     set_led((i + 5) % N_LED, MAGENTA, 0.1f);
     set_led((i + 6) % N_LED, TEAL, 0.1f);
     i++;
-    HAL_ADC_Start(&hadc1);
-    if (HAL_ADC_PollForConversion(&hadc1, 100) != HAL_OK)
+    if (adc_complete)
     {
-      puts("Timeout adc\n");
-      continue;
+      adc_complete = 0;
+      printf("ADC: ");
+      for (size_t j = 0; j < 11; j++)
+      {
+        printf("CH%d: %04lu, ", j, adc_buff[j]);
+      }
+      puts("\n");
     }
-    HAL_ADC_Stop(&hadc1);
-    uint32_t adc_val = HAL_ADC_GetValue(&hadc1);
-    printf("%04lu\n", adc_val); // 0 .. 4095
+    HAL_Delay(100);
   }
 }
