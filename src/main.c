@@ -21,7 +21,7 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_ADC1_Init();
-  MX_USART2_UART_Init();
+  MX_USART1_UART_Init();
   MX_SPI3_Init();
 
   // Turn all LEDs off
@@ -44,16 +44,15 @@ int main(void)
     set_led((i + 4) % N_LED, PURPLE, 0.1f);
     set_led((i + 5) % N_LED, MAGENTA, 0.1f);
     set_led((i + 6) % N_LED, TEAL, 0.1f);
-    HAL_Delay(100);
     i++;
-    // HAL_ADC_Start(&hadc1);
-    // if (HAL_ADC_PollForConversion(&hadc1, 100) != HAL_OK)
-    // {
-    //   puts("Timeout adc\n");
-    //   continue;
-    // }
-    // HAL_ADC_Stop(&hadc1);
-    // uint32_t adc_val = HAL_ADC_GetValue(&hadc1);
-    // printf("%04lu\n", adc_val); // 0 .. 4095
+    HAL_ADC_Start(&hadc1);
+    if (HAL_ADC_PollForConversion(&hadc1, 100) != HAL_OK)
+    {
+      puts("Timeout adc\n");
+      continue;
+    }
+    HAL_ADC_Stop(&hadc1);
+    uint32_t adc_val = HAL_ADC_GetValue(&hadc1);
+    printf("%04lu\n", adc_val); // 0 .. 4095
   }
 }
