@@ -419,6 +419,18 @@
     [
       "8926df81-91df-4835-b346-b30b02cc5690",
       "Root"
+    ],
+    [
+      "be35609e-cf75-4365-8586-cf6156c27f7a",
+      "LED_5050x8"
+    ],
+    [
+      "25c6466e-a92b-454c-b57a-cb4c2cf7e383",
+      "LED_2020_Trimmer"
+    ],
+    [
+      "5c8d57ea-7937-48e2-a497-af172b8082c1",
+      "LED_play_pause_mode"
     ]
   ],
   "text_variables": {}
