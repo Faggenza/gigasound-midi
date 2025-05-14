@@ -30,7 +30,7 @@ typedef struct
 #define N_LED 7
 
 // (50us / (1/(84/32)) ) / 8 bits
-#define RESET_SYMBOLS_N 18
+#define RESET_SYMBOLS_N 25
 
 #define LED_BUFF_N (N_LED * 9) + RESET_SYMBOLS_N
 

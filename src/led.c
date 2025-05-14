@@ -17,8 +17,8 @@ static inline uint8_t bit_to_ws(uint8_t i, uint8_t color)
 
 void set_led(size_t index, color_t color, float brightness)
 {
-    assert(index < N_LED);                            // Index out of bounds
-    assert(brightness >= 0.0f && brightness <= 1.0f); // Brightness out of bounds
+    // assert(index < N_LED); // Index out of bounds
+    //  assert(brightness >= 0.0f && brightness <= 1.0f); // Brightness out of bounds
 
     color.r = (uint8_t)(color.r * brightness);
     color.g = (uint8_t)(color.g * brightness);
