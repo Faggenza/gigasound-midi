@@ -3,6 +3,7 @@
 #include "stdio.h"
 #include "uart.h"
 #include "init.h"
+#include "led.h"
 
 void Error_Handler(void)
 {
@@ -22,19 +23,20 @@ int main(void)
   MX_USART2_UART_Init();
   MX_SPI3_Init();
 
-  uint32_t color = 15 << 16 | 0 << 8 | 0;
-  uint8_t sendData[24];
-  int indx = 0;
-
-  for (int i = 23; i >= 0; i--)
+  // Turn all LEDs off
+  for (size_t i = 0; i < N_LED; i++)
   {
-    if (((color >> i) & 0x01) == 1)
-      sendData[indx++] = 0b110; // store 1
-    else
-      sendData[indx++] = 0b100; // store 0
+    set_led(i, (color_t){0, 0, 0}, 0.0f);
   }
+  HAL_SPI_Transmit(&hspi3, led_buff, LED_BUFF_N, 1000);
 
-  HAL_SPI_Transmit(&hspi3, sendData, 24, 1000);
+  set_led(0, RED, 0.1f);
+  set_led(1, GREEN, 0.1f);
+  set_led(2, BLUE, 0.1f);
+  set_led(2, BLUE, 0.1f);
+
+  HAL_SPI_Transmit(&hspi3, led_buff, LED_BUFF_N, 1000);
+
   while (1)
   {
     // HAL_ADC_Start(&hadc1);
