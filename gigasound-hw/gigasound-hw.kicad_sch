@@ -5220,16 +5220,6 @@
 		)
 		(uuid "576c8573-1d29-4344-afdd-8ad31444cd7f")
 	)
-	(text "POTENTIOMETER"
-		(exclude_from_sim no)
-		(at 250.952 135.382 0)
-		(effects
-			(font
-				(size 2.54 2.54)
-			)
-		)
-		(uuid "5d3ec12b-46c0-4dc6-8979-4193f76fd012")
-	)
 	(text "3.3V REGULATOR"
 		(exclude_from_sim no)
 		(at 158.75 114.3 0)
