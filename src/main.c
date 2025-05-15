@@ -61,28 +61,41 @@ int main(void)
   // HAL_SPI_Transmit_DMA(&hspi3, led_buff, LED_BUFF_N);
   // HAL_ADC_Start_DMA(&hadc1, (uint32_t *)adc_buff, 11);
   // uint32_t i = 0;
+
+  // init device stack on configured roothub port
+  tusb_rhport_init_t dev_init = {
+      .role = TUSB_ROLE_DEVICE,
+      .speed = TUSB_SPEED_AUTO};
+  tusb_init(BOARD_TUD_RHPORT, &dev_init);
+
+  if (board_init_after_tusb)
+  {
+    board_init_after_tusb();
+  }
   while (1)
   {
-    // set_led(i % N_LED, RED, 0.1f);
-    // set_led((i + 1) % N_LED, GREEN, 0.1f);
-    // set_led((i + 2) % N_LED, BLUE, 0.1f);
-    // set_led((i + 3) % N_LED, YELLOW, 0.1f);
-    // set_led((i + 3) % N_LED, CYAN, 0.1f);
-    // set_led((i + 4) % N_LED, PURPLE, 0.1f);
-    // set_led((i + 5) % N_LED, MAGENTA, 0.1f);
-    // set_led((i + 6) % N_LED, TEAL, 0.1f);
-    // i++;
-    // if (adc_complete)
-    // {
-    //   adc_complete = 0;
-    //   printf("ADC: ");
-    //   for (size_t j = 0; j < 11; j++)
-    //   {
-    //     printf("CH%d: %04lu, ", j, adc_buff[j]);
-    //   }
-    //   puts("\n");
-    // }
-    // HAL_Delay(100);
+    tud_task();
+    // midi_task();
+    //  set_led(i % N_LED, RED, 0.1f);
+    //  set_led((i + 1) % N_LED, GREEN, 0.1f);
+    //  set_led((i + 2) % N_LED, BLUE, 0.1f);
+    //  set_led((i + 3) % N_LED, YELLOW, 0.1f);
+    //  set_led((i + 3) % N_LED, CYAN, 0.1f);
+    //  set_led((i + 4) % N_LED, PURPLE, 0.1f);
+    //  set_led((i + 5) % N_LED, MAGENTA, 0.1f);
+    //  set_led((i + 6) % N_LED, TEAL, 0.1f);
+    //  i++;
+    //  if (adc_complete)
+    //  {
+    //    adc_complete = 0;
+    //    printf("ADC: ");
+    //    for (size_t j = 0; j < 11; j++)
+    //    {
+    //      printf("CH%d: %04lu, ", j, adc_buff[j]);
+    //    }
+    //    puts("\n");
+    //  }
+    //  HAL_Delay(100);
   }
 }
 
