@@ -102,3 +102,17 @@ void DMA2_Stream0_IRQHandler(void)
 
   /* USER CODE END DMA2_Stream0_IRQn 1 */
 }
+
+// TinyUSB Interrupts
+
+#include "bsp/board_api.h"
+
+void OTG_FS_IRQHandler(void)
+{
+  tusb_int_handler(0, 1);
+}
+
+void OTG_HS_IRQHandler(void)
+{
+  tusb_int_handler(1, 1);
+}

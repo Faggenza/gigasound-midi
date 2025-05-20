@@ -9,20 +9,6 @@
 
 void midi_task(void);
 
-/* Blink pattern
- * - 250 ms  : device not mounted
- * - 1000 ms : device mounted
- * - 2500 ms : device is suspended
- */
-enum
-{
-  BLINK_NOT_MOUNTED = 250,
-  BLINK_MOUNTED = 1000,
-  BLINK_SUSPENDED = 2500,
-};
-
-static uint32_t blink_interval_ms = BLINK_NOT_MOUNTED;
-
 void Error_Handler(void)
 {
   __disable_irq();
@@ -75,6 +61,7 @@ int main(void)
   while (1)
   {
     tud_task();
+    midi_task();
     // midi_task();
     //  set_led(i % N_LED, RED, 0.1f);
     //  set_led((i + 1) % N_LED, GREEN, 0.1f);
@@ -102,13 +89,11 @@ int main(void)
 // Invoked when device is mounted
 void tud_mount_cb(void)
 {
-  blink_interval_ms = BLINK_MOUNTED;
 }
 
 // Invoked when device is unmounted
 void tud_umount_cb(void)
 {
-  blink_interval_ms = BLINK_NOT_MOUNTED;
 }
 
 // Invoked when usb bus is suspended
@@ -117,13 +102,11 @@ void tud_umount_cb(void)
 void tud_suspend_cb(bool remote_wakeup_en)
 {
   (void)remote_wakeup_en;
-  blink_interval_ms = BLINK_SUSPENDED;
 }
 
 // Invoked when usb bus is resumed
 void tud_resume_cb(void)
 {
-  blink_interval_ms = tud_mounted() ? BLINK_MOUNTED : BLINK_NOT_MOUNTED;
 }
 
 //--------------------------------------------------------------------+
@@ -154,12 +137,6 @@ void midi_task(void)
     uint8_t packet[4];
     tud_midi_packet_read(packet);
   }
-
-  // send note periodically
-  // if (HAL_Delay)  {
-  //   return; // not enough time
-  // }
-  // start_ms += 286;
 
   // Previous positions in the note sequence.
   int previous = (int)(note_pos - 1);
