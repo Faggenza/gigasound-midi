@@ -8633,7 +8633,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "gigalibrary:FSR402"
 			(at 243.332 58.42 90)
 			(effects
 				(font
@@ -8902,7 +8902,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "gigalibrary:Joycon-FPC-1x05-P0.5mm"
 			(at 121.92 143.51 0)
 			(effects
 				(font
@@ -9321,7 +9321,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "gigalibrary:FSR402"
 			(at 205.232 58.42 90)
 			(effects
 				(font
@@ -10252,7 +10252,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Button_Switch_SMD:SW_SPST_TL3342"
 			(at 176.53 83.82 0)
 			(effects
 				(font
@@ -10322,7 +10322,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "gigalibrary:FSR402"
 			(at 263.652 58.42 90)
 			(effects
 				(font
@@ -10600,7 +10600,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "gigalibrary:FSR402"
 			(at 224.282 58.42 90)
 			(effects
 				(font
@@ -10877,7 +10877,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "gigalibrary:FSR402"
 			(at 167.132 58.42 90)
 			(effects
 				(font
@@ -11428,7 +11428,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "gigalibrary:FSR402"
 			(at 148.082 58.42 90)
 			(effects
 				(font
@@ -13364,7 +13364,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Button_Switch_SMD:SW_SPST_TL3342"
 			(at 193.04 83.82 0)
 			(effects
 				(font
@@ -14301,7 +14301,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "gigalibrary:FSR402"
 			(at 184.912 58.42 90)
 			(effects
 				(font
@@ -14775,7 +14775,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "gigalibrary:FSR402"
 			(at 127.762 58.42 90)
 			(effects
 				(font
@@ -14913,7 +14913,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Button_Switch_SMD:SW_SPST_TL3342"
 			(at 209.55 83.82 0)
 			(effects
 				(font
@@ -15372,7 +15372,7 @@
 				)
 			)
 		)
-		(property "Value" "~"
+		(property "Value" "Reset"
 			(at 21.082 22.606 0)
 			(effects
 				(font
@@ -15381,7 +15381,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Button_Switch_SMD:SW_SP3T_PCM13"
 			(at 27.94 31.75 0)
 			(effects
 				(font
