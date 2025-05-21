@@ -1,0 +1,667 @@
+05-21 13:36:58 com_github_MitjaNemec_PlaceFootprints.action_place_footprints 674:Plugin executed on: 'linux'
+05-21 13:36:58 com_github_MitjaNemec_PlaceFootprints.action_place_footprints 675:Plugin executed with python version: '3.13.3 (main, Apr 22 2025, 00:00:00) [GCC 15.0.1 20250418 (Red Hat 15.0.1-0)]'
+05-21 13:36:58 com_github_MitjaNemec_PlaceFootprints.action_place_footprints 676:KiCad build version: 9.0.2-1.fc42
+05-21 13:36:58 com_github_MitjaNemec_PlaceFootprints.action_place_footprints 677:Plugin version: 4.0.1
+05-21 13:36:58 com_github_MitjaNemec_PlaceFootprints.action_place_footprints 678:Frame repr: <wx._core.Frame object at 0xfffe9c1f4d40>
+05-21 16:01:53 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:01:59 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:01:59 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:01:59 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:01:59 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:01:59 svg2mod 304:  Inlining 2 segments...
+05-21 16:01:59 svg2mod 339:  Writing Text with 103 points
+05-21 16:02:00 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:00 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:00 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:02:00 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:02:00 svg2mod 304:  Inlining 3 segments...
+05-21 16:02:00 svg2mod 339:  Writing Text with 119 points
+05-21 16:02:07 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:07 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:07 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:02:07 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:02:07 svg2mod 304:  Inlining 3 segments...
+05-21 16:02:07 svg2mod 339:  Writing Text with 120 points
+05-21 16:02:09 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:09 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:09 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:02:09 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:02:09 svg2mod 304:  Inlining 3 segments...
+05-21 16:02:09 svg2mod 339:  Writing Text with 119 points
+05-21 16:02:11 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:11 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:11 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:02:11 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:02:11 svg2mod 304:  Inlining 3 segments...
+05-21 16:02:11 svg2mod 339:  Writing Text with 151 points
+05-21 16:02:13 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:13 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:13 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:02:13 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:02:13 svg2mod 304:  Inlining 3 segments...
+05-21 16:02:13 svg2mod 339:  Writing Text with 154 points
+05-21 16:02:18 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:18 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:18 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:02:18 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:02:18 svg2mod 304:  Inlining 3 segments...
+05-21 16:02:18 svg2mod 339:  Writing Text with 152 points
+05-21 16:02:20 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:20 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:20 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:02:20 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:02:20 svg2mod 304:  Inlining 3 segments...
+05-21 16:02:20 svg2mod 339:  Writing Text with 151 points
+05-21 16:02:23 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:23 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:23 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:02:23 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:02:23 svg2mod 304:  Inlining 3 segments...
+05-21 16:02:23 svg2mod 339:  Writing Text with 119 points
+05-21 16:02:27 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:02:27 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:02:27 svg2mod 304:  Inlining 3 segments...
+05-21 16:02:27 svg2mod 339:  Writing Text with 119 points
+05-21 16:02:27 com_github_gregdavill_KiBuzzard.plugin 135:Using wx.KeyEvent for paste
+05-21 16:02:27 com_github_gregdavill_KiBuzzard.plugin 143:Using wx.UIActionSimulator for paste
+05-21 16:02:38 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:42 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:43 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:43 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:43 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:44 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:44 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:47 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:48 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:50 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:50 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:50 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:02:50 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:02:50 svg2mod 304:  Inlining 2 segments...
+05-21 16:02:50 svg2mod 339:  Writing Text with 103 points
+05-21 16:02:51 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:51 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:51 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:02:51 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:02:51 svg2mod 304:  Inlining 3 segments...
+05-21 16:02:51 svg2mod 339:  Writing Text with 126 points
+05-21 16:02:52 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:52 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:53 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:02:53 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:02:53 svg2mod 304:  Inlining 2 segments...
+05-21 16:02:53 svg2mod 339:  Writing Text with 103 points
+05-21 16:02:53 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:53 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:53 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:02:53 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:02:53 svg2mod 304:  Inlining 3 segments...
+05-21 16:02:53 svg2mod 339:  Writing Text with 119 points
+05-21 16:02:57 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:57 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:02:57 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:02:57 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:02:57 svg2mod 304:  Inlining 3 segments...
+05-21 16:02:57 svg2mod 339:  Writing Text with 120 points
+05-21 16:03:05 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:03:05 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:03:05 svg2mod 304:  Inlining 3 segments...
+05-21 16:03:05 svg2mod 339:  Writing Text with 120 points
+05-21 16:03:05 com_github_gregdavill_KiBuzzard.plugin 135:Using wx.KeyEvent for paste
+05-21 16:03:05 com_github_gregdavill_KiBuzzard.plugin 143:Using wx.UIActionSimulator for paste
+05-21 16:03:40 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:03:42 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:03:44 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:03:46 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:03:46 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:03:46 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:03:46 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:03:46 svg2mod 304:  Inlining 2 segments...
+05-21 16:03:46 svg2mod 339:  Writing Text with 104 points
+05-21 16:03:46 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:03:46 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:03:46 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:03:46 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:03:46 svg2mod 304:  Inlining 3 segments...
+05-21 16:03:46 svg2mod 339:  Writing Text with 120 points
+05-21 16:03:48 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:03:48 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:03:48 svg2mod 304:  Inlining 3 segments...
+05-21 16:03:48 svg2mod 339:  Writing Text with 120 points
+05-21 16:03:48 com_github_gregdavill_KiBuzzard.plugin 135:Using wx.KeyEvent for paste
+05-21 16:03:48 com_github_gregdavill_KiBuzzard.plugin 143:Using wx.UIActionSimulator for paste
+05-21 16:04:08 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:10 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:10 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:10 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:04:10 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:04:10 svg2mod 304:  Inlining 1 segments...
+05-21 16:04:10 svg2mod 339:  Writing Text with 61 points
+05-21 16:04:11 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:11 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:11 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:04:11 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:04:11 svg2mod 304:  Inlining 2 segments...
+05-21 16:04:11 svg2mod 339:  Writing Text with 81 points
+05-21 16:04:12 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:12 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:12 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:04:12 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:04:12 svg2mod 304:  Inlining 5 segments...
+05-21 16:04:12 svg2mod 339:  Writing Text with 148 points
+05-21 16:04:12 svg2mod 339:  Writing Text with 21 points
+05-21 16:04:12 svg2mod 339:  Writing Text with 14 points
+05-21 16:04:14 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:04:14 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:04:14 svg2mod 304:  Inlining 5 segments...
+05-21 16:04:14 svg2mod 339:  Writing Text with 148 points
+05-21 16:04:14 svg2mod 339:  Writing Text with 21 points
+05-21 16:04:14 svg2mod 339:  Writing Text with 14 points
+05-21 16:04:14 com_github_gregdavill_KiBuzzard.plugin 135:Using wx.KeyEvent for paste
+05-21 16:04:14 com_github_gregdavill_KiBuzzard.plugin 143:Using wx.UIActionSimulator for paste
+05-21 16:04:35 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:36 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:36 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:36 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:04:36 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:04:36 svg2mod 304:  Inlining 1 segments...
+05-21 16:04:36 svg2mod 339:  Writing Text with 61 points
+05-21 16:04:36 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:36 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:36 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:04:36 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:04:36 svg2mod 304:  Inlining 3 segments...
+05-21 16:04:36 svg2mod 339:  Writing Text with 122 points
+05-21 16:04:37 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:37 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:37 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:04:37 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:04:37 svg2mod 304:  Inlining 5 segments...
+05-21 16:04:37 svg2mod 339:  Writing Text with 161 points
+05-21 16:04:37 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:37 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:37 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:04:37 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:04:37 svg2mod 304:  Inlining 7 segments...
+05-21 16:04:37 svg2mod 339:  Writing Text with 182 points
+05-21 16:04:38 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:38 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:38 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:04:38 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:04:38 svg2mod 304:  Inlining 3 segments...
+05-21 16:04:38 svg2mod 339:  Writing Text with 122 points
+05-21 16:04:38 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:38 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:38 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:04:38 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:04:38 svg2mod 304:  Inlining 5 segments...
+05-21 16:04:38 svg2mod 339:  Writing Text with 147 points
+05-21 16:04:39 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:04:39 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:04:39 svg2mod 304:  Inlining 5 segments...
+05-21 16:04:39 svg2mod 339:  Writing Text with 147 points
+05-21 16:04:39 com_github_gregdavill_KiBuzzard.plugin 135:Using wx.KeyEvent for paste
+05-21 16:04:39 com_github_gregdavill_KiBuzzard.plugin 143:Using wx.UIActionSimulator for paste
+05-21 16:04:45 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:46 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:47 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:47 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:04:47 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:04:47 svg2mod 304:  Inlining 1 segments...
+05-21 16:04:47 svg2mod 339:  Writing Text with 39 points
+05-21 16:04:47 svg2mod 339:  Writing Text with 12 points
+05-21 16:04:47 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:47 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:47 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:04:47 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:04:47 svg2mod 304:  Inlining 2 segments...
+05-21 16:04:47 svg2mod 339:  Writing Text with 56 points
+05-21 16:04:47 svg2mod 339:  Writing Text with 12 points
+05-21 16:04:48 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:04:48 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:04:48 svg2mod 304:  Inlining 2 segments...
+05-21 16:04:48 svg2mod 339:  Writing Text with 56 points
+05-21 16:04:48 svg2mod 339:  Writing Text with 12 points
+05-21 16:04:48 com_github_gregdavill_KiBuzzard.plugin 135:Using wx.KeyEvent for paste
+05-21 16:04:48 com_github_gregdavill_KiBuzzard.plugin 143:Using wx.UIActionSimulator for paste
+05-21 16:04:53 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:54 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:54 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:54 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:04:54 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:04:54 svg2mod 304:  Inlining 1 segments...
+05-21 16:04:54 svg2mod 339:  Writing Text with 21 points
+05-21 16:04:54 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:54 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:04:54 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:04:54 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:04:54 svg2mod 304:  Inlining 2 segments...
+05-21 16:04:54 svg2mod 339:  Writing Text with 39 points
+05-21 16:04:55 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:04:55 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:04:55 svg2mod 304:  Inlining 2 segments...
+05-21 16:04:55 svg2mod 339:  Writing Text with 39 points
+05-21 16:04:55 com_github_gregdavill_KiBuzzard.plugin 135:Using wx.KeyEvent for paste
+05-21 16:04:55 com_github_gregdavill_KiBuzzard.plugin 143:Using wx.UIActionSimulator for paste
+05-21 16:05:02 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:05:02 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:05:02 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:05:02 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:05:02 svg2mod 304:  Inlining 2 segments...
+05-21 16:05:02 svg2mod 339:  Writing Text with 39 points
+05-21 16:05:02 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:05:02 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:05:02 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:05:02 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:05:02 svg2mod 304:  Inlining 2 segments...
+05-21 16:05:02 svg2mod 339:  Writing Text with 82 points
+05-21 16:05:02 svg2mod 339:  Writing Text with 12 points
+05-21 16:05:02 svg2mod 339:  Writing Text with 11 points
+05-21 16:05:03 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:05:03 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:05:03 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:05:03 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:05:03 svg2mod 304:  Inlining 3 segments...
+05-21 16:05:03 svg2mod 339:  Writing Text with 104 points
+05-21 16:05:03 svg2mod 339:  Writing Text with 14 points
+05-21 16:05:03 svg2mod 339:  Writing Text with 12 points
+05-21 16:05:03 svg2mod 339:  Writing Text with 11 points
+05-21 16:05:03 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:05:03 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:05:03 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:05:03 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:05:03 svg2mod 304:  Inlining 2 segments...
+05-21 16:05:03 svg2mod 339:  Writing Text with 82 points
+05-21 16:05:03 svg2mod 339:  Writing Text with 12 points
+05-21 16:05:03 svg2mod 339:  Writing Text with 11 points
+05-21 16:05:04 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:05:04 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:05:04 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:05:04 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:05:04 svg2mod 304:  Inlining 2 segments...
+05-21 16:05:04 svg2mod 339:  Writing Text with 68 points
+05-21 16:05:04 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:05:04 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:05:04 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:05:04 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:05:04 svg2mod 304:  Inlining 3 segments...
+05-21 16:05:04 svg2mod 339:  Writing Text with 90 points
+05-21 16:05:04 svg2mod 339:  Writing Text with 14 points
+05-21 16:05:05 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:05:05 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:05:05 svg2mod 304:  Inlining 3 segments...
+05-21 16:05:05 svg2mod 339:  Writing Text with 90 points
+05-21 16:05:05 svg2mod 339:  Writing Text with 14 points
+05-21 16:05:09 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:05:10 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:05:10 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:05:10 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:05:10 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:05:10 svg2mod 304:  Inlining 1 segments...
+05-21 16:05:10 svg2mod 339:  Writing Text with 52 points
+05-21 16:05:11 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:05:11 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:05:11 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:05:11 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:05:11 svg2mod 304:  Inlining 3 segments...
+05-21 16:05:11 svg2mod 339:  Writing Text with 90 points
+05-21 16:05:11 svg2mod 339:  Writing Text with 14 points
+05-21 16:05:12 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:05:12 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:05:12 svg2mod 304:  Inlining 3 segments...
+05-21 16:05:12 svg2mod 339:  Writing Text with 90 points
+05-21 16:05:12 svg2mod 339:  Writing Text with 14 points
+05-21 16:05:12 com_github_gregdavill_KiBuzzard.plugin 135:Using wx.KeyEvent for paste
+05-21 16:05:12 com_github_gregdavill_KiBuzzard.plugin 143:Using wx.UIActionSimulator for paste
+05-21 16:05:24 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:05:25 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:05:25 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:05:25 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:05:25 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:05:25 svg2mod 304:  Inlining 2 segments...
+05-21 16:05:25 svg2mod 339:  Writing Text with 35 points
+05-21 16:05:25 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:05:26 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:05:26 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:05:26 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:05:26 svg2mod 304:  Inlining 3 segments...
+05-21 16:05:26 svg2mod 339:  Writing Text with 57 points
+05-21 16:05:26 svg2mod 339:  Writing Text with 14 points
+05-21 16:05:27 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:05:27 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:05:27 svg2mod 304:  Inlining 3 segments...
+05-21 16:05:27 svg2mod 339:  Writing Text with 57 points
+05-21 16:05:27 svg2mod 339:  Writing Text with 14 points
+05-21 16:05:27 com_github_gregdavill_KiBuzzard.plugin 135:Using wx.KeyEvent for paste
+05-21 16:05:27 com_github_gregdavill_KiBuzzard.plugin 143:Using wx.UIActionSimulator for paste
+05-21 16:16:32 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:16:38 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:16:38 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:16:38 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:16:38 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:16:38 svg2mod 304:  Inlining 3 segments...
+05-21 16:16:38 svg2mod 339:  Writing Text with 57 points
+05-21 16:16:38 svg2mod 339:  Writing Text with 14 points
+05-21 16:16:43 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:16:43 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:16:43 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:16:43 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:16:43 svg2mod 304:  Inlining 3 segments...
+05-21 16:16:43 svg2mod 339:  Writing Text with 58 points
+05-21 16:16:43 svg2mod 339:  Writing Text with 14 points
+05-21 16:16:45 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:16:45 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:16:45 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:16:45 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:16:45 svg2mod 304:  Inlining 3 segments...
+05-21 16:16:45 svg2mod 339:  Writing Text with 56 points
+05-21 16:16:45 svg2mod 339:  Writing Text with 14 points
+05-21 16:16:56 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:16:56 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:16:56 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:16:56 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:16:56 svg2mod 304:  Inlining 3 segments...
+05-21 16:16:56 svg2mod 339:  Writing Text with 56 points
+05-21 16:16:56 svg2mod 339:  Writing Text with 14 points
+05-21 16:17:00 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:17:00 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:17:00 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:17:00 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:17:00 svg2mod 304:  Inlining 3 segments...
+05-21 16:17:00 svg2mod 339:  Writing Text with 56 points
+05-21 16:17:00 svg2mod 339:  Writing Text with 14 points
+05-21 16:17:00 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:17:00 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:17:00 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:17:00 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:17:00 svg2mod 304:  Inlining 3 segments...
+05-21 16:17:00 svg2mod 339:  Writing Text with 56 points
+05-21 16:17:00 svg2mod 339:  Writing Text with 14 points
+05-21 16:17:02 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:17:02 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:17:02 svg2mod 304:  Inlining 3 segments...
+05-21 16:17:02 svg2mod 339:  Writing Text with 56 points
+05-21 16:17:02 svg2mod 339:  Writing Text with 14 points
+05-21 16:17:15 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:17:15 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:17:15 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:17:15 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:17:15 svg2mod 304:  Inlining 5 segments...
+05-21 16:17:15 svg2mod 339:  Writing Text with 147 points
+05-21 16:17:17 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:17:18 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:17:18 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:17:18 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:17:18 svg2mod 304:  Inlining 5 segments...
+05-21 16:17:18 svg2mod 339:  Writing Text with 148 points
+05-21 16:17:19 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:17:19 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:17:19 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:17:19 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:17:19 svg2mod 304:  Inlining 5 segments...
+05-21 16:17:19 svg2mod 339:  Writing Text with 148 points
+05-21 16:17:21 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:17:21 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:17:21 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:17:21 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:17:21 svg2mod 304:  Inlining 5 segments...
+05-21 16:17:21 svg2mod 339:  Writing Text with 148 points
+05-21 16:17:22 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:17:22 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:17:22 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:17:22 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:17:22 svg2mod 304:  Inlining 5 segments...
+05-21 16:17:22 svg2mod 339:  Writing Text with 148 points
+05-21 16:17:23 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:17:23 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:17:23 svg2mod 304:  Inlining 5 segments...
+05-21 16:17:23 svg2mod 339:  Writing Text with 148 points
+05-21 16:17:33 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:17:33 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:17:33 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:17:33 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:17:33 svg2mod 304:  Inlining 3 segments...
+05-21 16:17:33 svg2mod 339:  Writing Text with 56 points
+05-21 16:17:33 svg2mod 339:  Writing Text with 14 points
+05-21 16:17:35 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:17:35 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:17:35 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:17:35 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:17:35 svg2mod 304:  Inlining 3 segments...
+05-21 16:17:35 svg2mod 339:  Writing Text with 56 points
+05-21 16:17:35 svg2mod 339:  Writing Text with 14 points
+05-21 16:17:36 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:17:36 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:17:36 svg2mod 304:  Inlining 3 segments...
+05-21 16:17:36 svg2mod 339:  Writing Text with 56 points
+05-21 16:17:36 svg2mod 339:  Writing Text with 14 points
+05-21 16:17:41 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:17:41 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:17:41 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:17:41 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:17:41 svg2mod 304:  Inlining 5 segments...
+05-21 16:17:41 svg2mod 339:  Writing Text with 148 points
+05-21 16:17:43 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:17:43 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 16:17:43 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:17:43 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:17:43 svg2mod 304:  Inlining 5 segments...
+05-21 16:17:43 svg2mod 339:  Writing Text with 148 points
+05-21 16:17:44 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 16:17:44 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 16:17:44 svg2mod 304:  Inlining 5 segments...
+05-21 16:17:44 svg2mod 339:  Writing Text with 148 points
+05-21 17:10:17 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 17:10:17 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 17:10:17 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 17:10:17 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 17:10:17 svg2mod 304:  Inlining 5 segments...
+05-21 17:10:17 svg2mod 339:  Writing Text with 148 points
+05-21 17:10:17 svg2mod 339:  Writing Text with 21 points
+05-21 17:10:17 svg2mod 339:  Writing Text with 14 points
+05-21 17:10:18 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 17:10:18 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 17:10:18 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 17:10:18 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 17:10:18 svg2mod 304:  Inlining 5 segments...
+05-21 17:10:18 svg2mod 339:  Writing Text with 148 points
+05-21 17:10:18 svg2mod 339:  Writing Text with 21 points
+05-21 17:10:18 svg2mod 339:  Writing Text with 14 points
+05-21 17:10:19 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 17:10:19 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 17:10:19 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 17:10:19 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 17:10:19 svg2mod 304:  Inlining 5 segments...
+05-21 17:10:19 svg2mod 339:  Writing Text with 148 points
+05-21 17:10:19 svg2mod 339:  Writing Text with 21 points
+05-21 17:10:19 svg2mod 339:  Writing Text with 14 points
+05-21 17:10:22 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 17:10:22 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 17:10:22 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 17:10:22 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 17:10:22 svg2mod 304:  Inlining 5 segments...
+05-21 17:10:22 svg2mod 339:  Writing Text with 150 points
+05-21 17:10:22 svg2mod 339:  Writing Text with 21 points
+05-21 17:10:22 svg2mod 339:  Writing Text with 14 points
+05-21 17:10:24 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 17:10:24 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 17:10:24 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 17:10:24 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 17:10:24 svg2mod 304:  Inlining 5 segments...
+05-21 17:10:24 svg2mod 339:  Writing Text with 149 points
+05-21 17:10:24 svg2mod 339:  Writing Text with 21 points
+05-21 17:10:24 svg2mod 339:  Writing Text with 14 points
+05-21 17:10:24 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 17:10:24 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 17:10:24 svg2mod 304:  Inlining 5 segments...
+05-21 17:10:24 svg2mod 339:  Writing Text with 148 points
+05-21 17:10:24 svg2mod 339:  Writing Text with 21 points
+05-21 17:10:24 svg2mod 339:  Writing Text with 14 points
+05-21 17:10:29 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 17:10:29 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 17:10:29 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 17:10:29 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 17:10:29 svg2mod 304:  Inlining 5 segments...
+05-21 17:10:29 svg2mod 339:  Writing Text with 149 points
+05-21 17:10:29 svg2mod 339:  Writing Text with 21 points
+05-21 17:10:29 svg2mod 339:  Writing Text with 14 points
+05-21 17:10:30 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 17:10:30 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 17:10:30 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 17:10:30 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 17:10:30 svg2mod 304:  Inlining 5 segments...
+05-21 17:10:30 svg2mod 339:  Writing Text with 149 points
+05-21 17:10:30 svg2mod 339:  Writing Text with 21 points
+05-21 17:10:30 svg2mod 339:  Writing Text with 14 points
+05-21 17:10:31 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 17:10:31 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 17:10:31 svg2mod 304:  Inlining 5 segments...
+05-21 17:10:31 svg2mod 339:  Writing Text with 149 points
+05-21 17:10:31 svg2mod 339:  Writing Text with 21 points
+05-21 17:10:31 svg2mod 339:  Writing Text with 14 points
+05-21 18:12:29 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:12:29 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:12:29 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 18:12:29 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 18:12:29 svg2mod 304:  Inlining 2 segments...
+05-21 18:12:29 svg2mod 339:  Writing Text with 56 points
+05-21 18:12:29 svg2mod 339:  Writing Text with 12 points
+05-21 18:12:31 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:12:32 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:12:32 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 18:12:32 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 18:12:32 svg2mod 304:  Inlining 2 segments...
+05-21 18:12:32 svg2mod 339:  Writing Text with 57 points
+05-21 18:12:32 svg2mod 339:  Writing Text with 12 points
+05-21 18:12:33 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:12:33 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:12:33 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 18:12:33 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 18:12:33 svg2mod 304:  Inlining 2 segments...
+05-21 18:12:33 svg2mod 339:  Writing Text with 57 points
+05-21 18:12:33 svg2mod 339:  Writing Text with 12 points
+05-21 18:12:36 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:12:36 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:12:36 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 18:12:36 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 18:12:36 svg2mod 304:  Inlining 2 segments...
+05-21 18:12:36 svg2mod 339:  Writing Text with 56 points
+05-21 18:12:36 svg2mod 339:  Writing Text with 12 points
+05-21 18:12:36 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:12:36 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:12:36 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 18:12:36 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 18:12:36 svg2mod 304:  Inlining 2 segments...
+05-21 18:12:36 svg2mod 339:  Writing Text with 57 points
+05-21 18:12:36 svg2mod 339:  Writing Text with 12 points
+05-21 18:12:37 com_github_gregdavill_KiBuzzard.plugin 60:Running KiBuzzard
+05-21 18:12:37 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 18:12:37 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 18:12:37 svg2mod 304:  Inlining 2 segments...
+05-21 18:12:37 svg2mod 339:  Writing Text with 57 points
+05-21 18:12:37 svg2mod 339:  Writing Text with 12 points
+05-21 18:12:37 com_github_gregdavill_KiBuzzard.plugin 84:Updating selected footprint <pcbnew.FOOTPRINT; proxy of <Swig Object of type 'FOOTPRINT *' at 0xfffe90048090> >
+05-21 18:12:37 com_github_gregdavill_KiBuzzard.plugin 92: pos: (55250000, 149250000)
+05-21 18:12:37 com_github_gregdavill_KiBuzzard.plugin 93: orient: 0.0
+05-21 18:12:37 com_github_gregdavill_KiBuzzard.plugin 94: need_flip: False
+05-21 18:12:42 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:12:42 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:12:42 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 18:12:42 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 18:12:42 svg2mod 304:  Inlining 2 segments...
+05-21 18:12:42 svg2mod 339:  Writing Text with 39 points
+05-21 18:12:45 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:12:45 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:12:45 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 18:12:45 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 18:12:45 svg2mod 304:  Inlining 2 segments...
+05-21 18:12:45 svg2mod 339:  Writing Text with 40 points
+05-21 18:12:46 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:12:46 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:12:46 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 18:12:46 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 18:12:46 svg2mod 304:  Inlining 2 segments...
+05-21 18:12:46 svg2mod 339:  Writing Text with 38 points
+05-21 18:12:49 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:12:49 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:12:49 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 18:12:49 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 18:12:49 svg2mod 304:  Inlining 2 segments...
+05-21 18:12:49 svg2mod 339:  Writing Text with 39 points
+05-21 18:12:50 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:12:50 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:12:51 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 18:12:51 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 18:12:51 svg2mod 304:  Inlining 2 segments...
+05-21 18:12:51 svg2mod 339:  Writing Text with 38 points
+05-21 18:12:51 com_github_gregdavill_KiBuzzard.plugin 60:Running KiBuzzard
+05-21 18:12:51 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 18:12:51 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 18:12:51 svg2mod 304:  Inlining 2 segments...
+05-21 18:12:51 svg2mod 339:  Writing Text with 38 points
+05-21 18:12:51 com_github_gregdavill_KiBuzzard.plugin 84:Updating selected footprint <pcbnew.FOOTPRINT; proxy of <Swig Object of type 'FOOTPRINT *' at 0xfffe6cb6a4f0> >
+05-21 18:12:51 com_github_gregdavill_KiBuzzard.plugin 92: pos: (55250000, 151750000)
+05-21 18:12:51 com_github_gregdavill_KiBuzzard.plugin 93: orient: 0.0
+05-21 18:12:51 com_github_gregdavill_KiBuzzard.plugin 94: need_flip: False
+05-21 18:13:01 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:13:01 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:13:01 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 18:13:01 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 18:13:01 svg2mod 304:  Inlining 3 segments...
+05-21 18:13:01 svg2mod 339:  Writing Text with 90 points
+05-21 18:13:01 svg2mod 339:  Writing Text with 14 points
+05-21 18:13:02 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:13:02 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:13:02 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 18:13:02 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 18:13:02 svg2mod 304:  Inlining 3 segments...
+05-21 18:13:02 svg2mod 339:  Writing Text with 90 points
+05-21 18:13:02 svg2mod 339:  Writing Text with 14 points
+05-21 18:13:03 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:13:03 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:13:03 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 18:13:03 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 18:13:03 svg2mod 304:  Inlining 3 segments...
+05-21 18:13:03 svg2mod 339:  Writing Text with 90 points
+05-21 18:13:03 svg2mod 339:  Writing Text with 14 points
+05-21 18:13:04 com_github_gregdavill_KiBuzzard.plugin 60:Running KiBuzzard
+05-21 18:13:04 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 18:13:04 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 18:13:04 svg2mod 304:  Inlining 3 segments...
+05-21 18:13:04 svg2mod 339:  Writing Text with 90 points
+05-21 18:13:04 svg2mod 339:  Writing Text with 14 points
+05-21 18:13:04 com_github_gregdavill_KiBuzzard.plugin 84:Updating selected footprint <pcbnew.FOOTPRINT; proxy of <Swig Object of type 'FOOTPRINT *' at 0xfffe6dc6ebe0> >
+05-21 18:13:04 com_github_gregdavill_KiBuzzard.plugin 92: pos: (55250000, 154250000)
+05-21 18:13:04 com_github_gregdavill_KiBuzzard.plugin 93: orient: 0.0
+05-21 18:13:04 com_github_gregdavill_KiBuzzard.plugin 94: need_flip: False
+05-21 18:13:07 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:13:07 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:13:07 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 18:13:07 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 18:13:07 svg2mod 304:  Inlining 3 segments...
+05-21 18:13:07 svg2mod 339:  Writing Text with 90 points
+05-21 18:13:07 svg2mod 339:  Writing Text with 14 points
+05-21 18:13:09 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:13:09 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:13:09 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 18:13:09 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 18:13:09 svg2mod 304:  Inlining 3 segments...
+05-21 18:13:09 svg2mod 339:  Writing Text with 90 points
+05-21 18:13:09 svg2mod 339:  Writing Text with 14 points
+05-21 18:13:11 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:13:11 svg2mod 1301:Font "mplus-1mn-medium" does not natively support style "Regular" using "Path" instead
+05-21 18:13:11 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 18:13:11 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 18:13:11 svg2mod 304:  Inlining 3 segments...
+05-21 18:13:11 svg2mod 339:  Writing Text with 90 points
+05-21 18:13:11 svg2mod 339:  Writing Text with 14 points
+05-21 18:13:11 com_github_gregdavill_KiBuzzard.plugin 60:Running KiBuzzard
+05-21 18:13:11 svg2mod-unfiltered 262:Found SVG layer: F.SilkS
+05-21 18:13:11 svg2mod 263:  Detailed names: [F.SilkS]
+05-21 18:13:11 svg2mod 304:  Inlining 3 segments...
+05-21 18:13:11 svg2mod 339:  Writing Text with 90 points
+05-21 18:13:11 svg2mod 339:  Writing Text with 14 points
+05-21 18:13:11 com_github_gregdavill_KiBuzzard.plugin 84:Updating selected footprint <pcbnew.FOOTPRINT; proxy of <Swig Object of type 'FOOTPRINT *' at 0xfffe6ce77cc0> >
+05-21 18:13:11 com_github_gregdavill_KiBuzzard.plugin 92: pos: (55250000, 154250000)
+05-21 18:13:11 com_github_gregdavill_KiBuzzard.plugin 93: orient: 0.0
+05-21 18:13:11 com_github_gregdavill_KiBuzzard.plugin 94: need_flip: False
