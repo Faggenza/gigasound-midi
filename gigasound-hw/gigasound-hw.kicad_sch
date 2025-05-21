@@ -5545,6 +5545,12 @@
 		(uuid "7a5b2cb3-b1b8-42ec-81fd-63cbc2679c8f")
 	)
 	(junction
+		(at 271.78 21.59)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "806164f4-87c9-4b7b-a5c9-4ac7734f05a9")
+	)
+	(junction
 		(at 19.05 36.83)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5736,6 +5742,16 @@
 	)
 	(wire
 		(pts
+			(xy 265.43 21.59) (xy 271.78 21.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "023ed162-cd6f-4f18-97bf-143a459cb54b")
+	)
+	(wire
+		(pts
 			(xy 52.07 30.48) (xy 52.07 31.75)
 		)
 		(stroke
@@ -5743,16 +5759,6 @@
 			(type default)
 		)
 		(uuid "0413cdd5-202d-4abb-a34d-0bffdeac138c")
-	)
-	(wire
-		(pts
-			(xy 271.78 21.59) (xy 267.97 21.59)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "054492d3-1a39-46db-a8e5-985a4cf52ae6")
 	)
 	(wire
 		(pts
@@ -5843,6 +5849,16 @@
 			(type default)
 		)
 		(uuid "11c36e65-83d3-41b9-b008-f4df2d4d2976")
+	)
+	(wire
+		(pts
+			(xy 238.76 21.59) (xy 243.84 21.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "124bb658-f579-4721-9a56-ddec75917dbc")
 	)
 	(wire
 		(pts
@@ -6526,6 +6542,16 @@
 	)
 	(wire
 		(pts
+			(xy 271.78 21.59) (xy 273.05 21.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "709b0f11-3509-46ce-8d6d-532158733e41")
+	)
+	(wire
+		(pts
 			(xy 168.91 54.61) (xy 173.99 54.61)
 		)
 		(stroke
@@ -7156,16 +7182,6 @@
 	)
 	(wire
 		(pts
-			(xy 236.22 21.59) (xy 243.84 21.59)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c13be41e-0e91-421f-8f43-59447c347b9a")
-	)
-	(wire
-		(pts
 			(xy 31.75 111.76) (xy 31.75 110.49)
 		)
 		(stroke
@@ -7206,7 +7222,7 @@
 	)
 	(wire
 		(pts
-			(xy 170.18 21.59) (xy 179.07 21.59)
+			(xy 170.18 21.59) (xy 182.88 21.59)
 		)
 		(stroke
 			(width 0)
@@ -7346,13 +7362,13 @@
 	)
 	(wire
 		(pts
-			(xy 200.66 21.59) (xy 209.55 21.59)
+			(xy 209.55 21.59) (xy 214.63 21.59)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "d857080c-c33d-435b-af56-2d61d71625a9")
+		(uuid "d8a4cd0a-7bca-4c87-9d2e-8d75a8c04067")
 	)
 	(wire
 		(pts
@@ -16206,7 +16222,7 @@
 		)
 	)
 	(sheet
-		(at 209.55 19.05)
+		(at 182.88 19.05)
 		(size 26.67 5.08)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16222,7 +16238,7 @@
 		)
 		(uuid "25c6466e-a92b-454c-b57a-cb4c2cf7e383")
 		(property "Sheetname" "LED_2020_Trimmer"
-			(at 209.55 18.3384 0)
+			(at 182.88 18.3384 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16231,7 +16247,7 @@
 			)
 		)
 		(property "Sheetfile" "led_trimmer.kicad_sch"
-			(at 209.55 24.7146 0)
+			(at 182.88 24.7146 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16240,7 +16256,7 @@
 			)
 		)
 		(pin "LED_IN" input
-			(at 209.55 21.59 180)
+			(at 182.88 21.59 180)
 			(uuid "0a0832e5-3f2d-43c4-bb4c-c3ec6294afed")
 			(effects
 				(font
@@ -16250,7 +16266,7 @@
 			)
 		)
 		(pin "LED_OUT" output
-			(at 236.22 21.59 0)
+			(at 209.55 21.59 0)
 			(uuid "28231d9b-9d89-44d2-b69f-3751b0154910")
 			(effects
 				(font
@@ -16268,7 +16284,7 @@
 		)
 	)
 	(sheet
-		(at 243.84 19.05)
+		(at 214.63 19.05)
 		(size 24.13 5.08)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16284,7 +16300,7 @@
 		)
 		(uuid "5c8d57ea-7937-48e2-a497-af172b8082c1")
 		(property "Sheetname" "LED_play_pause_mode"
-			(at 243.84 18.3384 0)
+			(at 214.63 18.3384 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16293,7 +16309,7 @@
 			)
 		)
 		(property "Sheetfile" "led_play_pausa_mode.kicad_sch"
-			(at 243.84 24.7146 0)
+			(at 214.63 24.7146 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16302,7 +16318,7 @@
 			)
 		)
 		(pin "LED_IN" input
-			(at 243.84 21.59 180)
+			(at 214.63 21.59 180)
 			(uuid "9d65fcd6-17c8-42a2-af08-3cf051d76510")
 			(effects
 				(font
@@ -16312,7 +16328,7 @@
 			)
 		)
 		(pin "LED_OUT" output
-			(at 267.97 21.59 0)
+			(at 238.76 21.59 0)
 			(uuid "dd7fe376-92f3-4bcf-b4a8-bafbbd232ed3")
 			(effects
 				(font
@@ -16330,7 +16346,7 @@
 		)
 	)
 	(sheet
-		(at 179.07 19.05)
+		(at 243.84 19.05)
 		(size 21.59 5.08)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16346,7 +16362,7 @@
 		)
 		(uuid "be35609e-cf75-4365-8586-cf6156c27f7a")
 		(property "Sheetname" "LED_5050x8"
-			(at 179.07 18.3384 0)
+			(at 243.84 18.3384 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16355,7 +16371,7 @@
 			)
 		)
 		(property "Sheetfile" "led5050x8.kicad_sch"
-			(at 179.07 24.7146 0)
+			(at 243.84 24.7146 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16364,7 +16380,7 @@
 			)
 		)
 		(pin "LED_IN" input
-			(at 179.07 21.59 180)
+			(at 243.84 21.59 180)
 			(uuid "aa7f6840-5a04-4489-95ef-47ade43aacce")
 			(effects
 				(font
@@ -16374,7 +16390,7 @@
 			)
 		)
 		(pin "LED_OUT" output
-			(at 200.66 21.59 0)
+			(at 265.43 21.59 0)
 			(uuid "f7d6632c-ceea-4f5d-af1b-fa519e5658c2")
 			(effects
 				(font
