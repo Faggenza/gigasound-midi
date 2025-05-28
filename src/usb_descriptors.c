@@ -50,7 +50,7 @@ tusb_desc_device_t const desc_device = {
     .bDeviceProtocol = 0x00,
     .bMaxPacketSize0 = CFG_TUD_ENDPOINT0_SIZE,
 
-    .idVendor = 0xCafe,
+    .idVendor = 0xcafe,
     .idProduct = USB_PID,
     .bcdDevice = 0x0100,
 
@@ -148,8 +148,8 @@ enum
 // array of pointer to string descriptors
 char const *string_desc_arr[] = {
     (const char[]){0x09, 0x04}, // 0: is supported language is English (0x0409)
-    "TinyUSB",                  // 1: Manufacturer
-    "TinyUSB Device",           // 2: Product
+    "GIGAsound",                // 1: Manufacturer
+    "polyphonic keyboard",      // 2: Product
     NULL,                       // 3: Serials will use unique ID if possible
 };
 
