@@ -5837,6 +5837,12 @@
 		(uuid "158fec1c-5381-4359-acc8-61861f0bfe68")
 	)
 	(junction
+		(at 64.77 137.16)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "180d6469-66bd-48dd-8b13-e8ca5021de64")
+	)
+	(junction
 		(at 19.05 40.64)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5907,12 +5913,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4c0dedf4-35e1-496f-bf2a-6b1b5ab3659a")
-	)
-	(junction
-		(at 54.61 128.27)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "4c9b9dcd-8b54-46ae-a919-2c21c04904ed")
 	)
 	(junction
 		(at 186.69 64.77)
@@ -6337,16 +6337,6 @@
 			(type default)
 		)
 		(uuid "0f93027b-4f6f-4ba5-8675-86a9053d34f2")
-	)
-	(wire
-		(pts
-			(xy 54.61 128.27) (xy 57.15 128.27)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "10fd79cc-6e69-4283-8868-612dc09ea657")
 	)
 	(wire
 		(pts
@@ -7160,6 +7150,16 @@
 	)
 	(wire
 		(pts
+			(xy 64.77 137.16) (xy 64.77 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6348d051-9933-49a8-812b-d3a6888ac301")
+	)
+	(wire
+		(pts
 			(xy 245.11 41.91) (xy 265.43 41.91)
 		)
 		(stroke
@@ -7200,7 +7200,7 @@
 	)
 	(wire
 		(pts
-			(xy 54.61 128.27) (xy 54.61 130.81)
+			(xy 54.61 125.73) (xy 54.61 130.81)
 		)
 		(stroke
 			(width 0)
@@ -7350,7 +7350,7 @@
 	)
 	(wire
 		(pts
-			(xy 57.15 125.73) (xy 57.15 128.27)
+			(xy 57.15 125.73) (xy 57.15 137.16)
 		)
 		(stroke
 			(width 0)
@@ -7607,16 +7607,6 @@
 			(type default)
 		)
 		(uuid "96658dd7-89b7-4249-b32e-c6457f4442ad")
-	)
-	(wire
-		(pts
-			(xy 54.61 125.73) (xy 54.61 128.27)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "96877432-bfb2-4422-b686-78bf5ab86b12")
 	)
 	(wire
 		(pts
@@ -8007,6 +7997,16 @@
 			(type default)
 		)
 		(uuid "bbc6f244-77a6-4493-ae08-cbad457f3285")
+	)
+	(wire
+		(pts
+			(xy 57.15 137.16) (xy 64.77 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bc5277d1-11d3-4d7f-b4bf-aa2c11ba8727")
 	)
 	(wire
 		(pts
@@ -11615,6 +11615,71 @@
 		)
 	)
 	(symbol
+		(lib_id "power:VDDA")
+		(at 64.77 129.54 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "44622bf3-0daa-410d-bc19-04646b2adc88")
+		(property "Reference" "#PWR014"
+			(at 64.77 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VDDA"
+			(at 66.802 125.984 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 64.77 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 64.77 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"VDDA\""
+			(at 64.77 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7107beca-a445-4f86-ba3d-a7b129b1d044")
+		)
+		(instances
+			(project "gigasound-hw"
+				(path "/8926df81-91df-4835-b346-b30b02cc5690"
+					(reference "#PWR014")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 144.78 58.42 180)
 		(unit 1)
@@ -13515,6 +13580,75 @@
 			(project ""
 				(path "/8926df81-91df-4835-b346-b30b02cc5690"
 					(reference "R2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 64.77 133.35 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7a483a89-155f-4bb7-b6a5-745a6868e17b")
+		(property "Reference" "C11"
+			(at 58.166 133.604 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 67.564 134.112 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric_Pad0.74x0.62mm_HandSolder"
+			(at 65.7352 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 64.77 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 64.77 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "91ed7440-ce71-4f97-9267-1797634e75d4")
+		)
+		(pin "1"
+			(uuid "69a8ac9d-485a-417b-859d-4a42f10a5796")
+		)
+		(instances
+			(project "gigasound-hw"
+				(path "/8926df81-91df-4835-b346-b30b02cc5690"
+					(reference "C11")
 					(unit 1)
 				)
 			)
