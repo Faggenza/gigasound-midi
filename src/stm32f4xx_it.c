@@ -116,9 +116,3 @@ void OTG_HS_IRQHandler(void)
 {
   tusb_int_handler(1, 1);
 }
-
-extern UART_HandleTypeDef huart1;
-void USART1_IRQHandler(void)
-{
-  HAL_UART_IRQHandler(&huart1);
-}
