@@ -27,7 +27,7 @@ typedef struct
 #define COOL_WHITE (color_t){180, 255, 255}
 #define BLACK (color_t){0, 0, 0} // Off
 
-#define N_LED 7
+#define N_LED 19
 
 // (50us / (1/(84/32)) ) / 8 bits
 #define RESET_SYMBOLS_N 25

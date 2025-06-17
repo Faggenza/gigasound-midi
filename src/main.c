@@ -7,6 +7,10 @@
 #include "bsp/board_api.h"
 #include "tusb.h"
 #include "midi.h"
+#include "bootloader.h"
+#include "ssd1306.h"
+
+uint8_t fb[128 * 64] = {1};
 
 void Error_Handler(void)
 {
@@ -32,20 +36,22 @@ int main(void)
   MX_USART1_UART_Init();
   MX_SPI3_Init();
   MX_USB_OTG_FS_PCD_Init();
+  MX_I2C1_Init();
 
-  // uint16_t adc_buff[11] = {0};
+  SSD1306_MINIMAL_init();
 
-  // // Turn all LEDs off
-  // for (size_t i = 0; i < N_LED; i++)
-  // {
-  //   set_led(i, (color_t){0, 0, 0}, 0.0f);
-  // }
-  // HAL_SPI_Transmit(&hspi3, led_buff, LED_BUFF_N, 1000);
-  // HAL_SPI_Transmit(&hspi3, led_buff, LED_BUFF_N, 1000);
+  uint16_t adc_buff[11] = {0};
 
-  // HAL_SPI_Transmit_DMA(&hspi3, led_buff, LED_BUFF_N);
-  // HAL_ADC_Start_DMA(&hadc1, (uint32_t *)adc_buff, 11);
-  // uint32_t i = 0;
+  // Turn all LEDs off
+  for (size_t i = 0; i < N_LED; i++)
+  {
+    set_led(i, (color_t){0, 0, 0}, 0.0f);
+  }
+  HAL_SPI_Transmit(&hspi3, led_buff, LED_BUFF_N, 1000);
+  HAL_SPI_Transmit(&hspi3, led_buff, LED_BUFF_N, 1000);
+
+  HAL_SPI_Transmit_DMA(&hspi3, led_buff, LED_BUFF_N);
+  HAL_ADC_Start_DMA(&hadc1, (uint32_t *)adc_buff, 11);
 
   // init device stack on configured roothub port
   tusb_rhport_init_t dev_init = {
@@ -64,27 +70,44 @@ int main(void)
     HAL_Delay(100);
     midi_task();
 
-    //  set_led(i % N_LED, RED, 0.1f);
-    //  set_led((i + 1) % N_LED, GREEN, 0.1f);
-    //  set_led((i + 2) % N_LED, BLUE, 0.1f);
-    //  set_led((i + 3) % N_LED, YELLOW, 0.1f);
-    //  set_led((i + 3) % N_LED, CYAN, 0.1f);
-    //  set_led((i + 4) % N_LED, PURPLE, 0.1f);
-    //  set_led((i + 5) % N_LED, MAGENTA, 0.1f);
-    //  set_led((i + 6) % N_LED, TEAL, 0.1f);
-    //  i++;
-    //  if (adc_complete)
-    //  {
-    //    adc_complete = 0;
-    //    printf("ADC: ");
-    //    for (size_t j = 0; j < 11; j++)
-    //    {
-    //      printf("CH%d: %04lu, ", j, adc_buff[j]);
-    //    }
-    //    puts("\n");
-    //  }
+    // set_led(i % N_LED, RED, 0.1f);
+    // set_led((i + 1) % N_LED, GREEN, 0.1f);
+    // set_led((i + 2) % N_LED, BLUE, 0.1f);
+    // set_led((i + 3) % N_LED, YELLOW, 0.1f);
+    // set_led((i + 3) % N_LED, CYAN, 0.1f);
+    // set_led((i + 4) % N_LED, PURPLE, 0.1f);
+    // set_led((i + 5) % N_LED, MAGENTA, 0.1f);
+    // set_led((i + 6) % N_LED, TEAL, 0.1f);
+    if (adc_complete)
+    {
+      adc_complete = 0;
+      printf("ADC: ");
+      for (size_t j = 0; j < 11; j++)
+      {
+        printf("CH%d: %04lu, ", j, adc_buff[j]);
+      }
+      puts("\n");
+      uint8_t n_leds = 8 - ((adc_buff[8] + 300) / 512);
+      if (n_leds == 7)
+      {
+        jump_to_bootloader();
+      }
+      // printf("n_leds: %d, adc_8: ", n_leds, adc_buff[8]);
+      for (uint8_t i = 0; i < 8; i++)
+      {
+        if (i <= n_leds)
+        {
+          set_led(i, RED, 0.1f);
+        }
+        else
+        {
+          set_led(i, BLACK, 0.0f);
+        }
+      }
+    }
     HAL_Delay(100);
   }
+  SSD1306_MINIMAL_transferFramebuffer(fb);
 }
 
 // Invoked when device is mounted
