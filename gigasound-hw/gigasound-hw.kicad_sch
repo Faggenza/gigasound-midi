@@ -5436,131 +5436,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "power:VDD"
-			(power)
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "#PWR"
-				(at 0 -3.81 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" "VDD"
-				(at 0 3.556 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Power symbol creates a global label with name \"VDD\""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "global power"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "VDD_0_1"
-				(polyline
-					(pts
-						(xy -0.762 1.27) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "VDD_1_1"
-				(pin power_in line
-					(at 0 0 90)
-					(length 0)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "power:VDDA"
 			(power)
 			(pin_numbers
@@ -6034,6 +5909,12 @@
 		(uuid "4c0dedf4-35e1-496f-bf2a-6b1b5ab3659a")
 	)
 	(junction
+		(at 54.61 128.27)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4c9b9dcd-8b54-46ae-a919-2c21c04904ed")
+	)
+	(junction
 		(at 186.69 64.77)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -6262,12 +6143,6 @@
 		(uuid "d30a4fc2-1b49-4838-bc0c-0c6d86bce24f")
 	)
 	(junction
-		(at 64.77 128.27)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "deb2b41a-6811-4790-afd1-5e8c0e66b7b6")
-	)
-	(junction
 		(at 214.63 96.52)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -6462,6 +6337,16 @@
 			(type default)
 		)
 		(uuid "0f93027b-4f6f-4ba5-8675-86a9053d34f2")
+	)
+	(wire
+		(pts
+			(xy 54.61 128.27) (xy 57.15 128.27)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "10fd79cc-6e69-4283-8868-612dc09ea657")
 	)
 	(wire
 		(pts
@@ -6672,16 +6557,6 @@
 			(type default)
 		)
 		(uuid "23f543bb-a471-431d-898b-c52d3fae4399")
-	)
-	(wire
-		(pts
-			(xy 64.77 128.27) (xy 64.77 127)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "24f25e04-2b38-4856-b1ab-b8d187de27a0")
 	)
 	(wire
 		(pts
@@ -6902,16 +6777,6 @@
 			(type default)
 		)
 		(uuid "3b331d80-c92b-41c6-aea4-fa9f50e1a556")
-	)
-	(wire
-		(pts
-			(xy 57.15 128.27) (xy 64.77 128.27)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3c762cec-bd3f-4413-8dc3-13ea2190d208")
 	)
 	(wire
 		(pts
@@ -7335,6 +7200,16 @@
 	)
 	(wire
 		(pts
+			(xy 54.61 128.27) (xy 54.61 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "682e437f-a7e2-4329-a6e5-d1711a7690e3")
+	)
+	(wire
+		(pts
 			(xy 191.77 124.46) (xy 191.77 121.92)
 		)
 		(stroke
@@ -7735,7 +7610,7 @@
 	)
 	(wire
 		(pts
-			(xy 54.61 125.73) (xy 54.61 130.81)
+			(xy 54.61 125.73) (xy 54.61 128.27)
 		)
 		(stroke
 			(width 0)
@@ -8592,16 +8467,6 @@
 			(type default)
 		)
 		(uuid "e621931b-a55b-47b5-b670-32d70ca9b7c9")
-	)
-	(wire
-		(pts
-			(xy 64.77 138.43) (xy 64.77 135.89)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e674b088-1ba5-46b9-acaf-6c60e52ecc1b")
 	)
 	(wire
 		(pts
@@ -9707,72 +9572,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:VDD")
-		(at 64.77 127 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "0d44d776-3ecb-4a0b-b613-e502d4790864")
-		(property "Reference" "#PWR014"
-			(at 64.77 130.81 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "VDDA"
-			(at 64.008 126.238 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" ""
-			(at 64.77 127 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 64.77 127 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"VDD\""
-			(at 64.77 127 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "a75b0f28-ae85-426d-97fe-0e6cf8d6a1d7")
-		)
-		(instances
-			(project ""
-				(path "/8926df81-91df-4835-b346-b30b02cc5690"
-					(reference "#PWR014")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 173.99 134.62 0)
 		(unit 1)
@@ -10185,75 +9984,6 @@
 			(project "gigasound-hw"
 				(path "/8926df81-91df-4835-b346-b30b02cc5690"
 					(reference "TPC9")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 64.77 132.08 180)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "19ead730-346c-4f57-9920-8b7b4df1f88f")
-		(property "Reference" "C11"
-			(at 61.468 130.048 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "100nF"
-			(at 68.326 129.032 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric_Pad0.74x0.62mm_HandSolder"
-			(at 63.8048 128.27 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 64.77 132.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Unpolarized capacitor"
-			(at 64.77 132.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "571c4725-2f31-4015-8697-2f45925c7425")
-		)
-		(pin "2"
-			(uuid "64090f5e-b96a-4690-a64c-a890fd00c216")
-		)
-		(instances
-			(project ""
-				(path "/8926df81-91df-4835-b346-b30b02cc5690"
-					(reference "C11")
 					(unit 1)
 				)
 			)

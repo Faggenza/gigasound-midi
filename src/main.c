@@ -83,7 +83,7 @@ int main(void)
     //    }
     //    puts("\n");
     //  }
-    //  HAL_Delay(100);
+    HAL_Delay(100);
   }
 }
 
