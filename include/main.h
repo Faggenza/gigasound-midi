@@ -22,4 +22,7 @@ void Error_Handler(void);
 #define SWO_Pin GPIO_PIN_3
 #define SWO_GPIO_Port GPIOB
 
+#define PLAY_Pin GPIO_PIN_13
+#define STOP_Pin GPIO_PIN_14
+#define MODE_Pin GPIO_PIN_15
 // #endif /* __MAIN_H */

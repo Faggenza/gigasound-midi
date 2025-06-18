@@ -129,3 +129,10 @@ void OTG_HS_IRQHandler(void)
 {
   tusb_int_handler(1, 1);
 }
+
+void EXTI15_10_IRQHandler(void)
+{
+  HAL_GPIO_EXTI_IRQHandler(PLAY_Pin);
+  HAL_GPIO_EXTI_IRQHandler(STOP_Pin);
+  HAL_GPIO_EXTI_IRQHandler(MODE_Pin);
+}

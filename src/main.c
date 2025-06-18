@@ -23,6 +23,28 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
   adc_complete = 1;
 }
 
+uint8_t play_pressed = 0;
+uint8_t stop_pressed = 0;
+uint8_t mode_pressed = 0;
+
+uint8_t play_is_on, stop_is_on, mode_is_on = 0;
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  if (GPIO_Pin == PLAY_Pin)
+  {
+    play_pressed = 1;
+  }
+  else if (GPIO_Pin == STOP_Pin)
+  {
+    stop_pressed = 1;
+  }
+  else if (GPIO_Pin == MODE_Pin)
+  {
+    mode_pressed = 1;
+  }
+}
+
 int main(void)
 {
 
@@ -47,6 +69,7 @@ int main(void)
   {
     set_led(i, (color_t){0, 0, 0}, 0.0f);
   }
+
   HAL_SPI_Transmit(&hspi3, led_buff, LED_BUFF_N, 1000);
   HAL_SPI_Transmit(&hspi3, led_buff, LED_BUFF_N, 1000);
 
@@ -82,11 +105,11 @@ int main(void)
     {
       adc_complete = 0;
       printf("ADC: ");
-      for (size_t j = 0; j < 11; j++)
-      {
-        printf("CH%d: %04lu, ", j, adc_buff[j]);
-      }
-      puts("\n");
+      // for (size_t j = 0; j < 11; j++)
+      // {
+      //   printf("CH%d: %04lu, ", j, adc_buff[j]);
+      // }
+      // puts("\n");
       uint8_t n_leds = 8 - ((adc_buff[8] + 300) / 512);
       if (n_leds == 7)
       {
@@ -105,9 +128,50 @@ int main(void)
         }
       }
     }
-    HAL_Delay(100);
+    if (play_pressed)
+    {
+      play_pressed = 0;
+      if (play_is_on)
+      {
+        play_is_on = 0;
+        set_led(8, BLACK, 0.1f);
+      }
+      else
+      {
+        play_is_on = 1;
+        set_led(8, GREEN, 0.1f);
+      }
+    }
+    if (stop_pressed)
+    {
+      stop_pressed = 0;
+      if (stop_is_on)
+      {
+        stop_is_on = 0;
+        set_led(9, BLACK, 0.1f);
+      }
+      else
+      {
+        stop_is_on = 1;
+        set_led(9, RED, 0.1f);
+      }
+    }
+    if (mode_pressed)
+    {
+      mode_pressed = 0;
+      if (mode_is_on)
+      {
+        mode_is_on = 0;
+        set_led(10, BLACK, 0.1f);
+      }
+      else
+      {
+        mode_is_on = 1;
+        set_led(10, BLUE, 0.1f);
+      }
+    }
   }
-  SSD1306_MINIMAL_transferFramebuffer(fb);
+  // SSD1306_MINIMAL_transferFramebuffer(fb);
 }
 
 // Invoked when device is mounted
