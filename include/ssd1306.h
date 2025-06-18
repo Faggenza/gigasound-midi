@@ -6,13 +6,14 @@
 #define SSD1306_MINIMAL_SLAVE_ADDR 0x3c << 1
 #include <stdint.h>
 #include <stm32f4xx_hal.h>
+#include "gigagl.h"
 
 extern I2C_HandleTypeDef hi2c1;
 
 static uint8_t dma_buffer[(128 * 8) + 1] = {0};
-uint8_t *fb = dma_buffer + 1; // framebuffer starts at index 1, index 0 is reserved for the command byte
+framebuffer_t *fb = (framebuffer_t *)(dma_buffer + 1); // Point to the framebuffer part of the buffer
 
-void SSD1306_MINIMAL_transferFramebuffer(uint8_t *fb)
+void SSD1306_MINIMAL_transferFramebuffer()
 {
   dma_buffer[0] = 0x40; // Command byte for data transfer
   HAL_I2C_Master_Transmit_DMA(&hi2c1, SSD1306_MINIMAL_SLAVE_ADDR, dma_buffer, sizeof(dma_buffer));

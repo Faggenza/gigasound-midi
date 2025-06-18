@@ -9,6 +9,8 @@
 #include "midi.h"
 #include "bootloader.h"
 #include "ssd1306.h"
+#include "gigagl.h"
+#include "ui/menu.h"
 
 void Error_Handler(void)
 {
@@ -84,11 +86,18 @@ int main(void)
   {
     board_init_after_tusb();
   }
+  menu_state_t menu_state = {
+      .old_selection = 0,
+      .selected = 0,
+      .animation_frame = 0};
+
   int i = 0;
   while (1)
   {
-    SSD1306_MINIMAL_transferFramebuffer(fb);
-
+    SSD1306_MINIMAL_transferFramebuffer();
+    i++;
+    // ggl_set_pixel(*fb, i % 128, 0, GGL_WHITE);
+    dma_buffer[1 + (i % 1024)] ^= 0xFF; // Set the first pixel to white
     tud_task();
     // HAL_Delay(100);
     // midi_task();
@@ -101,8 +110,6 @@ int main(void)
     // set_led((i + 4) % N_LED, PURPLE, 0.1f);
     // set_led((i + 5) % N_LED, MAGENTA, 0.1f);
     // set_led((i + 6) % N_LED, TEAL, 0.1f);
-    i++;
-    fb[i % (128 * 8)] ^= (i / 8) % 2 ? 0xff : 0x00; // simple checkerboard pattern
     if (adc_complete)
     {
       adc_complete = 0;
