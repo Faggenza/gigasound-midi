@@ -100,9 +100,9 @@ int main(void)
     if (!fb_updating)
     {
       ui_draw_menu(*fb, &menu_state);
-      SSD1306_MINIMAL_transferFramebuffer();
     }
-    // ggl_set_pixel(*fb, 120, 8, GGL_WHITE);
+    SSD1306_MINIMAL_transferFramebuffer();
+
     // ggl_draw_rect(*fb, 10, 10, 20, 20, GGL_WHITE);
     // ggl_draw_rect_round(*fb, 10, 10, 20, 20, GGL_WHITE, 2);
     // *fb[1][120] |= 1;
