@@ -19,7 +19,8 @@ int ease_animation(uint8_t steps, uint8_t current_step, uint8_t start, uint8_t e
 {
     // Ease in-out cubic
     float ease_t = ease_lut[current_step * (sizeof(ease_lut) / sizeof(ease_lut[0]) - 1) / steps];
-    return (int)(start + (end - start) * ease_t + 0.5f);
+    return (int)((float)start + ((float)end - (float)start) * (float)ease_t + 0.5f);
+    // return (int)((float)start + ((float)end - (float)start) * ((float)current_step / (float)steps));
 }
 
 void ui_draw_menu(framebuffer_t fb, menu_state_t *state)
@@ -28,7 +29,7 @@ void ui_draw_menu(framebuffer_t fb, menu_state_t *state)
     ggl_draw_icon(fb, 0, 0, menu_side_icon, 0);
 
     int start_y = 2 + state->old_selection * (menu_side_icon.height + 1);
-    int end_y = 2 + state->selected * (menu_side_icon.height + 1);
+    int end_y = 2 + state->selected * (menu_selected_icon.height + 1);
 
     // Animate Y position with easing if selection changed
     const uint8_t anim_steps = 5;
@@ -39,12 +40,18 @@ void ui_draw_menu(framebuffer_t fb, menu_state_t *state)
         if (state->animation_frame < anim_steps)
         {
             y = ease_animation(anim_steps, state->animation_frame, start_y, end_y);
+            if (y < 0)
+                y = 0; // Ensure y is not negative
+            if (y >= end_y)
+                y = end_y; // Ensure y does not exceed end_y
+
             state->animation_frame++;
         }
         else
         {
             state->old_selection = state->selected;
             state->animation_frame = 0;
+            y = end_y; // Ensure final position is correct
         }
     }
 
