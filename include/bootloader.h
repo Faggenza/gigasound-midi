@@ -10,6 +10,7 @@ void jump_to_bootloader(void)
 
     // De-initialize peripherals
     HAL_RCC_DeInit();
+    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15);
     HAL_DeInit();
     SysTick->CTRL = 0;
     SysTick->LOAD = 0;
