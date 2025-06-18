@@ -13,10 +13,26 @@ extern I2C_HandleTypeDef hi2c1;
 static uint8_t dma_buffer[(128 * 8) + 1] = {0};
 framebuffer_t *fb = (framebuffer_t *)(dma_buffer + 1); // Point to the framebuffer part of the buffer
 
+bool fb_updating = false;
+
 void SSD1306_MINIMAL_transferFramebuffer()
 {
   dma_buffer[0] = 0x40; // Command byte for data transfer
+  if (fb_updating)
+  {
+    return; // Prevent concurrent updates
+  }
   HAL_I2C_Master_Transmit_DMA(&hi2c1, SSD1306_MINIMAL_SLAVE_ADDR, dma_buffer, sizeof(dma_buffer));
+  fb_updating = true;
+}
+
+// DMA transfer callback
+void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *hi2c)
+{
+  if (hi2c->Instance == I2C1)
+  {
+    fb_updating = false;
+  }
 }
 
 void SSD1306_MINIMAL_init()

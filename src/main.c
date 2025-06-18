@@ -11,6 +11,7 @@
 #include "ssd1306.h"
 #include "gigagl.h"
 #include "ui/menu.h"
+// #include "ui/home.h"
 
 void Error_Handler(void)
 {
@@ -91,13 +92,20 @@ int main(void)
       .selected = 0,
       .animation_frame = 0};
 
-  int i = 0;
+  // int i = 0;
+  ui_draw_menu(*fb, &menu_state);
+  SSD1306_MINIMAL_transferFramebuffer();
   while (1)
   {
-    SSD1306_MINIMAL_transferFramebuffer();
-    i++;
-    // ggl_set_pixel(*fb, i % 128, 0, GGL_WHITE);
-    dma_buffer[1 + (i % 1024)] ^= 0xFF; // Set the first pixel to white
+    if (!fb_updating)
+    {
+      ui_draw_menu(*fb, &menu_state);
+      SSD1306_MINIMAL_transferFramebuffer();
+    }
+    // ggl_set_pixel(*fb, 120, 8, GGL_WHITE);
+    // ggl_draw_rect(*fb, 10, 10, 20, 20, GGL_WHITE);
+    // ggl_draw_rect_round(*fb, 10, 10, 20, 20, GGL_WHITE, 2);
+    // *fb[1][120] |= 1;
     tud_task();
     // HAL_Delay(100);
     // midi_task();
@@ -116,7 +124,7 @@ int main(void)
       printf("ADC: ");
       // for (size_t j = 0; j < 11; j++)
       // {
-      //   printf("CH%d: %04lu, ", j, adc_buff[j]);
+      //   printf("CH%d: ui%04lu, ", j, adc_buff[j]);
       // }
       // puts("\n");
       uint8_t n_leds = 8 - ((adc_buff[8] + 300) / 512);
@@ -135,6 +143,20 @@ int main(void)
         {
           set_led(i, BLACK, 0.0f);
         }
+      }
+      if (adc_buff[10] > 2500)
+      {
+        menu_state.old_selection = menu_state.selected;
+        menu_state.selected = (menu_state.selected + 1) % 4;
+        menu_state.animation_frame = 0;
+        HAL_Delay(1000); // Debounce delay
+      }
+      else if (adc_buff[10] < 1500)
+      {
+        menu_state.old_selection = menu_state.selected;
+        menu_state.selected = (menu_state.selected + 3) % 4;
+        menu_state.animation_frame = 0;
+        HAL_Delay(1000); // Debounce delay
       }
     }
     if (play_pressed)
