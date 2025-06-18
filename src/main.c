@@ -10,8 +10,6 @@
 #include "bootloader.h"
 #include "ssd1306.h"
 
-uint8_t fb[128 * 64] = {1};
-
 void Error_Handler(void)
 {
   __disable_irq();
@@ -63,12 +61,14 @@ int main(void)
   {
     board_init_after_tusb();
   }
-
+  memset(fb, 10, 128 * 1);
   while (1)
   {
+    SSD1306_MINIMAL_transferFramebuffer(fb);
+
     tud_task();
-    HAL_Delay(100);
-    midi_task();
+    // HAL_Delay(100);
+    // midi_task();
 
     // set_led(i % N_LED, RED, 0.1f);
     // set_led((i + 1) % N_LED, GREEN, 0.1f);
@@ -107,7 +107,6 @@ int main(void)
     }
     HAL_Delay(100);
   }
-  SSD1306_MINIMAL_transferFramebuffer(fb);
 }
 
 // Invoked when device is mounted

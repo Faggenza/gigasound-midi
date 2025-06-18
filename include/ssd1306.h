@@ -9,10 +9,14 @@
 
 extern I2C_HandleTypeDef hi2c1;
 
+static uint8_t dma_buffer[(128 * 8) + 1] = {0};
+uint8_t *fb = dma_buffer + 1; // framebuffer starts at index 1, index 0 is reserved for the command byte
+
 /* Transfers the entire framebuffer in 64 I2C data messages */
 void SSD1306_MINIMAL_transferFramebuffer(uint8_t *fb)
 {
-  HAL_I2C_Mem_Write_DMA(&hi2c1, SSD1306_MINIMAL_SLAVE_ADDR, 0x40, 1, fb, 128 * 64);
+  dma_buffer[0] = 0x40; // Command byte for data transfer
+  HAL_I2C_Master_Transmit(&hi2c1, SSD1306_MINIMAL_SLAVE_ADDR, dma_buffer, sizeof(dma_buffer), UINT32_MAX);
   // for (int i = 0; i < 64; i++)
   // {
   //   I2C_WRAPPER_beginTransmission(SSD1306_MINIMAL_SLAVE_ADDR);
@@ -26,6 +30,15 @@ void SSD1306_MINIMAL_transferFramebuffer(uint8_t *fb)
   // }
 }
 
+// Callback for when DMA transfer completes
+void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *hi2c)
+{
+  if (hi2c == &hi2c1)
+  {
+    // DMA transfer to SSD1306 complete
+    // Optional: set a flag or trigger next action
+  }
+}
 /* Horizontal addressing mode maps to linear framebuffer */
 // void SSD1306_MINIMAL_setPixel(unsigned int x, unsigned int y)
 // {
