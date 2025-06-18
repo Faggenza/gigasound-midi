@@ -52,11 +52,11 @@ int main(void)
 
   MX_GPIO_Init();
   MX_DMA_Init();
+  MX_I2C1_Init();
   MX_ADC1_Init();
   MX_USART1_UART_Init();
   MX_SPI3_Init();
   MX_USB_OTG_FS_PCD_Init();
-  MX_I2C1_Init();
 
   SSD1306_MINIMAL_init();
 
@@ -84,7 +84,7 @@ int main(void)
   {
     board_init_after_tusb();
   }
-  memset(fb, 10, 128 * 1);
+  int i = 0;
   while (1)
   {
     SSD1306_MINIMAL_transferFramebuffer(fb);
@@ -101,6 +101,8 @@ int main(void)
     // set_led((i + 4) % N_LED, PURPLE, 0.1f);
     // set_led((i + 5) % N_LED, MAGENTA, 0.1f);
     // set_led((i + 6) % N_LED, TEAL, 0.1f);
+    i++;
+    fb[i % (128 * 8)] ^= (i / 8) % 2 ? 0xff : 0x00; // simple checkerboard pattern
     if (adc_complete)
     {
       adc_complete = 0;
@@ -170,6 +172,7 @@ int main(void)
         set_led(10, BLUE, 0.1f);
       }
     }
+    // HAL_Delay(100);
   }
   // SSD1306_MINIMAL_transferFramebuffer(fb);
 }

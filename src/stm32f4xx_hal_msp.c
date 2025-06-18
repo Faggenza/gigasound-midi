@@ -424,6 +424,11 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef *hi2c)
     }
 
     __HAL_LINKDMA(hi2c, hdmatx, hdma_i2c1_tx);
+
+    HAL_NVIC_SetPriority(I2C1_EV_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(I2C1_EV_IRQn);
+    HAL_NVIC_SetPriority(I2C1_ER_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(I2C1_ER_IRQn);
   }
 }
 
