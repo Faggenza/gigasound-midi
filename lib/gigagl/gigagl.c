@@ -127,6 +127,8 @@ void ggl_draw_text(framebuffer_t fb, uint8_t x, uint8_t y, const char *text, uin
     while (*text)
     {
         uint8_t char_index = (uint8_t)*text;
+        uint8_t i_start = char_index == 'i' ? 1 : 0;
+        uint8_t i_end = char_index == 'i' ? 4 : 5;
         if (char_index & 0x20)
         {
             char_index -= 'a';
@@ -138,7 +140,7 @@ void ggl_draw_text(framebuffer_t fb, uint8_t x, uint8_t y, const char *text, uin
         }
         for (uint8_t j = 0; j < 11; j++)
         {
-            for (uint8_t i = 0; i < 5; i++)
+            for (uint8_t i = i_start; i < i_end; i++)
             {
                 if (font[char_index][j] & (0x80 >> i))
                 {
@@ -149,7 +151,7 @@ void ggl_draw_text(framebuffer_t fb, uint8_t x, uint8_t y, const char *text, uin
                 }
             }
         }
-        char_n += 6;
+        char_n += i_end - i_start + 1; // Move to the next character position
         text++;
     }
 }
