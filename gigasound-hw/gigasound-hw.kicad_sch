@@ -8748,7 +8748,7 @@
 		)
 		(uuid "0beef04a-1e2f-4366-92a9-9e175f86d896")
 	)
-	(label "ADC_CH0"
+	(label "ADC_CH7"
 		(at 135.89 53.34 0)
 		(effects
 			(font
@@ -8758,7 +8758,7 @@
 		)
 		(uuid "0d224624-78cd-498f-b948-aa7ced79bd27")
 	)
-	(label "ADC_CH1"
+	(label "ADC_CH6"
 		(at 86.36 54.61 0)
 		(effects
 			(font
@@ -8768,7 +8768,7 @@
 		)
 		(uuid "16d4a030-1342-46e7-9fb9-9fc19f6a25a9")
 	)
-	(label "ADC_CH7"
+	(label "ADC_CH2"
 		(at 86.36 44.45 180)
 		(effects
 			(font
@@ -8788,7 +8788,7 @@
 		)
 		(uuid "19019c95-86a1-4056-ac66-63e21983f1e0")
 	)
-	(label "ADC_CH2"
+	(label "ADC_CH5"
 		(at 86.36 52.07 0)
 		(effects
 			(font
@@ -8858,7 +8858,7 @@
 		)
 		(uuid "3a6d2f7a-06b6-44fa-b920-58a067acf01e")
 	)
-	(label "ADC_CH1"
+	(label "ADC_CH6"
 		(at 154.94 53.34 0)
 		(effects
 			(font
@@ -8868,7 +8868,7 @@
 		)
 		(uuid "3e128d84-13e3-4903-a380-8a533a658e17")
 	)
-	(label "ADC_CH7"
+	(label "ADC_CH2"
 		(at 270.51 53.34 0)
 		(effects
 			(font
@@ -8878,7 +8878,7 @@
 		)
 		(uuid "435a201d-4859-4bee-85f2-c09089f13c3a")
 	)
-	(label "ADC_CH0"
+	(label "ADC_CH7"
 		(at 86.36 57.15 0)
 		(effects
 			(font
@@ -8898,7 +8898,7 @@
 		)
 		(uuid "7141c37b-dc8d-4e5f-8905-6a31f179bebe")
 	)
-	(label "ADC_CH6"
+	(label "ADC_CH1"
 		(at 86.36 41.91 180)
 		(effects
 			(font
@@ -8928,7 +8928,7 @@
 		)
 		(uuid "76c2e725-c449-483b-ba78-2e394188b17b")
 	)
-	(label "ADC_CH4"
+	(label "ADC_CH3"
 		(at 212.09 53.34 0)
 		(effects
 			(font
@@ -8938,7 +8938,7 @@
 		)
 		(uuid "776db0aa-b6fa-4d93-b625-e1cafaa7673f")
 	)
-	(label "ADC_CH2"
+	(label "ADC_CH5"
 		(at 173.99 53.34 0)
 		(effects
 			(font
@@ -8958,7 +8958,7 @@
 		)
 		(uuid "8612f2fd-79c6-484b-af9f-f85cd585f47e")
 	)
-	(label "ADC_CH4"
+	(label "ADC_CH3"
 		(at 86.36 46.99 0)
 		(effects
 			(font
@@ -9008,7 +9008,7 @@
 		)
 		(uuid "924b91b1-7ce1-404c-a08b-e82992bc08fb")
 	)
-	(label "ADC_CH5"
+	(label "ADC_CH0"
 		(at 86.36 39.37 180)
 		(effects
 			(font
@@ -9018,7 +9018,7 @@
 		)
 		(uuid "9a60728b-e3e9-4650-8b9d-b4e6dc567cb9")
 	)
-	(label "ADC_CH3"
+	(label "ADC_CH4"
 		(at 86.36 49.53 0)
 		(effects
 			(font
@@ -9068,7 +9068,7 @@
 		)
 		(uuid "bc19905e-5da5-46c0-bf9b-3c029ad578e1")
 	)
-	(label "ADC_CH6"
+	(label "ADC_CH1"
 		(at 250.19 54.61 0)
 		(effects
 			(font
@@ -9118,7 +9118,7 @@
 		)
 		(uuid "c9707fc9-34f7-41de-b934-6d41f6636af4")
 	)
-	(label "ADC_CH3"
+	(label "ADC_CH4"
 		(at 191.77 53.34 0)
 		(effects
 			(font
@@ -9178,7 +9178,7 @@
 		)
 		(uuid "d83c8d06-bf66-4df2-a9c0-d47dd540b9bd")
 	)
-	(label "ADC_CH5"
+	(label "ADC_CH0"
 		(at 231.14 53.34 0)
 		(effects
 			(font
