@@ -38,5 +38,6 @@ void ggl_draw_icon(framebuffer_t fb, uint8_t x, uint8_t y, ggl_icon_t icon, bool
 void ggl_clear_fb(framebuffer_t fb);
 void ggl_draw_rect(framebuffer_t fb, uint8_t x, uint8_t y, uint8_t width, uint8_t height, bool color);
 void ggl_draw_rect_fill(framebuffer_t fb, uint8_t x, uint8_t y, uint8_t width, uint8_t height, bool color);
+void ggl_draw_text(framebuffer_t fb, uint8_t x, uint8_t y, const char *text, uint8_t font[52][11], bool invert);
 
 #endif // GIGASOUND_H

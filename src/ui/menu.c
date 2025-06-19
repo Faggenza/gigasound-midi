@@ -7,6 +7,7 @@
 #include "assets/icon_sensitivity.h"
 #include "ui/menu.h"
 #include <math.h>
+#include "assets/font.h"
 
 int ease_animation(int steps, int current_step, int start, int end)
 {
@@ -47,16 +48,21 @@ void ui_draw_menu(framebuffer_t fb, menu_state_t *state)
 
     ggl_draw_icon(fb, menu_side_icon.width, y, menu_selected_icon, false);
 
-    ggl_icon_t icons[] = {
-        icon_lamp_icon,
-        icon_graph_icon,
-        icon_sensitivity_icon,
-        icon_about_icon};
+    struct
+    {
+        char *text;
+        ggl_icon_t icon;
+    } entries[] = {
+        {"LEDs", icon_lamp_icon},
+        {"Curve", icon_graph_icon},
+        {"Sensitivity", icon_sensitivity_icon},
+        {"About", icon_about_icon}};
 
-    for (uint8_t i = 0; i < sizeof(icons) / sizeof(icons[0]); i++)
+    for (uint8_t i = 0; i < sizeof(entries) / sizeof(entries[0]); i++)
     {
         int icon_x = 100;
         int icon_y = 1 + i * (menu_selected_icon.height + 1);
-        ggl_draw_icon(fb, icon_x, icon_y, icons[i], true);
+        ggl_draw_icon(fb, icon_x, icon_y, entries[i].icon, true);
+        ggl_draw_text(fb, menu_side_icon.width + 6, icon_y + 2, entries[i].text, font_data, true);
     }
 }
