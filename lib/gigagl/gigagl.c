@@ -119,22 +119,23 @@ void ggl_draw_icon(framebuffer_t fb, uint8_t x, uint8_t y, ggl_icon_t icon, bool
     }
 }
 
+#include "uart.h"
+
 void ggl_draw_text(framebuffer_t fb, uint8_t x, uint8_t y, const char *text, uint8_t font[52][11], bool invert)
 {
     uint8_t char_n = 0;
     while (*text)
     {
-        uint8_t char_index = *text;
+        uint8_t char_index = (uint8_t)*text;
         for (uint8_t j = 0; j < 11; j++)
         {
             for (uint8_t i = 0; i < 5; i++)
             {
-                if (islower(char_index))
-                {
-                    char_index = toupper(char_index); // Convert lowercase to uppercase
-                }
+                printf("char_index0: %u\n, ", char_index);
+                char_index = char_index - 'A';
+                printf("char_index1: %u\n, ", char_index);
 
-                if (font[char_index - 'A'][j] & (0x80 >> i))
+                if (font[char_index][j] & (0x80 >> i))
                 {
                     if (invert)
                         ggl_set_pixel(fb, x + i + char_n, y + j, ggl_get_pixel(fb, x + i + char_n, y + j) ^ 1);
