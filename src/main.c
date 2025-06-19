@@ -9,6 +9,8 @@
 #include "midi.h"
 #include "bootloader.h"
 #include "ssd1306.h"
+#include "adc.h"
+#include "input.h"
 #include "gigagl.h"
 #include "ui/menu.h"
 // #include "ui/home.h"
@@ -17,33 +19,6 @@ void Error_Handler(void)
 {
   __disable_irq();
   asm volatile("bkpt 0");
-}
-volatile uint8_t adc_complete = 0;
-void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
-{
-  adc_complete = 1;
-}
-
-uint8_t play_pressed = 0;
-uint8_t stop_pressed = 0;
-uint8_t mode_pressed = 0;
-
-uint8_t play_is_on, stop_is_on, mode_is_on = 0;
-
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{
-  if (GPIO_Pin == PLAY_Pin)
-  {
-    play_pressed = 1;
-  }
-  else if (GPIO_Pin == STOP_Pin)
-  {
-    stop_pressed = 1;
-  }
-  else if (GPIO_Pin == MODE_Pin)
-  {
-    mode_pressed = 1;
-  }
 }
 
 int main(void)
@@ -63,8 +38,7 @@ int main(void)
 
   SSD1306_MINIMAL_init();
 
-  uint16_t adc_buff[11] = {0};
-
+  adc_init_dma();
   // Turn all LEDs off
   for (size_t i = 0; i < N_LED; i++)
   {
@@ -75,7 +49,6 @@ int main(void)
   HAL_SPI_Transmit(&hspi3, led_buff, LED_BUFF_N, 1000);
 
   HAL_SPI_Transmit_DMA(&hspi3, led_buff, LED_BUFF_N);
-  HAL_ADC_Start_DMA(&hadc1, (uint32_t *)adc_buff, 11);
 
   // init device stack on configured roothub port
   tusb_rhport_init_t dev_init = {
@@ -92,46 +65,27 @@ int main(void)
       .selected = 0,
       .animation_frame = 0};
 
+  bool stopped = false;
+  bool playing = false;
+  bool mode = false;
+
   // int i = 0;
   ui_draw_menu(*fb, &menu_state);
   SSD1306_MINIMAL_transferFramebuffer();
   while (1)
   {
-    // if (!fb_updating)
-    // {
-    //   ui_draw_menu(*fb, &menu_state);
-    //   SSD1306_MINIMAL_transferFramebuffer();
-    // }
-    // ggl_draw_rect(*fb, 10, 10, 20, 20, GGL_WHITE);
-    // ggl_draw_rect_round(*fb, 10, 10, 20, 20, GGL_WHITE, 2);
-    // *fb[1][120] |= 1;
     tud_task();
-    // HAL_Delay(100);
     // midi_task();
 
-    // set_led(i % N_LED, RED, 0.1f);
-    // set_led((i + 1) % N_LED, GREEN, 0.1f);
-    // set_led((i + 2) % N_LED, BLUE, 0.1f);
-    // set_led((i + 3) % N_LED, YELLOW, 0.1f);
-    // set_led((i + 3) % N_LED, CYAN, 0.1f);
-    // set_led((i + 4) % N_LED, PURPLE, 0.1f);
-    // set_led((i + 5) % N_LED, MAGENTA, 0.1f);
-    // set_led((i + 6) % N_LED, TEAL, 0.1f);
     if (adc_complete)
     {
+      update_axis_states();
       adc_complete = 0;
-      printf("ADC: ");
-      // for (size_t j = 0; j < 11; j++)
-      // {
-      //   printf("CH%d: ui%04lu, ", j, adc_buff[j]);
-      // }
-      // puts("\n");
-      uint8_t n_leds = 8 - ((adc_buff[8] + 300) / 512);
+      uint8_t n_leds = knob_step();
       if (n_leds == 7)
       {
         jump_to_bootloader();
       }
-      // printf("n_leds: %d, adc_8: ", n_leds, adc_buff[8]);
       for (uint8_t i = 0; i < 8; i++)
       {
         if (i <= n_leds)
@@ -143,7 +97,7 @@ int main(void)
           set_led(i, BLACK, 0.0f);
         }
       }
-      if (adc_buff[9] > 2800)
+      if (was_key_pressed(UP))
       {
         menu_state.old_selection = menu_state.selected;
         menu_state.selected = (menu_state.selected + 1) % 4;
@@ -156,9 +110,8 @@ int main(void)
             SSD1306_MINIMAL_transferFramebuffer();
           }
         }
-        HAL_Delay(150);
       }
-      else if (adc_buff[9] < 1200)
+      else if (was_key_pressed(DOWN))
       {
         menu_state.old_selection = menu_state.selected;
         menu_state.selected = (menu_state.selected + 3) % 4;
@@ -171,50 +124,22 @@ int main(void)
             SSD1306_MINIMAL_transferFramebuffer();
           }
         }
-        HAL_Delay(150);
       }
     }
-    if (play_pressed)
+    if (was_key_pressed(PLAY))
     {
-      play_pressed = 0;
-      if (play_is_on)
-      {
-        play_is_on = 0;
-        set_led(8, BLACK, 0.1f);
-      }
-      else
-      {
-        play_is_on = 1;
-        set_led(8, GREEN, 0.1f);
-      }
+      playing = !playing;
+      set_led(8, playing ? GREEN : BLACK, 0.1f);
     }
-    if (stop_pressed)
+    if (was_key_pressed(STOP))
     {
-      stop_pressed = 0;
-      if (stop_is_on)
-      {
-        stop_is_on = 0;
-        set_led(9, BLACK, 0.1f);
-      }
-      else
-      {
-        stop_is_on = 1;
-        set_led(9, RED, 0.1f);
-      }
+      stopped = !stopped;
+      set_led(9, stopped ? RED : BLACK, 0.1f);
     }
-    if (mode_pressed)
+    if (was_key_pressed(MODE))
     {
-      mode_pressed = 0;
-      if (mode_is_on)
-      {
-        mode_is_on = 0;
-        set_led(10, BLACK, 0.1f);
-      }
-      else
-      {
-        mode_is_on = 1;
-        set_led(10, BLUE, 0.1f);
-      }
+      mode = !mode;
+      set_led(10, mode ? BLUE : BLACK, 0.1f);
     }
     // HAL_Delay(100);
   }
