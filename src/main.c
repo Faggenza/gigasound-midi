@@ -97,11 +97,11 @@ int main(void)
   SSD1306_MINIMAL_transferFramebuffer();
   while (1)
   {
-    if (!fb_updating)
-    {
-      ui_draw_menu(*fb, &menu_state);
-      SSD1306_MINIMAL_transferFramebuffer();
-    }
+    // if (!fb_updating)
+    // {
+    //   ui_draw_menu(*fb, &menu_state);
+    //   SSD1306_MINIMAL_transferFramebuffer();
+    // }
     // ggl_draw_rect(*fb, 10, 10, 20, 20, GGL_WHITE);
     // ggl_draw_rect_round(*fb, 10, 10, 20, 20, GGL_WHITE, 2);
     // *fb[1][120] |= 1;
@@ -148,11 +148,6 @@ int main(void)
         menu_state.old_selection = menu_state.selected;
         menu_state.selected = (menu_state.selected + 1) % 4;
         menu_state.animation_frame = 0;
-        if (!fb_updating)
-        {
-          ui_draw_menu(*fb, &menu_state);
-        }
-        SSD1306_MINIMAL_transferFramebuffer();
         for (size_t i = 0; i < 5; i++)
         {
           while (!fb_updating)
@@ -161,19 +156,13 @@ int main(void)
             SSD1306_MINIMAL_transferFramebuffer();
           }
         }
-        HAL_Delay(100);
+        HAL_Delay(150);
       }
       else if (adc_buff[9] < 1200)
       {
         menu_state.old_selection = menu_state.selected;
         menu_state.selected = (menu_state.selected + 3) % 4;
         menu_state.animation_frame = 0;
-        if (!fb_updating)
-        {
-          ui_draw_menu(*fb, &menu_state);
-        }
-        SSD1306_MINIMAL_transferFramebuffer();
-
         for (size_t i = 0; i < 5; i++)
         {
           while (!fb_updating)
@@ -182,7 +171,7 @@ int main(void)
             SSD1306_MINIMAL_transferFramebuffer();
           }
         }
-        HAL_Delay(100);
+        HAL_Delay(150);
       }
     }
     if (play_pressed)
