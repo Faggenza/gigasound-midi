@@ -1,5 +1,5 @@
 #include "gigagl.h"
-#include <ctype.h>
+
 void ggl_set_pixel(framebuffer_t fb, uint8_t x, uint8_t y, bool color)
 {
     if (color)
@@ -127,14 +127,19 @@ void ggl_draw_text(framebuffer_t fb, uint8_t x, uint8_t y, const char *text, uin
     while (*text)
     {
         uint8_t char_index = (uint8_t)*text;
+        if (char_index & 0x20)
+        {
+            char_index -= 'a';
+        }
+        else
+        {
+            char_index -= 'A';
+            char_index += 26;
+        }
         for (uint8_t j = 0; j < 11; j++)
         {
             for (uint8_t i = 0; i < 5; i++)
             {
-                printf("char_index0: %u\n, ", char_index);
-                char_index = char_index - 'A';
-                printf("char_index1: %u\n, ", char_index);
-
                 if (font[char_index][j] & (0x80 >> i))
                 {
                     if (invert)
