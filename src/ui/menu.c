@@ -63,6 +63,6 @@ void ui_draw_menu(framebuffer_t fb, menu_state_t *state)
         int icon_x = 100;
         int icon_y = 1 + i * (menu_selected_icon.height + 1);
         ggl_draw_icon(fb, icon_x, icon_y, entries[i].icon, true);
-        ggl_draw_text(fb, menu_side_icon.width + 6, icon_y + 2, entries[i].text, font_data, true);
+        ggl_draw_text(fb, menu_side_icon.width + 6, icon_y + 3, entries[i].text, font_data, true);
     }
 }

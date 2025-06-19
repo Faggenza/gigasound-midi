@@ -63,7 +63,8 @@ int main(void)
   menu_state_t menu_state = {
       .old_selection = 0,
       .selected = 0,
-      .animation_frame = 0};
+      .animation_frame = 0,
+  };
 
   bool stopped = false;
   bool playing = false;
@@ -100,29 +101,27 @@ int main(void)
       if (was_key_pressed(UP))
       {
         menu_state.old_selection = menu_state.selected;
-        menu_state.selected = (menu_state.selected + 1) % 4;
+        menu_state.selected = (menu_state.selected + 3) % 4;
         menu_state.animation_frame = 0;
-        for (size_t i = 0; i < 5; i++)
+        for (size_t i = 0; i < 6; i++)
         {
-          while (!fb_updating)
-          {
-            ui_draw_menu(*fb, &menu_state);
-            SSD1306_MINIMAL_transferFramebuffer();
-          }
+          while (fb_updating)
+            ;
+          ui_draw_menu(*fb, &menu_state);
+          SSD1306_MINIMAL_transferFramebuffer();
         }
       }
       else if (was_key_pressed(DOWN))
       {
         menu_state.old_selection = menu_state.selected;
-        menu_state.selected = (menu_state.selected + 3) % 4;
+        menu_state.selected = (menu_state.selected + 1) % 4;
         menu_state.animation_frame = 0;
-        for (size_t i = 0; i < 5; i++)
+        for (size_t i = 0; i < 6; i++)
         {
-          while (!fb_updating)
-          {
-            ui_draw_menu(*fb, &menu_state);
-            SSD1306_MINIMAL_transferFramebuffer();
-          }
+          while (fb_updating)
+            ;
+          ui_draw_menu(*fb, &menu_state);
+          SSD1306_MINIMAL_transferFramebuffer();
         }
       }
     }

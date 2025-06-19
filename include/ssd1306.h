@@ -13,7 +13,7 @@ extern I2C_HandleTypeDef hi2c1;
 static uint8_t dma_buffer[(128 * 8) + 1] = {0};
 framebuffer_t *fb = (framebuffer_t *)(dma_buffer + 1); // Point to the framebuffer part of the buffer
 
-bool fb_updating = false;
+volatile bool fb_updating = false;
 
 void SSD1306_MINIMAL_transferFramebuffer()
 {

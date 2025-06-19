@@ -50,9 +50,9 @@ uint8_t is_key_down(key_t key)
     case LEFT:
         return adc_buff[ADC_AXIS_X] < 1200;
     case UP:
-        return adc_buff[ADC_AXIS_Y] > 2800;
-    case DOWN:
         return adc_buff[ADC_AXIS_Y] < 1200;
+    case DOWN:
+        return adc_buff[ADC_AXIS_Y] > 2800;
     default:
         return 0; // Invalid key
     }
