@@ -45,7 +45,7 @@ void ui_draw_menu(framebuffer_t fb, menu_state_t *state)
         }
     }
 
-    ggl_draw_icon(fb, menu_side_icon.stride * 8, y, menu_selected_icon, false);
+    ggl_draw_icon(fb, menu_side_icon.width, y, menu_selected_icon, false);
 
     ggl_icon_t icons[] = {
         icon_lamp_icon,

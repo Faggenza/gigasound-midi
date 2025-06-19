@@ -23,7 +23,7 @@ typedef struct
 
 typedef struct
 {
-    const uint8_t stride;
+    const uint8_t width;
     const uint8_t height;
     const uint8_t *data;
 } ggl_icon_t;

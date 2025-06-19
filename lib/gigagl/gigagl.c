@@ -103,18 +103,17 @@ void ggl_draw_icon(framebuffer_t fb, uint8_t x, uint8_t y, ggl_icon_t icon, bool
 {
     for (uint8_t j = 0; j < icon.height; j++)
     {
-        for (uint8_t i = 0; i < icon.stride; i++)
+        for (uint8_t i = 0; i < icon.width; i++)
         {
-            uint8_t byte = icon.data[j * icon.stride + i];
-            for (uint8_t bit = 0; bit < 8; bit++)
+            uint8_t rem = i % 8;
+            uint8_t byte_index = i / 8;
+
+            if (icon.data[j * icon.width / 8 + byte_index] & (0x80 >> rem))
             {
-                if (byte & (0x80 >> bit))
-                {
-                    if (invert)
-                        ggl_set_pixel(fb, x + (i * 8) + bit, y + j, ggl_get_pixel(fb, x + (i * 8) + bit, y + j) ^ 1);
-                    else
-                        ggl_set_pixel(fb, x + (i * 8) + bit, y + j, 1);
-                }
+                if (invert)
+                    ggl_set_pixel(fb, x + i, y + j, ggl_get_pixel(fb, x + i, y + j) ^ 1);
+                else
+                    ggl_set_pixel(fb, x + i, y + j, 1);
             }
         }
     }
