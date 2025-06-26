@@ -28,4 +28,6 @@ uint8_t was_key_pressed(key_t key);
 
 uint8_t knob_step();
 
+void clear_pressed();
+
 #endif // INPUT_H

@@ -14,11 +14,30 @@
 #include "gigagl.h"
 #include "ui/menu.h"
 // #include "ui/home.h"
+#include "assets/font.h"
+#include "calibrate.h"
+#include <stdlib.h>
 
 void Error_Handler(void)
 {
   __disable_irq();
   asm volatile("bkpt 0");
+}
+
+typedef enum
+{
+  MIDI_PLAYBACK,
+  MENU_SCREEN,
+  LED_SCREEN,
+  CURVE_SCREEN,
+  SENSITIVITY_SCREEN,
+  ABOUT_SCREEN,
+} state_t;
+
+// Good artists copy, great artists steal -Pablo Picasso
+uint16_t map(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max)
+{
+  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
 int main(void)
@@ -68,28 +87,76 @@ int main(void)
 
   bool stopped = false;
   bool playing = false;
-  bool mode = false;
+  bool key_pressed[8] = {false};
 
-  // int i = 0;
-  ui_draw_menu(*fb, &menu_state);
+  uint8_t last_knob = 0;
+  state_t state = MIDI_PLAYBACK;
+
+  ggl_draw_text(*fb, 50, 28, "Calib", font_data, 0);
   SSD1306_MINIMAL_transferFramebuffer();
+
+  joycon_calibration c = calibrate_joycon(adc_buff, 3000);
+
+  ggl_draw_text(*fb, 50, 28, "Finish", font_data, 0);
+  SSD1306_MINIMAL_transferFramebuffer();
+
   while (1)
   {
     tud_task();
-    // midi_task();
-
     if (adc_complete)
     {
-      update_axis_states();
       adc_complete = 0;
-      uint8_t n_leds = knob_step();
-      if (n_leds == 7)
+      update_axis_states();
+    }
+    switch (state)
+    {
+    case MIDI_PLAYBACK:
+      uint8_t current_knob = knob_step();
+      if (last_knob != current_knob)
+      {
+        for (uint8_t i = 0; i < 8; i++)
+        {
+          midi_send_note_off(i, last_knob * 12 + 40 + i);
+          key_pressed[i] = false;
+        }
+        last_knob = current_knob;
+      }
+      for (uint8_t i = 6; i < 8; i++)
+      {
+        if (adc_buff[i] < 3000 && key_pressed[i] == false)
+        {
+          key_pressed[i] = true;
+          midi_send_note_on(i, current_knob * 12 + 40 + i, 127);
+          set_led(LED_BUTTON_BASE + i, GREEN, 0.1f);
+        }
+        else if (adc_buff[i] >= 3000 && key_pressed[i] == true)
+        {
+          key_pressed[i] = false;
+          midi_send_note_off(i, current_knob * 12 + 40 + i);
+          set_led(LED_BUTTON_BASE + i, GREEN, 0.0f);
+        }
+
+        if (key_pressed[i])
+        {
+          midi_set_channel_pressure(i, (3000 - adc_buff[i]) >> 4);
+          set_led(LED_BUTTON_BASE + i, GREEN, ((4096 - adc_buff[i]) >> 4) / 500.0f);
+        }
+      }
+      uint16_t p = map(adc_buff[ADC_AXIS_Y], c.y_max + 40, c.y_min - 40, 0, 16384);
+      midi_set_pitch_bend(p);
+
+      uint16_t m = map(abs((int)adc_buff[ADC_AXIS_X] - (c.x_max - c.x_min)), 0, (c.x_max - c.x_min), 0, 16384);
+
+      midi_send_modulation(m);
+
+      // printf("pitch: %u\n", p);
+      if (current_knob == 7)
       {
         jump_to_bootloader();
       }
       for (uint8_t i = 0; i < 8; i++)
       {
-        if (i <= n_leds)
+        if (i <= current_knob)
         {
           set_led(i, RED, 0.1f);
         }
@@ -97,6 +164,46 @@ int main(void)
         {
           set_led(i, BLACK, 0.0f);
         }
+      }
+      if (was_key_pressed(PLAY))
+      {
+        playing = !playing;
+        set_led(8, playing ? GREEN : BLACK, 0.1f);
+      }
+      if (was_key_pressed(STOP))
+      {
+        stopped = !stopped;
+        set_led(9, stopped ? RED : BLACK, 0.1f);
+      }
+
+      // if (was_key_pressed(MODE))
+      // {
+      //   mode = !mode;
+      //   set_led(10, mode ? BLUE : BLACK, 0.1f);
+      // }
+
+      // if (!fb_updating)
+      // {
+      //   ggl_clear_fb(*fb);
+      //   ggl_draw_text(*fb, 50, 28, "HOME", font_data, 0);
+      //   SSD1306_MINIMAL_transferFramebuffer();
+      // }
+
+      if (was_key_pressed(MODE))
+      {
+        state = MENU_SCREEN;
+        while (fb_updating)
+          ;
+        ui_draw_menu(*fb, &menu_state);
+        SSD1306_MINIMAL_transferFramebuffer();
+        clear_pressed();
+      }
+
+      break;
+    case MENU_SCREEN:
+      if (was_key_pressed(MODE) || was_key_pressed(LEFT))
+      {
+        state = MIDI_PLAYBACK;
       }
       if (was_key_pressed(UP))
       {
@@ -124,25 +231,37 @@ int main(void)
           SSD1306_MINIMAL_transferFramebuffer();
         }
       }
+      else if (was_key_pressed(RIGHT))
+      {
+        switch (menu_state.selected)
+        {
+        case 0:
+          state = LED_SCREEN;
+          break;
+        default:
+          break;
+        }
+      }
+      break;
+    case LED_SCREEN:
+      if (was_key_pressed(LEFT))
+      {
+        state = MENU_SCREEN;
+        while (fb_updating)
+          ;
+        ui_draw_menu(*fb, &menu_state);
+        SSD1306_MINIMAL_transferFramebuffer();
+      }
+
+      if (!fb_updating)
+      {
+        ggl_draw_text(*fb, 50, 28, "LEDs", font_data, 0);
+        SSD1306_MINIMAL_transferFramebuffer();
+      }
+    default:
+      break;
     }
-    if (was_key_pressed(PLAY))
-    {
-      playing = !playing;
-      set_led(8, playing ? GREEN : BLACK, 0.1f);
-    }
-    if (was_key_pressed(STOP))
-    {
-      stopped = !stopped;
-      set_led(9, stopped ? RED : BLACK, 0.1f);
-    }
-    if (was_key_pressed(MODE))
-    {
-      mode = !mode;
-      set_led(10, mode ? BLUE : BLACK, 0.1f);
-    }
-    // HAL_Delay(100);
   }
-  // SSD1306_MINIMAL_transferFramebuffer(fb);
 }
 
 // Invoked when device is mounted

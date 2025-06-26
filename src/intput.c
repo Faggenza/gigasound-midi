@@ -74,6 +74,11 @@ void update_axis_states()
     }
 }
 
+void clear_pressed()
+{
+    pressed = 0;
+}
+
 uint8_t was_key_pressed(key_t key)
 {
     uint8_t res = pressed & (1 << key);

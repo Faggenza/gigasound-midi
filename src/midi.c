@@ -49,7 +49,7 @@ void midi_set_pitch_bend_sensitivity(uint8_t sensitivity)
 void midi_set_pitch_bend(uint16_t pitch)
 {
     uint8_t lsb = pitch & 0x7f;
-    uint8_t msb = (pitch >> 8) & 0x7f;
+    uint8_t msb = (pitch >> 7) & 0x7f;
     uint8_t packet[3] = {0xE0 | MASTER_CHANNEL, lsb, msb};
     tud_midi_stream_write(CABLE_NUM, packet, 3);
 }
@@ -85,7 +85,7 @@ void midi_send_cmd(uint8_t cmd)
 void midi_send_modulation(uint16_t value)
 {
     uint8_t lsb = value & 0x7f;
-    uint8_t msb = (value >> 8) & 0x7f;
+    uint8_t msb = (value >> 7) & 0x7f;
     send_cc(MASTER_CHANNEL, MIDI_MODULATION_MSB, msb);
     send_cc(MASTER_CHANNEL, MIDI_MODULATION_LSB, lsb);
 }

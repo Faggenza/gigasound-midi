@@ -8,6 +8,12 @@ typedef struct
     uint8_t b;
 } color_t;
 
+#define LED_BUTTON_BASE 11
+#define LED_KNOB_BASE 0
+#define LED_MODE 10
+#define LED_STOP 9
+#define LED_PLAY 8
+
 #define YELLOW (color_t){255, 255, 0}
 #define RED (color_t){255, 0, 0}
 #define ORANGE (color_t){255, 140, 0}
