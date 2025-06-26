@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 import sys
 import os
+import time
 
 CHAR_WIDTH = 5
 CHAR_HEIGHT = 11
 CHAR_SPACING = 2
+NUMBER_OF_CHARS = 52 
 
 def read_bmp_file(filename):
     with open(filename, 'rb') as f:
@@ -106,13 +108,13 @@ def convert_font(input_path, output_path):
         sys.exit(1)
 
     output_lines = [f'#include "gigagl.h"', f'// Font converted from {input_path}']
-    output_lines.append(f"const uint8_t font_data[][{CHAR_HEIGHT}] = "+"{")
+    output_lines.append(f"const uint8_t font_data[{NUMBER_OF_CHARS}][{CHAR_HEIGHT}] = "+"{")
 
     rows = [
-        "abcdefghijklmno",
-        "pqrstuvwxyz",
         "ABCDEFGHIJKLMNO",
         "PQRSTUVWXYZ",
+        "abcdefghijklmno",
+        "pqrstuvwxyz",
     ]
 
     for row_index, row_chars in enumerate(rows):
@@ -138,14 +140,50 @@ def convert_font(input_path, output_path):
 
 
 if __name__ == "__main__":
+
     assets_src_dir = 'assets_src'
-    assets_include_dir = 'include/assets'
-    os.makedirs(assets_include_dir, exist_ok=True)
+
+    src_output_dir = os.path.join("src", "assets")
+    os.makedirs(src_output_dir, exist_ok=True)
+
+    this_py = os.path.abspath(__file__)
 
     for filename in os.listdir(assets_src_dir):
+        if not filename.endswith(".bmp"):
+            continue
         input_path = os.path.join(assets_src_dir, filename)
-        output_path = os.path.join(assets_include_dir, f"{filename[:-4]}.h")
-        if filename == "font.bmp":
-            convert_font(input_path, output_path)
+        asset_name = filename[:-4]
+        src_output_path = os.path.join(src_output_dir, f"{asset_name}.c")
+
+        input_mtime = os.path.getmtime(input_path)
+        py_mtime = os.path.getmtime(this_py)
+        rebuild = True
+        if os.path.exists(src_output_path):
+            out_mtime = os.path.getmtime(src_output_path)
+            if out_mtime >= max(input_mtime, py_mtime):
+                rebuild = False
+
+        if rebuild:
+            if filename == "font.bmp":
+                convert_font(input_path, src_output_path)
+            else:
+                convert(input_path, src_output_path)
         else:
-            convert(input_path, output_path)
+            print(f"Skipping {src_output_path}, up to date.")
+
+    # Generate assets.h
+    assets_include_path = os.path.join("include", "assets.h")
+    asset_decls = ['#ifndef ASSETS_H', '#define ASSETS_H', '#include "gigagl.h"', '']
+
+    for filename in os.listdir(assets_src_dir):
+        if filename.endswith(".bmp"):
+            asset_name = filename[:-4]
+            if filename == "font.bmp":
+                asset_decls.append(f'extern const uint8_t font_data[{NUMBER_OF_CHARS}][{CHAR_HEIGHT}];')
+            else:
+                asset_decls.append(f'extern const ggl_icon_t {asset_name}_icon;')
+
+    asset_decls.append('\n#endif // ASSETS_H')
+    
+    with open(assets_include_path, "w") as f:
+        f.write('\n'.join(asset_decls) + '\n')

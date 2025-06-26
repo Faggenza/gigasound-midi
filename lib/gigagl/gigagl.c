@@ -121,7 +121,7 @@ void ggl_draw_icon(framebuffer_t fb, uint8_t x, uint8_t y, ggl_icon_t icon, bool
 
 #include "uart.h"
 
-void ggl_draw_text(framebuffer_t fb, uint8_t x, uint8_t y, const char *text, uint8_t font[52][11], bool invert)
+void ggl_draw_text(framebuffer_t fb, uint8_t x, uint8_t y, const char *text, const uint8_t font[52][11], bool invert)
 {
     uint8_t char_n = 0;
     while (*text)

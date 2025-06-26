@@ -14,7 +14,7 @@
 #include "gigagl.h"
 #include "ui/menu.h"
 // #include "ui/home.h"
-#include "assets/font.h"
+#include "assets.h"
 #include "calibrate.h"
 #include <stdlib.h>
 

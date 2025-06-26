@@ -1,13 +1,7 @@
 #include "gigagl.h"
-#include "assets/menu_side.h"
-#include "assets/menu_selected.h"
-#include "assets/icon_about.h"
-#include "assets/icon_graph.h"
-#include "assets/icon_lamp.h"
-#include "assets/icon_sensitivity.h"
+#include "assets.h"
 #include "ui/menu.h"
 #include <math.h>
-#include "assets/font.h"
 
 int ease_animation(int steps, int current_step, int start, int end)
 {
