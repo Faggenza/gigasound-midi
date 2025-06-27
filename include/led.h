@@ -1,3 +1,5 @@
+#ifndef LED_H
+#define LED_H
 #include <stdint.h>
 #include <strings.h>
 
@@ -43,3 +45,5 @@ typedef struct
 extern uint8_t led_buff[LED_BUFF_N];
 
 void set_led(size_t index, color_t color, float brightness);
+
+#endif // LED_H

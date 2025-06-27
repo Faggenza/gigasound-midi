@@ -1,12 +1,6 @@
-#include <stdint.h>
-#include <stdbool.h>
-#include "stm32f401xe.h"
+#include "config.h"
 
-bool modified = false;
-typedef struct
-{
-    uint16_t version
-} config_t;
+bool config_modified = false;
 
 config_t config = {
     .version = 0x0001 // Initial version
@@ -23,5 +17,5 @@ void config_save_to_flash(const config_t *cfg)
     // This function should handle writing the config to a specific flash address
     // and ensure that the flash is erased before writing.
 
-    modified = false; // Reset modified flag after saving
+    config_modified = false; // Reset modified flag after saving
 }

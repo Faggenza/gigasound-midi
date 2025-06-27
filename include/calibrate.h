@@ -15,5 +15,5 @@ typedef struct
     uint16_t y_max;
 } joycon_calibration;
 
-joycon_calibration calibrate_joycon(uint16_t *adc_buff, uint32_t check);
+joycon_calibration calibrate_joycon(uint16_t *adc_buff);
 #endif // CALIBRATE_H

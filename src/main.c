@@ -13,10 +13,11 @@
 #include "input.h"
 #include "gigagl.h"
 #include "ui/menu.h"
-// #include "ui/home.h"
 #include "assets.h"
 #include "calibrate.h"
 #include <stdlib.h>
+#include "ui/leds.h"
+#include "config.h"
 
 void Error_Handler(void)
 {
@@ -32,7 +33,14 @@ typedef enum
   CURVE_SCREEN,
   SENSITIVITY_SCREEN,
   ABOUT_SCREEN,
+  COLOR_SCREEN,
 } state_t;
+
+led_state_t selected_led = {
+    .colors = {0, 0, 0},
+    .rgb_selected = 0,
+    .led_selected = 0,
+};
 
 // Good artists copy, great artists steal -Pablo Picasso
 uint16_t map(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max)
@@ -92,14 +100,12 @@ int main(void)
   uint8_t last_knob = 0;
   state_t state = MIDI_PLAYBACK;
 
-  ggl_draw_text(*fb, 50, 28, "Calib", font_data, 0);
-  SSD1306_MINIMAL_transferFramebuffer();
-
-  joycon_calibration c = calibrate_joycon(adc_buff, 3000);
-
-  ggl_clear_fb(*fb);
-  ggl_draw_text(*fb, 50, 28, "Finish", font_data, 0);
-  SSD1306_MINIMAL_transferFramebuffer();
+  joycon_calibration c = {
+      .x_min = 0,
+      .x_max = 4096,
+      .y_min = 0,
+      .y_max = 4096,
+  };
 
   while (1)
   {
@@ -249,15 +255,18 @@ int main(void)
         switch (menu_state.selected)
         {
         case 0:
+          last_knob = knob_step();
           state = LED_SCREEN;
           break;
+        case 2:
+          state = SENSITIVITY_SCREEN;
         default:
           break;
         }
       }
       break;
     case LED_SCREEN:
-      if (was_key_pressed(LEFT))
+      if (was_key_pressed(LEFT) || was_key_pressed(STOP))
       {
         state = MENU_SCREEN;
         while (fb_updating)
@@ -268,11 +277,83 @@ int main(void)
 
       if (!fb_updating)
       {
-        ggl_draw_text(*fb, 50, 28, "LEDs", font_data, 0);
+        ggl_clear_fb(*fb);
+        ggl_draw_text(*fb, 30, 28, "Click any axis", font_data, 0);
+        ggl_draw_text(*fb, 30, 40, "to select LED", font_data, 0);
         SSD1306_MINIMAL_transferFramebuffer();
+
+        if ((current_knob = knob_step()) != last_knob)
+        {
+          last_knob = current_knob;
+          selected_led.led_selected = 0;
+          memcpy(selected_led.colors, config.color[0], sizeof(config.color[0]));
+          selected_led.rgb_selected = 0;
+          state = COLOR_SCREEN;
+          printf("Selected LED: %u\n", current_knob);
+        }
       }
-    default:
       break;
+    case COLOR_SCREEN:
+      if (was_key_pressed(STOP))
+      {
+        last_knob = knob_step();
+        state = LED_SCREEN;
+        while (fb_updating)
+          ;
+      }
+
+      while (fb_updating)
+        ;
+      ui_draw_leds(*fb, &selected_led);
+      SSD1306_MINIMAL_transferFramebuffer();
+      if (was_key_pressed(UP))
+      {
+        selected_led.rgb_selected = (selected_led.rgb_selected + 2) % 3;
+      }
+      else if (was_key_pressed(DOWN))
+      {
+        selected_led.rgb_selected = (selected_led.rgb_selected + 1) % 3;
+      }
+      else if (is_key_down(RIGHT))
+      {
+        config_modified = true;
+        selected_led.colors[selected_led.rgb_selected] += 1;
+        for (size_t i = 0; i < 8; i++)
+        {
+          set_led(LED_KNOB_BASE + i, (color_t){selected_led.colors[0], selected_led.colors[1], selected_led.colors[2]}, 1.0f);
+        }
+        if (selected_led.colors[selected_led.rgb_selected] > 255)
+          selected_led.colors[selected_led.rgb_selected] = 255;
+      }
+      else if (is_key_down(LEFT))
+      {
+        config_modified = true;
+        selected_led.colors[selected_led.rgb_selected] -= 1;
+        set_led(selected_led.led_selected, (color_t){selected_led.colors[0], selected_led.colors[1], selected_led.colors[2]}, 1.0f);
+        if (selected_led.colors[selected_led.rgb_selected] < 0)
+          selected_led.colors[selected_led.rgb_selected] = 0;
+
+        break;
+      case SENSITIVITY_SCREEN:
+        while (fb_updating)
+          ;
+        ggl_clear_fb(*fb);
+        ggl_draw_text(*fb, 30, 28, "Calibrating", font_data, 0);
+        SSD1306_MINIMAL_transferFramebuffer();
+
+        c = calibrate_joycon(adc_buff);
+        ggl_clear_fb(*fb);
+        state = MENU_SCREEN;
+        while (fb_updating)
+          ;
+        ui_draw_menu(*fb, &menu_state);
+        SSD1306_MINIMAL_transferFramebuffer();
+        break;
+      case ABOUT_SCREEN:
+        break;
+      default:
+        break;
+      }
     }
   }
 }

@@ -1,7 +1,7 @@
 #include "calibrate.h"
-#include "uart.h"
+#include "input.h"
 
-joycon_calibration calibrate_joycon(uint16_t *adc_buff, uint32_t check)
+joycon_calibration calibrate_joycon(uint16_t *adc_buff)
 {
     joycon_calibration cal = {
         .x_min = 4095,
@@ -9,10 +9,7 @@ joycon_calibration calibrate_joycon(uint16_t *adc_buff, uint32_t check)
         .y_min = 4095,
         .y_max = 0};
 
-    uint32_t start = HAL_GetTick();
-    uint32_t current = start;
-    printf("nuovo ciclo %d", 0);
-    while ((current - start) <= check)
+    while (!was_key_pressed(STOP))
     {
         if (adc_complete)
         {
@@ -26,7 +23,6 @@ joycon_calibration calibrate_joycon(uint16_t *adc_buff, uint32_t check)
             if (adc_buff[9] > cal.y_max)
                 cal.y_max = adc_buff[9];
         }
-        current = HAL_GetTick();
     }
     return cal;
 }

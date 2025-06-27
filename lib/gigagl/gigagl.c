@@ -119,8 +119,6 @@ void ggl_draw_icon(framebuffer_t fb, uint8_t x, uint8_t y, ggl_icon_t icon, bool
     }
 }
 
-#include "uart.h"
-
 void ggl_draw_text(framebuffer_t fb, uint8_t x, uint8_t y, const char *text, const uint8_t font[52][11], bool invert)
 {
     uint8_t char_n = 0;
@@ -129,6 +127,12 @@ void ggl_draw_text(framebuffer_t fb, uint8_t x, uint8_t y, const char *text, con
         uint8_t char_index = (uint8_t)*text;
         uint8_t i_start = char_index == 'i' ? 1 : 0;
         uint8_t i_end = char_index == 'i' ? 4 : 5;
+        if (char_index == ' ')
+        {
+            char_n += 6; // Space character width
+            text++;
+            continue;
+        }
         if (char_index & 0x20)
         {
             char_index -= 'a';
