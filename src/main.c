@@ -97,6 +97,7 @@ int main(void)
 
   joycon_calibration c = calibrate_joycon(adc_buff, 3000);
 
+  ggl_clear_fb(*fb);
   ggl_draw_text(*fb, 50, 28, "Finish", font_data, 0);
   SSD1306_MINIMAL_transferFramebuffer();
 
@@ -105,6 +106,7 @@ int main(void)
     tud_task();
     if (adc_complete)
     {
+      // adc_print_buffer();
       adc_complete = 0;
       update_axis_states();
     }
@@ -121,15 +123,26 @@ int main(void)
         }
         last_knob = current_knob;
       }
-      for (uint8_t i = 6; i < 8; i++)
+      uint16_t threshold = 3600;
+
+      for (uint8_t i = 0; i < 8; i++)
       {
-        if (adc_buff[i] < 3000 && key_pressed[i] == false)
+        if (i == 1)
+        {
+          threshold = 1000;
+        }
+        else
+        {
+          threshold = 3600;
+        }
+
+        if (adc_buff[i] < threshold && key_pressed[i] == false)
         {
           key_pressed[i] = true;
           midi_send_note_on(i, current_knob * 12 + 40 + i, 127);
           set_led(LED_BUTTON_BASE + i, GREEN, 0.1f);
         }
-        else if (adc_buff[i] >= 3000 && key_pressed[i] == true)
+        else if (adc_buff[i] >= threshold && key_pressed[i] == true)
         {
           key_pressed[i] = false;
           midi_send_note_off(i, current_knob * 12 + 40 + i);
@@ -138,7 +151,7 @@ int main(void)
 
         if (key_pressed[i])
         {
-          midi_set_channel_pressure(i, (3000 - adc_buff[i]) >> 4);
+          midi_set_channel_pressure(i, (threshold - adc_buff[i]) >> 4);
           set_led(LED_BUTTON_BASE + i, GREEN, ((4096 - adc_buff[i]) >> 4) / 500.0f);
         }
       }
