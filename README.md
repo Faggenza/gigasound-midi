@@ -10,3 +10,15 @@ MIDI: [docs](file:///home/nik/Downloads/M1-100-UM_v1-1_MIDI_Polyphonic_Expressio
 ## Testing
 
 [MPE Monitor](https://studiocode.dev/mpe-monitor/)
+
+
+## TODOs
+- UI: 
+    - Home (capire se rifare gli sprite o bastano le icone)
+    - LED
+    - Sensitity (da richiare la calibrazione)
+    - About 
+    - Curve (se ci va)
+- Config globale ( e salvataggio su flash )
+- Shell di sopra
+-

@@ -63,6 +63,8 @@ int main(void)
   MX_SPI3_Init();
   MX_USB_OTG_FS_PCD_Init();
 
+  config_init();
+
   SSD1306_MINIMAL_init();
 
   adc_init_dma();
@@ -222,6 +224,7 @@ int main(void)
     case MENU_SCREEN:
       if (was_key_pressed(MODE) || was_key_pressed(LEFT))
       {
+        config_save_to_flash();
         state = MIDI_PLAYBACK;
       }
       if (was_key_pressed(UP))
