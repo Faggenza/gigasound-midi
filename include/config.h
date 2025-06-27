@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include "stm32f401xe.h"
 #include "led.h"
+#include "calibrate.h"
 
 // Change this every every breaking change
 #define CONFIG_VERSION 1
@@ -13,6 +14,7 @@ typedef struct
 {
     uint16_t version;
     uint8_t color[N_LED][3];
+    joycon_calibration joycon_calibration;
 } config_t;
 
 extern bool config_modified;

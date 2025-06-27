@@ -87,7 +87,38 @@ void ggl_draw_rect_round(framebuffer_t fb, uint8_t x, uint8_t y, uint8_t width, 
     ggl_set_pixel(fb, x, y + height - 2, negative);
     ggl_set_pixel(fb, x + 2, y + height - 3, color);
 }
+void ggl_draw_rect_round_fill(framebuffer_t fb, uint8_t x, uint8_t y, uint8_t width, uint8_t height, bool color, uint8_t delete)
+{
+    // Fill the entire rectangle first
+    ggl_draw_rect_fill(fb, x, y, width, height, color);
 
+    // Apply the rounded corners
+    uint8_t negative = color ? 0 : 1;
+    if (delete)
+    {
+        negative = color;
+    }
+
+    // Top-left corner
+    ggl_set_pixel(fb, x, y, negative);
+    ggl_set_pixel(fb, x + 1, y, negative);
+    ggl_set_pixel(fb, x, y + 1, negative);
+
+    // Top-right corner
+    ggl_set_pixel(fb, x + width - 1, y, negative);
+    ggl_set_pixel(fb, x + width - 2, y, negative);
+    ggl_set_pixel(fb, x + width - 1, y + 1, negative);
+
+    // Bottom-right corner
+    ggl_set_pixel(fb, x + width - 1, y + height - 1, negative);
+    ggl_set_pixel(fb, x + width - 2, y + height - 1, negative);
+    ggl_set_pixel(fb, x + width - 1, y + height - 2, negative);
+
+    // Bottom-left corner
+    ggl_set_pixel(fb, x, y + height - 1, negative);
+    ggl_set_pixel(fb, x + 1, y + height - 1, negative);
+    ggl_set_pixel(fb, x, y + height - 2, negative);
+}
 void ggl_draw_sprite(framebuffer_t fb, uint8_t s, uint8_t y, ggl_sprite_t sprite)
 {
     for (uint8_t j = 0; j < sprite.height; j++)

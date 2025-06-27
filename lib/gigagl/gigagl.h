@@ -33,6 +33,7 @@ bool ggl_get_pixel(framebuffer_t fb, uint8_t x, uint8_t y);
 void ggl_draw_lineH(framebuffer_t fb, uint8_t x, uint8_t y, uint8_t length, bool color, uint8_t thinkness);
 void ggl_draw_lineV(framebuffer_t fb, uint8_t x, uint8_t y, uint8_t length, bool color, uint8_t thinkness);
 void ggl_draw_rect_round(framebuffer_t fb, uint8_t x, uint8_t y, uint8_t width, uint8_t height, bool color, uint8_t delete);
+void ggl_draw_rect_round_fill(framebuffer_t fb, uint8_t x, uint8_t y, uint8_t width, uint8_t height, bool color, uint8_t delete);
 void ggl_draw_sprite(framebuffer_t fb, uint8_t x, uint8_t y, ggl_sprite_t sprite);
 void ggl_draw_icon(framebuffer_t fb, uint8_t x, uint8_t y, ggl_icon_t icon, bool invert);
 void ggl_clear_fb(framebuffer_t fb);
