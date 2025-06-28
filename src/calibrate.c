@@ -11,6 +11,7 @@ joycon_calibration calibrate_joycon(uint16_t *adc_buff)
 
     while (!was_key_pressed(STOP))
     {
+        // TODO: add loop_task() here to avoid problems with usb
         if (adc_complete)
         {
             adc_complete = 0;

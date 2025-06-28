@@ -13,7 +13,7 @@
 #define WIDTH 128
 #define HEIGH 64
 
-uint16_t adc_buff[ADC_CHANNELS] = {0};
+uint16_t adc_buff[ADC_CHANNELS] = {4096, 4096, 4096, 4096, 4096, 4096, 4096, 4096, 4096, 4096, 4096};
 
 static uint8_t dma_buffer[(128 * 8) + 1] = {0};
 framebuffer_t *fb = (framebuffer_t *)(dma_buffer + 1); // Point to the framebuffer part of the buffer
@@ -27,7 +27,7 @@ uint8_t led_buff[LED_BUFF_N] = {0};
 
 void set_led(size_t index, color_t color, float brightness)
 {
-    printf("Setting LED %d to (%d,%d,%d) at %f%%\n", index, color.r, color.g, color.b, brightness * 100);
+    // printf("Setting LED %d to (%d,%d,%d) at %f%%\n", index, color.r, color.g, color.b, brightness * 100);
 }
 
 void clear_leds(void)
@@ -208,7 +208,7 @@ void SSD1306_MINIMAL_transferFramebuffer()
 
     fb_updating = true;
 
-    printf("Framebuffer transfer\n");
+    // printf("Framebuffer transfer\n");
     EndDrawing();
     BeginDrawing();
     DrawFb();
@@ -241,7 +241,7 @@ int key_to_ray(in_key_t key)
     case PLAY:
         return KEY_SPACE;
     case STOP:
-        return KEY_BACK;
+        return KEY_BACKSPACE;
     case MODE:
         return KEY_M;
     case RIGHT:
