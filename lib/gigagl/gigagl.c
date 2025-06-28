@@ -1,7 +1,17 @@
 #include "gigagl.h"
+#ifdef EMULATOR
+#include "assert.h"
+#endif
 
 void ggl_set_pixel(framebuffer_t fb, uint8_t x, uint8_t y, bool color)
 {
+#ifdef EMULATOR
+    if (x >= 128 || y >= 64)
+    {
+        printf("Attempted to write to %d,%d. Exiting!\n");
+        assert(false);
+    }
+#endif
     if (color)
         fb[y >> 3][x] |= (1 << (y & 7));
     else
@@ -10,6 +20,13 @@ void ggl_set_pixel(framebuffer_t fb, uint8_t x, uint8_t y, bool color)
 
 bool ggl_get_pixel(framebuffer_t fb, uint8_t x, uint8_t y)
 {
+#ifdef EMULATOR
+    if (x >= 128 || y >= 64)
+    {
+        printf("Attempted to get %d,%d. Exiting!\n");
+        assert(false);
+    }
+#endif
     return (fb[y >> 3][x] & (1 << (y & 7))) != 0;
 }
 

@@ -84,7 +84,7 @@ framebuffer_t backbuffer = {0};
 // Array.from({length: 25}, (v,i) => Math.floor(easeOutCubic((i/25)) * 128))
 uint8_t keyframes[] = {0, 23, 44, 61, 76,
                        89, 99, 107, 114, 118,
-                       122, 124, 125, 126, 126, 127};
+                       122, 124, 125, 126, 126, 128};
 
 void animate_switch()
 {
@@ -97,18 +97,31 @@ void animate_switch()
     SSD1306_MINIMAL_transferFramebuffer();
     break;
   case BACK:
-    for (uint8_t i = 0; i < sizeof(keyframes); i++)
+    uint8_t prev_delta = 0;
+    for (uint8_t i = 0; i < sizeof(keyframes) - 2; i++)
     {
       while (fb_updating)
         loop_task();
 
-      uint8_t delta = keyframes[i];
+      uint8_t delta = -((int)keyframes[sizeof(keyframes) - 3 - i] - 128);
+
+      // Shift fwd the current fb by delta pixels
+      for (uint8_t x = WIDTH - 1; x >= delta; x--)
+      {
+        // Copy the column
+        for (uint8_t y = 0; y < (HEIGHT >> 3); y++)
+        {
+          (*fb)[y][x] = (*fb)[y][x - (delta - prev_delta)];
+        }
+      }
+
+      prev_delta = delta;
       for (uint8_t x = 0; x < delta && x < WIDTH; x++)
       {
         // Copy the column
-        for (uint8_t y = 0; y < HEIGHT; y++)
+        for (uint8_t y = 0; y < (HEIGHT >> 3); y++)
         {
-          ggl_set_pixel(*fb, x, y, ggl_get_pixel(backbuffer, x - delta + WIDTH, y));
+          (*fb)[y][x] = backbuffer[y][x];
         }
       }
       SSD1306_MINIMAL_transferFramebuffer();
@@ -478,8 +491,8 @@ int main(void)
       }
       break;
     case SENSITIVITY_SCREEN:
-      ggl_draw_text(backbuffer, 30, 28, "Calibrating", font_data, 0);
-      ggl_draw_text(backbuffer, 10, 40, "Press STOP when done", font_data, 0);
+      ggl_draw_text(backbuffer, 30, 18, "Calibrating", font_data, 0);
+      ggl_draw_text(backbuffer, 2, 30, "Press STOP when done", font_data, 0);
       animate_switch();
 
       config.joycon_calibration = calibrate_joycon(adc_buff);

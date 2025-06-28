@@ -48,7 +48,7 @@ void DrawFb()
     debug = IsKeyPressed(KEY_SPACE) ? !debug : debug;
     uint8_t mouse_x = GetMouseX() / SCALE;
     uint8_t mouse_y = GetMouseY() / SCALE;
-    if (debug)
+    if (debug && IsMouseButtonDown(MOUSE_BUTTON_LEFT))
     {
         printf("Mouse: %d, %d\n", mouse_x, mouse_y);
     }
