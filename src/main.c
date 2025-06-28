@@ -221,7 +221,8 @@ int main(void)
     switch (state)
     {
     case MIDI_PLAYBACK:
-      ggl_draw_text(backbuffer, 30, 20, "Do Maggiore", font_data, 0);
+      ggl_draw_icon(backbuffer, 0, 0, home_keys_icon, 0);
+      ggl_draw_text(backbuffer, 30, 4, "Do Maggiore", font_data, 0);
 
       animate_switch();
       last_knob = 255;
@@ -420,7 +421,7 @@ int main(void)
         in_key_t keys_to_check[] = {PLAY, STOP, MODE};
         uint8_t keys_leds[] = {LED_PLAY, LED_STOP, LED_MODE};
         bool flag = false;
-        for (size_t i = 0; i < sizeof(keys_leds) / sizeof(keys_leds[0]); i++)
+        for (size_t i = 0; i < sizeof(keys_to_check) / sizeof(keys_to_check[0]); i++)
         {
           if (was_key_pressed(keys_to_check[i]))
           {
