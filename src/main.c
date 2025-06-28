@@ -1,14 +1,7 @@
 
-#include "main.h"
 #include "stdio.h"
-#include "uart.h"
-#include "init.h"
 #include "led.h"
-#include "bsp/board_api.h"
-#include "tusb.h"
 #include "midi.h"
-#include "bootloader.h"
-#include "ssd1306.h"
 #include "adc.h"
 #include "input.h"
 #include "gigagl.h"
@@ -19,10 +12,26 @@
 #include "ui/leds.h"
 #include "config.h"
 
+#ifdef EMULATOR
+#include "emulator.h"
+#else
+#include "main.h"
+#include "uart.h"
+#include "init.h"
+#include "bsp/board_api.h"
+#include "bootloader.h"
+#include "ssd1306.h"
+#include "tusb.h"
+#endif
+
 void Error_Handler(void)
 {
   __disable_irq();
-  asm volatile("bkpt 0");
+#ifdef EMULATOR
+  breakpoint();
+#else
+  asm("bkpt 0");
+#endif
 }
 
 typedef enum
@@ -148,19 +157,19 @@ int main(void)
         {
           key_pressed[i] = true;
           midi_send_note_on(i, current_knob * 12 + 40 + i, 127);
-          set_led(LED_BUTTON_BASE + i, GREEN, 0.1f);
+          set_led(LED_BUTTON_BASE + i, L_GREEN, 0.1f);
         }
         else if (adc_buff[i] >= threshold && key_pressed[i] == true)
         {
           key_pressed[i] = false;
           midi_send_note_off(i, current_knob * 12 + 40 + i);
-          set_led(LED_BUTTON_BASE + i, GREEN, 0.0f);
+          set_led(LED_BUTTON_BASE + i, L_GREEN, 0.0f);
         }
 
         if (key_pressed[i])
         {
           midi_set_channel_pressure(i, (threshold - adc_buff[i]) >> 4);
-          set_led(LED_BUTTON_BASE + i, GREEN, ((4096 - adc_buff[i]) >> 4) / 500.0f);
+          set_led(LED_BUTTON_BASE + i, L_GREEN, ((4096 - adc_buff[i]) >> 4) / 500.0f);
         }
       }
       uint16_t p = map(adc_buff[ADC_AXIS_Y], c.y_max + 40, c.y_min - 40, 0, 16384);
@@ -183,18 +192,18 @@ int main(void)
         }
         else
         {
-          set_led(i, BLACK, 0.0f);
+          set_led(i, OFF, 0.0f);
         }
       }
       if (was_key_pressed(PLAY))
       {
         playing = !playing;
-        set_led(LED_PLAY, playing ? (color_t){config.color[LED_PLAY][0], config.color[LED_PLAY][1], config.color[LED_PLAY][2]} : BLACK, 1.0f);
+        set_led(LED_PLAY, playing ? (color_t){config.color[LED_PLAY][0], config.color[LED_PLAY][1], config.color[LED_PLAY][2]} : OFF, 1.0f);
       }
       if (was_key_pressed(STOP))
       {
         stopped = !stopped;
-        set_led(LED_STOP, stopped ? (color_t){config.color[LED_STOP][0], config.color[LED_STOP][1], config.color[LED_STOP][2]} : BLACK, 1.0f);
+        set_led(LED_STOP, stopped ? (color_t){config.color[LED_STOP][0], config.color[LED_STOP][1], config.color[LED_STOP][2]} : OFF, 1.0f);
       }
       if (was_key_pressed(MODE))
       {
@@ -279,7 +288,7 @@ int main(void)
           selected_led.rgb_selected = 0;
           for (uint8_t i = 0; i < N_LED; i++)
           {
-            set_led(i, BLACK, 0.0f);
+            set_led(i, OFF, 0.0f);
           }
           state = COLOR_SCREEN;
         }
@@ -290,7 +299,7 @@ int main(void)
           selected_led.rgb_selected = 0;
           for (uint8_t i = 0; i < N_LED; i++)
           {
-            set_led(i, BLACK, 0.0f);
+            set_led(i, OFF, 0.0f);
           }
           state = COLOR_SCREEN;
         }
@@ -301,7 +310,7 @@ int main(void)
           selected_led.rgb_selected = 0;
           for (uint8_t i = 0; i < N_LED; i++)
           {
-            set_led(i, BLACK, 0.0f);
+            set_led(i, OFF, 0.0f);
           }
           state = COLOR_SCREEN;
         }
@@ -312,7 +321,7 @@ int main(void)
           selected_led.rgb_selected = 0;
           for (uint8_t i = 0; i < N_LED; i++)
           {
-            set_led(i, BLACK, 0.0f);
+            set_led(i, OFF, 0.0f);
           }
           state = COLOR_SCREEN;
         }

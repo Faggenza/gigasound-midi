@@ -13,3 +13,4 @@ gigasound-hw/~*.lck
 gigasound-hw/production/
 include/assets.h
 src/assets/
+emulator/emu

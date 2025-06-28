@@ -1,3 +1,8 @@
+#ifndef INIT_H
+#define INIT_H
+
+#include "stm32f4xx_hal.h"
+
 void SystemClock_Config(void);
 void MX_GPIO_Init(void);
 void MX_ADC1_Init(void);
@@ -12,3 +17,5 @@ extern UART_HandleTypeDef huart1;
 extern PCD_HandleTypeDef hpcd_USB_OTG_FS;
 extern I2C_HandleTypeDef hi2c1;
 extern DMA_HandleTypeDef hdma_i2c1_tx;
+
+#endif // INIT_H

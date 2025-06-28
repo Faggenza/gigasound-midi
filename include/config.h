@@ -3,7 +3,6 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "stm32f401xe.h"
 #include "led.h"
 #include "calibrate.h"
 

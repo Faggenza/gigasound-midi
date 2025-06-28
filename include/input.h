@@ -3,8 +3,6 @@
 
 #include <stdint.h>
 #include "adc.h"
-#include "stm32f4xx_hal.h"
-#include "main.h"
 
 #define DEBOUNCE_BUTTON_TIME_MS 150
 #define DEBOUNCE_JOYCON_TIME_MS 250
@@ -18,13 +16,13 @@ typedef enum
     LEFT,
     UP,
     DOWN,
-} key_t;
+} in_key_t;
 
-uint8_t is_key_down(key_t key);
+uint8_t is_key_down(in_key_t key);
 
 void update_axis_states();
 
-uint8_t was_key_pressed(key_t key);
+uint8_t was_key_pressed(in_key_t key);
 
 uint8_t knob_step();
 

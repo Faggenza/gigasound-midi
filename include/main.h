@@ -1,6 +1,6 @@
 /* Define to prevent recursive inclusion -------------------------------------*/
-// #ifndef __MAIN_H
-// #define __MAIN_H
+#ifndef __MAIN_H
+#define __MAIN_H
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
@@ -26,4 +26,4 @@ void Error_Handler(void);
 #define STOP_Pin GPIO_PIN_14
 #define MODE_Pin GPIO_PIN_15
 
-// #endif /* __MAIN_H */
+#endif /* __MAIN_H */

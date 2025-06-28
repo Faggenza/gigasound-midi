@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include "adc.h"
+#include "main.h"
 #include "stm32f4xx_hal.h"
 #include "input.h"
 
@@ -34,7 +35,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     pressed |= (1 << key);
 }
 
-uint8_t is_key_down(key_t key)
+uint8_t is_key_down(in_key_t key)
 {
     switch (key)
     {
@@ -79,7 +80,7 @@ void clear_pressed()
     pressed = 0;
 }
 
-uint8_t was_key_pressed(key_t key)
+uint8_t was_key_pressed(in_key_t key)
 {
     uint8_t res = pressed & (1 << key);
     pressed &= ~(1 << key);

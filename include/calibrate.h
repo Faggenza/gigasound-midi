@@ -1,11 +1,10 @@
 #ifndef CALIBRATE_H
 #define CALIBRATE_H
 
-#include "main.h"
+#include <stdint.h>
 
 #define X_AXIS 10
 #define Y_AXIS 9
-extern volatile uint8_t adc_complete;
 
 typedef struct
 {

@@ -1,3 +1,6 @@
+#ifndef BOOTLOADER_H
+#define BOOTLOADER_H
+
 #include "stm32f4xx_hal.h"
 
 #define BOOTLOADER_BASE 0x1FFF0000 // STM32F4 system memory start address
@@ -26,3 +29,5 @@ void jump_to_bootloader(void)
     bootloader = (void (*)(void))bootloader_entry;
     bootloader();
 }
+
+#endif // BOOTLOADER_H

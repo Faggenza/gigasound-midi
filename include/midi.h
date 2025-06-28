@@ -1,3 +1,6 @@
+#ifndef MIDI_H
+#define MIDI_H
+
 #include <stdint.h>
 
 #define MIDI_STOP 0xFC
@@ -14,3 +17,5 @@ void midi_send_note_on(uint8_t channel, uint8_t note, uint8_t velocity);
 void midi_send_note_off(uint8_t channel, uint8_t note);
 void midi_send_modulation(uint16_t value);
 void midi_task(void);
+
+#endif // MIDI_H

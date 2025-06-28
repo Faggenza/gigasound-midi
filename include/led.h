@@ -20,7 +20,7 @@ typedef struct
 #define RED (color_t){255, 0, 0}
 #define ORANGE (color_t){255, 140, 0}
 #define YELLOW (color_t){255, 255, 0}
-#define GREEN (color_t){0, 255, 0}
+#define L_GREEN (color_t){0, 255, 0}
 #define TEAL (color_t){0, 220, 180}
 #define CYAN (color_t){0, 180, 255}
 #define SKY_BLUE (color_t){80, 180, 255}
@@ -33,7 +33,7 @@ typedef struct
 #define WHITE (color_t){255, 255, 255}
 #define WARM_WHITE (color_t){255, 180, 100}
 #define COOL_WHITE (color_t){180, 255, 255}
-#define BLACK (color_t){0, 0, 0} // Off
+#define OFF (color_t){0, 0, 0} // Off
 
 #define N_LED 19
 
