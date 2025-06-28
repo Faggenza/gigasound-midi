@@ -48,7 +48,7 @@ void ui_draw_menu(framebuffer_t fb, menu_state_t *state)
         ggl_icon_t icon;
     } entries[] = {
         {"LEDs", icon_lamp_icon},
-        {"Curve", icon_graph_icon},
+        {"Config", icon_gear_icon},
         {"Sensitivity", icon_sensitivity_icon},
         {"About", icon_about_icon}};
 

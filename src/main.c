@@ -39,7 +39,7 @@ typedef enum
   MIDI_PLAYBACK,
   MENU_SCREEN,
   LED_SCREEN,
-  CURVE_SCREEN,
+  CONFIG_SCREEN,
   SENSITIVITY_SCREEN,
   ABOUT_SCREEN,
   COLOR_SCREEN,
@@ -345,8 +345,15 @@ int main(void)
             last_knob = knob_step();
             state = LED_SCREEN;
             break;
+          case 1:
+            state = CONFIG_SCREEN;
+            break;
           case 2:
             state = SENSITIVITY_SCREEN;
+            break;
+          case 3:
+            state = ABOUT_SCREEN;
+            break;
           default:
             break;
           }
@@ -477,9 +484,24 @@ int main(void)
         }
       }
       break;
+    case CONFIG_SCREEN:
+      // TODO: add config menu
+      ggl_draw_text(backbuffer, 30, 18, "Config", font_data, 0);
+      animate_switch();
+      while (1)
+      {
+        loop_task();
+        if (was_key_pressed(LEFT) || was_key_pressed(STOP))
+        {
+          state = MENU_SCREEN;
+          dir = BACK;
+          break;
+        }
+      }
+      break;
     case SENSITIVITY_SCREEN:
-      ggl_draw_text(backbuffer, 30, 28, "Calibrating", font_data, 0);
-      ggl_draw_text(backbuffer, 10, 40, "Press STOP when done", font_data, 0);
+      ggl_draw_text(backbuffer, 30, 18, "Calibrating", font_data, 0);
+      ggl_draw_text(backbuffer, 8, 30, "Press STOP when done", font_data, 0);
       animate_switch();
 
       config.joycon_calibration = calibrate_joycon(adc_buff);
@@ -488,13 +510,25 @@ int main(void)
       dir = BACK;
       break;
     case ABOUT_SCREEN:
+      ggl_draw_text(backbuffer, 8, 10, "GigaSound", font_data, 0);
+      ggl_draw_text(backbuffer, 8, 30, "Version", font_data, 0); // TODO: add numbers to font
+      animate_switch();
+      while (1)
+      {
+        loop_task();
+        if (was_key_pressed(STOP) || was_key_pressed(LEFT))
+        {
+          state = MENU_SCREEN;
+          dir = BACK;
+          break;
+        }
+      }
       break;
     default:
       break;
     }
   }
 }
-
 // Invoked when device is mounted
 void tud_mount_cb(void)
 {
