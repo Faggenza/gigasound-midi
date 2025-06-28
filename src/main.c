@@ -111,6 +111,8 @@ int main(void)
   uint8_t last_knob = 0;
   state_t state = MIDI_PLAYBACK;
   uint8_t current_knob = 0;
+
+  // alla primissima inizializzazione si dovrebbe calibrare
   joycon_calibration c = {
       .x_min = 0,
       .x_max = 4096,
@@ -157,19 +159,19 @@ int main(void)
         {
           key_pressed[i] = true;
           midi_send_note_on(i, current_knob * 12 + 40 + i, 127);
-          set_led(LED_BUTTON_BASE + i, L_GREEN, 0.1f);
+          set_led(LED_BUTTON_BASE + i, (color_t){config.color[LED_BUTTON_BASE + i][0], config.color[LED_BUTTON_BASE + i][1], config.color[LED_BUTTON_BASE + i][2]}, 0.1f);
         }
         else if (adc_buff[i] >= threshold && key_pressed[i] == true)
         {
           key_pressed[i] = false;
           midi_send_note_off(i, current_knob * 12 + 40 + i);
-          set_led(LED_BUTTON_BASE + i, L_GREEN, 0.0f);
+          set_led(LED_BUTTON_BASE + i, OFF, 0.0f);
         }
 
         if (key_pressed[i])
         {
           midi_set_channel_pressure(i, (threshold - adc_buff[i]) >> 4);
-          set_led(LED_BUTTON_BASE + i, L_GREEN, ((4096 - adc_buff[i]) >> 4) / 500.0f);
+          set_led(LED_BUTTON_BASE + i, (color_t){config.color[LED_BUTTON_BASE + i][0], config.color[LED_BUTTON_BASE + i][1], config.color[LED_BUTTON_BASE + i][2]}, ((4096 - adc_buff[i]) >> 4) / 500.0f);
         }
       }
       uint16_t p = map(adc_buff[ADC_AXIS_Y], c.y_max + 40, c.y_min - 40, 0, 16384);
@@ -186,7 +188,7 @@ int main(void)
       }
       for (uint8_t i = 0; i < 8; i++)
       {
-        if (i <= current_knob)
+        if (i == current_knob)
         {
           set_led(i, (color_t){config.color[LED_KNOB_BASE][0], config.color[LED_KNOB_BASE][1], config.color[LED_KNOB_BASE][2]}, 1.0f);
         }
@@ -266,6 +268,7 @@ int main(void)
     case LED_SCREEN:
       if (was_key_pressed(LEFT))
       {
+        clear_leds();
         state = MENU_SCREEN;
         while (fb_updating)
           ;
@@ -280,16 +283,33 @@ int main(void)
         ggl_draw_text(*fb, 30, 40, "to select LED", font_data, 0);
         SSD1306_MINIMAL_transferFramebuffer();
 
+        for (uint8_t i = 0; i < 8; i++)
+        {
+          if (i == 1)
+          {
+            threshold = 1000;
+          }
+          else
+          {
+            threshold = 3000;
+          }
+
+          if (adc_buff[i] < threshold && key_pressed[i] == false)
+          {
+            selected_led.led_selected = LED_BUTTON_BASE + i;
+            memcpy(selected_led.colors, config.color[selected_led.led_selected], sizeof(config.color[0]));
+            selected_led.rgb_selected = 0;
+            clear_leds();
+            state = COLOR_SCREEN;
+          }
+        }
         if ((current_knob = knob_step()) != last_knob)
         {
           last_knob = current_knob;
           selected_led.led_selected = LED_KNOB_BASE;
           memcpy(selected_led.colors, config.color[selected_led.led_selected], sizeof(config.color[0]));
           selected_led.rgb_selected = 0;
-          for (uint8_t i = 0; i < N_LED; i++)
-          {
-            set_led(i, OFF, 0.0f);
-          }
+          clear_leds();
           state = COLOR_SCREEN;
         }
         else if (was_key_pressed(PLAY))
@@ -297,10 +317,7 @@ int main(void)
           selected_led.led_selected = LED_PLAY;
           memcpy(selected_led.colors, config.color[selected_led.led_selected], sizeof(config.color[0]));
           selected_led.rgb_selected = 0;
-          for (uint8_t i = 0; i < N_LED; i++)
-          {
-            set_led(i, OFF, 0.0f);
-          }
+          clear_leds();
           state = COLOR_SCREEN;
         }
         else if (was_key_pressed(STOP))
@@ -308,10 +325,7 @@ int main(void)
           selected_led.led_selected = LED_STOP;
           memcpy(selected_led.colors, config.color[selected_led.led_selected], sizeof(config.color[0]));
           selected_led.rgb_selected = 0;
-          for (uint8_t i = 0; i < N_LED; i++)
-          {
-            set_led(i, OFF, 0.0f);
-          }
+          clear_leds();
           state = COLOR_SCREEN;
         }
         else if (was_key_pressed(MODE))
@@ -319,26 +333,13 @@ int main(void)
           selected_led.led_selected = LED_MODE;
           memcpy(selected_led.colors, config.color[selected_led.led_selected], sizeof(config.color[0]));
           selected_led.rgb_selected = 0;
-          for (uint8_t i = 0; i < N_LED; i++)
-          {
-            set_led(i, OFF, 0.0f);
-          }
+          clear_leds();
           state = COLOR_SCREEN;
         }
       }
       break;
 
     case COLOR_SCREEN:
-      if (was_key_pressed(STOP))
-      {
-        memcpy(config.color[selected_led.led_selected], selected_led.colors, sizeof(config.color[0]));
-        clear_pressed();
-        last_knob = knob_step();
-        state = LED_SCREEN;
-        while (fb_updating)
-          ;
-      }
-
       while (fb_updating)
         ;
       ui_draw_leds(*fb, &selected_led);
@@ -354,42 +355,32 @@ int main(void)
       else if (is_key_down(RIGHT))
       {
         config_modified = true;
-        selected_led.colors[selected_led.rgb_selected] += 1;
+        selected_led.colors[selected_led.rgb_selected] += 5;
       }
       else if (is_key_down(LEFT))
       {
         config_modified = true;
-        selected_led.colors[selected_led.rgb_selected] -= 1;
+        selected_led.colors[selected_led.rgb_selected] -= 5;
       }
-
-      switch (selected_led.led_selected)
+      if (selected_led.led_selected == LED_KNOB_BASE)
       {
-      case (LED_KNOB_BASE):
-
         for (size_t i = 0; i < 8; i++)
         {
-          set_led(LED_KNOB_BASE + i, (color_t){selected_led.colors[0], selected_led.colors[1], selected_led.colors[2]}, 1.0f);
+          set_led(LED_KNOB_BASE + i, (color_t){selected_led.colors[0], selected_led.colors[1], selected_led.colors[2]}, 0.1f);
         }
-        if (selected_led.colors[selected_led.rgb_selected] > 255)
-          selected_led.colors[selected_led.rgb_selected] = 255;
-        break;
-      case (LED_MODE):
-
-        set_led(LED_MODE, (color_t){selected_led.colors[0], selected_led.colors[1], selected_led.colors[2]}, 1.0f);
-        if (selected_led.colors[selected_led.rgb_selected] > 255)
-          selected_led.colors[selected_led.rgb_selected] = 255;
-        break;
-      case (LED_STOP):
-        set_led(LED_STOP, (color_t){selected_led.colors[0], selected_led.colors[1], selected_led.colors[2]}, 1.0f);
-        if (selected_led.colors[selected_led.rgb_selected] > 255)
-          selected_led.colors[selected_led.rgb_selected] = 255;
-        break;
-      case (LED_PLAY):
-        set_led(LED_PLAY, (color_t){selected_led.colors[0], selected_led.colors[1], selected_led.colors[2]}, 1.0f);
-        if (selected_led.colors[selected_led.rgb_selected] > 255)
-          selected_led.colors[selected_led.rgb_selected] = 255;
-        break;
-      default:
+      }
+      else
+      {
+        set_led(selected_led.led_selected, (color_t){selected_led.colors[0], selected_led.colors[1], selected_led.colors[2]}, 0.1f);
+      }
+      if (was_key_pressed(STOP))
+      {
+        memcpy(config.color[selected_led.led_selected], selected_led.colors, sizeof(config.color[0]));
+        clear_leds();
+        clear_pressed();
+        state = LED_SCREEN;
+        while (fb_updating)
+          ;
       }
 
       break;

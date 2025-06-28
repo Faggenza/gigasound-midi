@@ -30,6 +30,15 @@ void set_led(size_t index, color_t color, float brightness)
     printf("Setting LED %d to (%d,%d,%d) at %f%%\n", index, color.r, color.g, color.b, brightness * 100);
 }
 
+void clear_leds(void)
+{
+    printf("Clearing all LEDs\n");
+    for (size_t i = 0; i < N_LED; i++)
+    {
+        set_led(i, OFF, 0.0f);
+    }
+}
+
 volatile uint8_t adc_complete = false;
 
 bool debug = false;

@@ -40,3 +40,11 @@ void set_led(size_t index, color_t color, float brightness)
     led_buff[offset + 7] = bit_to_ws(5, b) << 7 | bit_to_ws(4, b) << 4 | bit_to_ws(3, b) << 1 | (bit_to_ws(2, b) >> 2);
     led_buff[offset + 8] = bit_to_ws(2, b) << 6 | bit_to_ws(1, b) << 3 | bit_to_ws(0, b);
 }
+
+void clear_leds(void)
+{
+    for (size_t i = 0; i < N_LED; i++)
+    {
+        set_led(i, OFF, 0.0f);
+    }
+}

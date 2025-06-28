@@ -28,12 +28,7 @@ typedef struct
 #define PURPLE (color_t){180, 70, 255}
 #define MAGENTA (color_t){255, 0, 180}
 #define PINK (color_t){255, 105, 180}
-
-// Whites and Off
-#define WHITE (color_t){255, 255, 255}
-#define WARM_WHITE (color_t){255, 180, 100}
-#define COOL_WHITE (color_t){180, 255, 255}
-#define OFF (color_t){0, 0, 0} // Off
+#define OFF (color_t){0, 0, 0}
 
 #define N_LED 19
 
@@ -45,5 +40,6 @@ typedef struct
 extern uint8_t led_buff[LED_BUFF_N];
 
 void set_led(size_t index, color_t color, float brightness);
+void clear_leds(void);
 
 #endif // LED_H
