@@ -311,11 +311,6 @@ int main(void)
 
         midi_send_modulation(m);
 
-        if (playback_state.current_knob == 7)
-        {
-          jump_to_bootloader();
-        }
-
         if (was_key_pressed(PLAY))
         {
           playback_state.playing = !playback_state.playing;
@@ -510,6 +505,27 @@ int main(void)
             SSD1306_MINIMAL_transferFramebuffer();
           }
         }
+
+        if (was_key_pressed(RIGHT))
+        {
+          switch (config_state.selected)
+          {
+          case CONFIG_UPDATE_RATE:
+            break;
+          case CONFIG_SCALE:
+            break;
+          case CONFIG_DFU:
+            while (fb_updating)
+              loop_task();
+            ggl_clear_fb(*fb);
+            ggl_draw_text(*fb, 40, 18, "DFU Mode", font_data, 0);
+            SSD1306_MINIMAL_transferFramebuffer();
+            while (fb_updating)
+              loop_task();
+            jump_to_bootloader();
+            break;
+          }
+        }
       }
       break;
     case SENSITIVITY_SCREEN:
@@ -525,7 +541,7 @@ int main(void)
       break;
     case ABOUT_SCREEN:
       ggl_draw_text(backbuffer, 8, 10, "GigaSound", font_data, 0);
-      ggl_draw_text(backbuffer, 8, 30, "Version", font_data, 0); // TODO: add numbers to font
+      ggl_draw_text(backbuffer, 8, 30, "Version 1234", font_data, 0); // TODO: add numbers to font
       animate_switch();
       while (1)
       {

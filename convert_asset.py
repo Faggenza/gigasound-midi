@@ -6,7 +6,7 @@ import time
 CHAR_WIDTH = 5
 CHAR_HEIGHT = 11
 CHAR_SPACING = 2
-NUMBER_OF_CHARS = 52 
+NUMBER_OF_CHARS = 62
 
 def read_bmp_file(filename):
     with open(filename, 'rb') as f:
@@ -115,6 +115,7 @@ def convert_font(input_path, output_path):
         "PQRSTUVWXYZ",
         "abcdefghijklmno",
         "pqrstuvwxyz",
+        "0123456789",
     ]
 
     for row_index, row_chars in enumerate(rows):

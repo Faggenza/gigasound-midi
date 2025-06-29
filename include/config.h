@@ -14,6 +14,7 @@ typedef struct
     uint16_t version;
     color_t color[N_LED];
     joycon_calibration joycon_calibration;
+    bool limit_updates;
 } config_t;
 
 extern bool config_modified;
