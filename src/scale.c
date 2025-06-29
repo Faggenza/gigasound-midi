@@ -1,7 +1,7 @@
 #include "scale.h"
 #include "stdint.h"
 
-char *scale_to_string[END_SCALE_LIST] = {"Major", "Major Harmonic", "Blues", "Minor Natural", "Minor Harmonic", "Minor Melodic Ascending"};
+char *scale_to_string[END_SCALE_LIST] = {"Major", "Major Harmonic", "Blues", "Minor Natural", "Minor Harmonic", "Minor Melodic"};
 
 char *tone_to_string[12] = {"Do", "Do#", "Re", "Re#", "Mi", "Fa", "Fa#", "Sol", "Sol#", "La", "La#", "Si"};
 

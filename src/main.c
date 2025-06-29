@@ -45,6 +45,7 @@ typedef enum
   SENSITIVITY_SCREEN,
   ABOUT_SCREEN,
   COLOR_SCREEN,
+  SCALE_SCREEN,
 } state_t;
 
 state_t state = MIDI_PLAYBACK;
@@ -227,6 +228,12 @@ int main(void)
   };
 
   config_state_t config_state = {
+      .selected = 0,
+      .animation_frame = 0,
+      .old_selection = 0,
+  };
+
+  list_animation_t scale_select_state = {
       .selected = 0,
       .animation_frame = 0,
       .old_selection = 0,
@@ -482,7 +489,6 @@ int main(void)
       }
       break;
     case CONFIG_SCREEN:
-      // TODO: add config menu
       ui_draw_config(backbuffer, &config_state);
       animate_switch();
       while (1)
@@ -511,9 +517,17 @@ int main(void)
           switch (config_state.selected)
           {
           case CONFIG_UPDATE_RATE:
+            config.limit_updates = !config.limit_updates;
+            config_modified = true;
+            while (fb_updating)
+              loop_task();
+            ui_draw_config(*fb, &config_state);
+            SSD1306_MINIMAL_transferFramebuffer();
             break;
           case CONFIG_SCALE:
-            break;
+            state = SCALE_SCREEN;
+            dir = FORWARD;
+            goto exit_config_screen;
           case CONFIG_DFU:
             while (fb_updating)
               loop_task();
@@ -525,6 +539,41 @@ int main(void)
             jump_to_bootloader();
             break;
           }
+        }
+      }
+    exit_config_screen:
+      break;
+    case SCALE_SCREEN:
+      ui_draw_scale_selector(backbuffer, &scale_select_state);
+      animate_switch();
+      while (1)
+      {
+        loop_task();
+        if (was_key_pressed(LEFT) || was_key_pressed(STOP))
+        {
+          state = CONFIG_SCREEN;
+          dir = BACK;
+          break;
+        }
+
+        if (animate_list(&scale_select_state, END_SCALE_LIST))
+        {
+          for (size_t i = 0; i < 6; i++)
+          {
+            while (fb_updating)
+              loop_task();
+            ui_draw_scale_selector(*fb, &scale_select_state);
+            SSD1306_MINIMAL_transferFramebuffer();
+          }
+        }
+
+        if (was_key_pressed(RIGHT))
+        {
+          config.scales_enabled[scale_select_state.selected] = !config.scales_enabled[scale_select_state.selected];
+          while (fb_updating)
+            loop_task();
+          ui_draw_scale_selector(*fb, &scale_select_state);
+          SSD1306_MINIMAL_transferFramebuffer();
         }
       }
       break;

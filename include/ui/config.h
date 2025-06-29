@@ -15,5 +15,6 @@ typedef enum
 typedef list_animation_t config_state_t;
 
 void ui_draw_config(framebuffer_t fb, config_state_t *state);
+void ui_draw_scale_selector(framebuffer_t fb, list_animation_t *state);
 
 #endif // UI_CONFIG_H

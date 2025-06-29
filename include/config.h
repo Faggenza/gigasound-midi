@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include "led.h"
 #include "calibrate.h"
+#include "scale.h"
 
 // Change this every every breaking change
 #define CONFIG_VERSION 1
@@ -15,6 +16,7 @@ typedef struct
     color_t color[N_LED];
     joycon_calibration joycon_calibration;
     bool limit_updates;
+    bool scales_enabled[END_SCALE_LIST];
 } config_t;
 
 extern bool config_modified;
