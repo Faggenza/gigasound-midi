@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include "ui/leds.h"
 #include "config.h"
+#include "scale.h"
 
 #ifdef EMULATOR
 #include "emulator.h"
@@ -84,7 +85,18 @@ framebuffer_t backbuffer = {0};
 // Array.from({length: 25}, (v,i) => Math.floor(easeOutCubic((i/25)) * 128))
 uint8_t keyframes[] = {0, 23, 44, 61, 76,
                        89, 99, 107, 114, 118,
-                       122, 124, 125, 126, 126, 127};
+                       122, 124, 125, 126, 126, 128};
+
+typedef struct
+{
+  uint8_t current_knob;
+  uint8_t last_knob;
+  bool stopped;
+  bool playing;
+  bool key_pressed[8];
+  scale_t scale;
+  tone_t tone;
+} midi_playback_state_t;
 
 void animate_switch()
 {
@@ -97,18 +109,31 @@ void animate_switch()
     SSD1306_MINIMAL_transferFramebuffer();
     break;
   case BACK:
-    for (uint8_t i = 0; i < sizeof(keyframes); i++)
+    uint8_t prev_delta = 0;
+    for (uint8_t i = 0; i < sizeof(keyframes) - 2; i++)
     {
       while (fb_updating)
         loop_task();
 
-      uint8_t delta = keyframes[i];
+      uint8_t delta = -((int)keyframes[sizeof(keyframes) - 3 - i] - 128);
+
+      // Shift fwd the current fb by delta pixels
+      for (uint8_t x = WIDTH - 1; x >= delta; x--)
+      {
+        // Copy the column
+        for (uint8_t y = 0; y < (HEIGHT >> 3); y++)
+        {
+          (*fb)[y][x] = (*fb)[y][x - (delta - prev_delta)];
+        }
+      }
+
+      prev_delta = delta;
       for (uint8_t x = 0; x < delta && x < WIDTH; x++)
       {
         // Copy the column
-        for (uint8_t y = 0; y < HEIGHT; y++)
+        for (uint8_t y = 0; y < (HEIGHT >> 3); y++)
         {
-          ggl_set_pixel(*fb, x, y, ggl_get_pixel(backbuffer, x - delta + WIDTH, y));
+          (*fb)[y][x] = backbuffer[y][x];
         }
       }
       SSD1306_MINIMAL_transferFramebuffer();
@@ -159,7 +184,7 @@ int main(void)
   // Turn all LEDs off
   for (size_t i = 0; i < N_LED; i++)
   {
-    set_led(i, (color_t){0, 0, 0}, 0.0f);
+    set_led(i, OFF, 0.0f);
   }
 
   HAL_SPI_Transmit(&hspi3, led_buff, LED_BUFF_N, 1000);
@@ -178,6 +203,16 @@ int main(void)
     board_init_after_tusb();
   }
 
+  midi_playback_state_t playback_state = {
+      .current_knob = 0,
+      .last_knob = 0,
+      .stopped = false,
+      .playing = false,
+      .tone = DO,
+      .scale = MAJOR,
+      .key_pressed = {false},
+  };
+
   menu_state_t menu_state = {
       .old_selection = 0,
       .selected = 0,
@@ -185,17 +220,10 @@ int main(void)
   };
 
   led_state_t selected_led = {
-      .colors = {0, 0, 0},
+      .color = OFF,
       .rgb_selected = 0,
       .led_selected = 0,
   };
-
-  bool stopped = false;
-  bool playing = false;
-  bool key_pressed[8] = {false};
-
-  uint8_t last_knob = 0;
-  uint8_t current_knob = 0;
 
   // TODO: alla primissima inizializzazione si dovrebbe calibrare il joystick
   while (1)
@@ -208,30 +236,32 @@ int main(void)
     switch (state)
     {
     case MIDI_PLAYBACK:
-      ggl_draw_text(backbuffer, 30, 20, "Do Maggiore", font_data, 0);
+      ggl_draw_icon(backbuffer, 0, 0, home_keys_icon, 0);
+      ggl_draw_text(backbuffer, 30, 4, tone_to_string[playback_state.tone], font_data, 0);
+      ggl_draw_text(backbuffer, 50, 4, scale_to_string[playback_state.scale], font_data, 0);
 
       animate_switch();
-      last_knob = 255;
+      playback_state.last_knob = 255;
 
       while (true)
       {
         loop_task();
-        current_knob = knob_step();
-        if (last_knob != current_knob)
+        playback_state.current_knob = knob_step();
+        if (playback_state.last_knob != playback_state.current_knob)
         {
           // Clear all the previous notes
           for (uint8_t i = 0; i < 8; i++)
           {
-            midi_send_note_off(i, last_knob * 12 + 40 + i);
-            key_pressed[i] = false;
+            midi_send_note_off(i, button_to_midi(playback_state.last_knob, MAJOR, DO, i));
+            playback_state.key_pressed[i] = false;
           }
-          last_knob = current_knob;
+          playback_state.last_knob = playback_state.current_knob;
           // Update the knob LEDs
           for (uint8_t i = 0; i < 8; i++)
           {
             set_led(i, OFF, 0.0f);
           }
-          set_led(LED_KNOB_BASE + current_knob, (color_t){config.color[LED_KNOB_BASE][0], config.color[LED_KNOB_BASE][1], config.color[LED_KNOB_BASE][2]}, 1.0f);
+          set_led(LED_KNOB_BASE + playback_state.current_knob, config.color[LED_KNOB_BASE], 1.0f);
         }
 
         uint16_t threshold = 3600;
@@ -248,23 +278,23 @@ int main(void)
             threshold = 3600;
           }
 
-          if (adc_buff[i] < threshold && key_pressed[i] == false)
+          if (adc_buff[i] < threshold && playback_state.key_pressed[i] == false)
           {
-            key_pressed[i] = true;
-            midi_send_note_on(i, current_knob * 12 + 40 + i, 127);
-            set_led(LED_BUTTON_BASE + i, (color_t){config.color[LED_BUTTON_BASE + i][0], config.color[LED_BUTTON_BASE + i][1], config.color[LED_BUTTON_BASE + i][2]}, 0.1f);
+            playback_state.key_pressed[i] = true;
+            midi_send_note_on(i, button_to_midi(playback_state.current_knob, MAJOR, DO, i), 127);
+            set_led(LED_BUTTON_BASE + i, config.color[LED_BUTTON_BASE + i], 0.1f);
           }
-          else if (adc_buff[i] >= threshold && key_pressed[i] == true)
+          else if (adc_buff[i] >= threshold && playback_state.key_pressed[i] == true)
           {
-            key_pressed[i] = false;
-            midi_send_note_off(i, current_knob * 12 + 40 + i);
+            playback_state.key_pressed[i] = false;
+            midi_send_note_off(i, button_to_midi(playback_state.current_knob, MAJOR, DO, i));
             set_led(LED_BUTTON_BASE + i, OFF, 0.0f);
           }
 
-          if (key_pressed[i])
+          if (playback_state.key_pressed[i])
           {
             midi_set_channel_pressure(i, (threshold - adc_buff[i]) >> 4);
-            set_led(LED_BUTTON_BASE + i, (color_t){config.color[LED_BUTTON_BASE + i][0], config.color[LED_BUTTON_BASE + i][1], config.color[LED_BUTTON_BASE + i][2]}, ((4096 - adc_buff[i]) >> 4) / 500.0f);
+            set_led(LED_BUTTON_BASE + i, config.color[LED_BUTTON_BASE + i], ((4096 - adc_buff[i]) >> 4) / 500.0f);
           }
         }
         uint16_t p = map(adc_buff[ADC_AXIS_Y], config.joycon_calibration.y_max + 40, config.joycon_calibration.y_min - 40, 0, 16384);
@@ -274,20 +304,20 @@ int main(void)
 
         midi_send_modulation(m);
 
-        if (current_knob == 7)
+        if (playback_state.current_knob == 7)
         {
           jump_to_bootloader();
         }
 
         if (was_key_pressed(PLAY))
         {
-          playing = !playing;
-          set_led(LED_PLAY, playing ? (color_t){config.color[LED_PLAY][0], config.color[LED_PLAY][1], config.color[LED_PLAY][2]} : OFF, 1.0f);
+          playback_state.playing = !playback_state.playing;
+          set_led(LED_PLAY, playback_state.playing ? config.color[LED_PLAY] : OFF, 1.0f);
         }
         if (was_key_pressed(STOP))
         {
-          stopped = !stopped;
-          set_led(LED_STOP, stopped ? (color_t){config.color[LED_STOP][0], config.color[LED_STOP][1], config.color[LED_STOP][2]} : OFF, 1.0f);
+          playback_state.stopped = !playback_state.stopped;
+          set_led(LED_STOP, playback_state.stopped ? config.color[LED_STOP] : OFF, 1.0f);
         }
         if (was_key_pressed(MODE))
         {
@@ -342,7 +372,6 @@ int main(void)
           switch (menu_state.selected)
           {
           case 0:
-            last_knob = knob_step();
             state = LED_SCREEN;
             break;
           case 1:
@@ -365,6 +394,9 @@ int main(void)
       ggl_draw_text(backbuffer, 30, 28, "Click any axis", font_data, 0);
       ggl_draw_text(backbuffer, 30, 40, "to select LED", font_data, 0);
       animate_switch();
+      bool key_pressed[8] = {false};
+      uint8_t current_knob = knob_step();
+      uint8_t last_knob = current_knob;
 
       while (1)
       {
@@ -392,7 +424,7 @@ int main(void)
           if (adc_buff[i] < threshold && key_pressed[i] == false)
           {
             selected_led.led_selected = LED_BUTTON_BASE + i;
-            memcpy(selected_led.colors, config.color[selected_led.led_selected], sizeof(config.color[0]));
+            selected_led.color = config.color[selected_led.led_selected];
             selected_led.rgb_selected = 0;
             state = COLOR_SCREEN;
             dir = FORWARD;
@@ -404,7 +436,7 @@ int main(void)
         {
           last_knob = current_knob;
           selected_led.led_selected = LED_KNOB_BASE;
-          memcpy(selected_led.colors, config.color[selected_led.led_selected], sizeof(config.color[0]));
+          selected_led.color = config.color[selected_led.led_selected];
           selected_led.rgb_selected = 0;
           state = COLOR_SCREEN;
           dir = FORWARD;
@@ -414,12 +446,12 @@ int main(void)
         in_key_t keys_to_check[] = {PLAY, STOP, MODE};
         uint8_t keys_leds[] = {LED_PLAY, LED_STOP, LED_MODE};
         bool flag = false;
-        for (size_t i = 0; i < sizeof(keys_leds) / sizeof(keys_leds[0]); i++)
+        for (size_t i = 0; i < sizeof(keys_to_check) / sizeof(keys_to_check[0]); i++)
         {
           if (was_key_pressed(keys_to_check[i]))
           {
             selected_led.led_selected = keys_leds[i];
-            memcpy(selected_led.colors, config.color[selected_led.led_selected], sizeof(config.color[0]));
+            selected_led.color = config.color[selected_led.led_selected];
             selected_led.rgb_selected = 0;
             flag = true;
           }
@@ -451,27 +483,27 @@ int main(void)
         else if (was_key_pressed(RIGHT))
         {
           config_modified = true;
-          selected_led.colors[selected_led.rgb_selected] += 5;
+          selected_led.color.rgb[selected_led.rgb_selected] += 5;
         }
         else if (was_key_pressed(LEFT))
         {
           config_modified = true;
-          selected_led.colors[selected_led.rgb_selected] -= 5;
+          selected_led.color.rgb[selected_led.rgb_selected] -= 5;
         }
         if (selected_led.led_selected == LED_KNOB_BASE)
         {
           for (size_t i = 0; i < 8; i++)
           {
-            set_led(LED_KNOB_BASE + i, (color_t){selected_led.colors[0], selected_led.colors[1], selected_led.colors[2]}, 0.1f);
+            set_led(LED_KNOB_BASE + i, selected_led.color, 0.1f);
           }
         }
         else
         {
-          set_led(selected_led.led_selected, (color_t){selected_led.colors[0], selected_led.colors[1], selected_led.colors[2]}, 0.1f);
+          set_led(selected_led.led_selected, selected_led.color, 0.1f);
         }
         if (was_key_pressed(STOP))
         {
-          memcpy(config.color[selected_led.led_selected], selected_led.colors, sizeof(config.color[0]));
+          config.color[selected_led.led_selected] = selected_led.color;
           state = LED_SCREEN;
           dir = BACK;
           break;
@@ -501,7 +533,8 @@ int main(void)
       break;
     case SENSITIVITY_SCREEN:
       ggl_draw_text(backbuffer, 30, 18, "Calibrating", font_data, 0);
-      ggl_draw_text(backbuffer, 8, 30, "Press STOP when done", font_data, 0);
+
+      ggl_draw_text(backbuffer, 2, 30, "Press STOP when done", font_data, 0);
       animate_switch();
 
       config.joycon_calibration = calibrate_joycon(adc_buff);
