@@ -48,7 +48,7 @@ void ui_draw_leds(framebuffer_t fb, led_state_t *state)
     // Draw the progress bars and text
     for (uint8_t i = 0; i < 3; i++)
     {
-        draw_progress_bar(fb, 16, 20 + (i * 15), state->colors[i]);
+        draw_progress_bar(fb, 16, 20 + (i * 15), state->color.rgb[i]);
         ggl_draw_text(fb, 9, 20 + (i * 15), i == 0 ? "R" : i == 1 ? "G"
                                                                   : "B",
                       font_data, true);

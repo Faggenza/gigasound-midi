@@ -3,11 +3,15 @@
 #include <stdint.h>
 #include <strings.h>
 
-typedef struct
+typedef union
 {
-    uint8_t r;
-    uint8_t g;
-    uint8_t b;
+    struct
+    {
+        uint8_t r;
+        uint8_t g;
+        uint8_t b;
+    };
+    uint8_t rgb[3];
 } color_t;
 
 #define LED_BUTTON_BASE 11
@@ -27,8 +31,12 @@ typedef struct
 #define BLUE (color_t){0, 0, 255}
 #define PURPLE (color_t){180, 70, 255}
 #define MAGENTA (color_t){255, 0, 180}
-#define PINK (color_t){255, 105, 180}
-#define OFF (color_t){0, 0, 0}
+#define PINK  \
+    (color_t) \
+    {{255, 105, 180}}
+#define OFF   \
+    (color_t) \
+    {{0, 0, 0}}
 
 #define N_LED 19
 

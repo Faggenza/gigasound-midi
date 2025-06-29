@@ -12,7 +12,7 @@
 typedef struct
 {
     uint16_t version;
-    uint8_t color[N_LED][3];
+    color_t color[N_LED];
     joycon_calibration joycon_calibration;
 } config_t;
 

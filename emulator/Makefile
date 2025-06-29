@@ -1,6 +1,7 @@
 emu: emulator.h ../src/* ../src/assets/* ../src/ui/* ../lib/gigagl/gigagl.c
 	gcc -o emu \
 		../src/main.c \
+		../src/scale.c \
 		../src/assets/*.c \
 		../src/calibrate.c \
 		../lib/gigagl/gigagl.c ../src/ui/*.c \

@@ -2,10 +2,11 @@
 #define UI_LEDS_H
 
 #include "gigagl.h"
+#include "led.h"
 
 typedef struct
 {
-    uint8_t colors[3];
+    color_t color;
     uint8_t rgb_selected;
     uint8_t rgb_selected_old;
     uint8_t led_selected;
