@@ -12,6 +12,7 @@
 #include "ui/leds.h"
 #include "config.h"
 #include "scale.h"
+#include "ui/config.h"
 
 #ifdef EMULATOR
 #include "emulator.h"
@@ -221,8 +222,14 @@ int main(void)
 
   led_state_t selected_led = {
       .color = OFF,
-      .rgb_selected = 0,
       .led_selected = 0,
+      .list = {0},
+  };
+
+  config_state_t config_state = {
+      .selected = 0,
+      .animation_frame = 0,
+      .old_selection = 0,
   };
 
   // TODO: alla primissima inizializzazione si dovrebbe calibrare il joystick
@@ -340,24 +347,8 @@ int main(void)
           dir = BACK;
           break;
         }
-        if (was_key_pressed(UP))
+        if (animate_list(&menu_state, 4))
         {
-          menu_state.old_selection = menu_state.selected;
-          menu_state.selected = (menu_state.selected + 3) % 4;
-          menu_state.animation_frame = 0;
-          for (size_t i = 0; i < 6; i++)
-          {
-            while (fb_updating)
-              loop_task();
-            ui_draw_menu(*fb, &menu_state);
-            SSD1306_MINIMAL_transferFramebuffer();
-          }
-        }
-        else if (was_key_pressed(DOWN))
-        {
-          menu_state.old_selection = menu_state.selected;
-          menu_state.selected = (menu_state.selected + 1) % 4;
-          menu_state.animation_frame = 0;
           for (size_t i = 0; i < 6; i++)
           {
             while (fb_updating)
@@ -369,23 +360,9 @@ int main(void)
         else if (was_key_pressed(RIGHT))
         {
           dir = FORWARD;
-          switch (menu_state.selected)
-          {
-          case 0:
-            state = LED_SCREEN;
-            break;
-          case 1:
-            state = CONFIG_SCREEN;
-            break;
-          case 2:
-            state = SENSITIVITY_SCREEN;
-            break;
-          case 3:
-            state = ABOUT_SCREEN;
-            break;
-          default:
-            break;
-          }
+          state_t menu_states[] = {LED_SCREEN, CONFIG_SCREEN, SENSITIVITY_SCREEN, ABOUT_SCREEN};
+          state = menu_states[menu_state.selected];
+          dir = FORWARD;
           break;
         }
       }
@@ -423,9 +400,9 @@ int main(void)
 
           if (adc_buff[i] < threshold && key_pressed[i] == false)
           {
-            selected_led.led_selected = LED_BUTTON_BASE + i;
+            selected_led.list.selected = LED_BUTTON_BASE + i;
             selected_led.color = config.color[selected_led.led_selected];
-            selected_led.rgb_selected = 0;
+            selected_led.list = (list_animation_t){0};
             state = COLOR_SCREEN;
             dir = FORWARD;
             break;
@@ -437,7 +414,7 @@ int main(void)
           last_knob = current_knob;
           selected_led.led_selected = LED_KNOB_BASE;
           selected_led.color = config.color[selected_led.led_selected];
-          selected_led.rgb_selected = 0;
+          selected_led.list = (list_animation_t){0};
           state = COLOR_SCREEN;
           dir = FORWARD;
           break;
@@ -452,7 +429,7 @@ int main(void)
           {
             selected_led.led_selected = keys_leds[i];
             selected_led.color = config.color[selected_led.led_selected];
-            selected_led.rgb_selected = 0;
+            selected_led.list = (list_animation_t){};
             flag = true;
           }
         }
@@ -472,23 +449,16 @@ int main(void)
       {
         loop_task();
 
-        if (was_key_pressed(UP))
-        {
-          selected_led.rgb_selected = (selected_led.rgb_selected + 2) % 3;
-        }
-        else if (was_key_pressed(DOWN))
-        {
-          selected_led.rgb_selected = (selected_led.rgb_selected + 1) % 3;
-        }
-        else if (was_key_pressed(RIGHT))
+        animate_list(&selected_led.list, 3);
+        if (was_key_pressed(RIGHT))
         {
           config_modified = true;
-          selected_led.color.rgb[selected_led.rgb_selected] += 5;
+          selected_led.color.rgb[selected_led.list.selected] += 5;
         }
         else if (was_key_pressed(LEFT))
         {
           config_modified = true;
-          selected_led.color.rgb[selected_led.rgb_selected] -= 5;
+          selected_led.color.rgb[selected_led.list.selected] -= 5;
         }
         if (selected_led.led_selected == LED_KNOB_BASE)
         {
@@ -518,7 +488,7 @@ int main(void)
       break;
     case CONFIG_SCREEN:
       // TODO: add config menu
-      ggl_draw_text(backbuffer, 30, 18, "Config", font_data, 0);
+      ui_draw_config(backbuffer, &config_state);
       animate_switch();
       while (1)
       {
@@ -528,6 +498,17 @@ int main(void)
           state = MENU_SCREEN;
           dir = BACK;
           break;
+        }
+
+        if (animate_list(&config_state, 3))
+        {
+          for (size_t i = 0; i < 6; i++)
+          {
+            while (fb_updating)
+              loop_task();
+            ui_draw_config(*fb, &config_state);
+            SSD1306_MINIMAL_transferFramebuffer();
+          }
         }
       }
       break;

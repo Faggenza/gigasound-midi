@@ -2,13 +2,9 @@
 #define UI_MENU_H
 
 #include "gigagl.h"
+#include "ui/list_animation.h"
 
-typedef struct
-{
-    uint8_t old_selection; // Previous selected menu item index
-    uint8_t selected;      // Index of the currently selected menu item
-    uint8_t animation_frame;
-} menu_state_t;
+typedef list_animation_t menu_state_t;
 
 void ui_draw_menu(framebuffer_t fb, menu_state_t *state);
 

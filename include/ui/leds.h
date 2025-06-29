@@ -3,14 +3,13 @@
 
 #include "gigagl.h"
 #include "led.h"
+#include "list_animation.h"
 
 typedef struct
 {
     color_t color;
-    uint8_t rgb_selected;
-    uint8_t rgb_selected_old;
     uint8_t led_selected;
-    uint8_t animation_frame;
+    list_animation_t list;
 } led_state_t;
 
 void ui_draw_leds(framebuffer_t fb, led_state_t *state);

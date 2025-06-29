@@ -3,6 +3,7 @@
 #include "main.h"
 #include "stm32f4xx_hal.h"
 #include "input.h"
+#include "config.h"
 
 // BIT MASKS for the keys
 static uint8_t pressed = 0;
@@ -47,13 +48,13 @@ uint8_t is_key_down(in_key_t key)
         return HAL_GPIO_ReadPin(GPIOC, MODE_Pin) == GPIO_PIN_RESET;
         // Todo: implement getting the calibration data
     case RIGHT:
-        return adc_buff[ADC_AXIS_X] > 2800;
+        return adc_buff[ADC_AXIS_X] > (config.joycon_calibration.x_max - 50);
     case LEFT:
-        return adc_buff[ADC_AXIS_X] < 1200;
+        return adc_buff[ADC_AXIS_X] < (config.joycon_calibration.x_min + 50);
     case UP:
-        return adc_buff[ADC_AXIS_Y] < 1200;
+        return adc_buff[ADC_AXIS_Y] < (config.joycon_calibration.y_min + 50);
     case DOWN:
-        return adc_buff[ADC_AXIS_Y] > 2800;
+        return adc_buff[ADC_AXIS_Y] > (config.joycon_calibration.y_max - 50);
     default:
         return 0; // Invalid key
     }
