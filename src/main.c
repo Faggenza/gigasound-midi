@@ -364,9 +364,9 @@ int main(void)
         uint16_t p = map(adc_buff[ADC_AXIS_Y], config.joycon_calibration.y_max + 40, config.joycon_calibration.y_min - 40, 0, 16384);
         midi_set_pitch_bend(p);
 
-        if (adc_buff[ADC_AXIS_X] < ((config.joycon_calibration.x_max - config.joycon_calibration.x_min) / 2))
+        if (adc_buff[ADC_AXIS_X] < (config.joycon_calibration.x_max - config.joycon_calibration.x_min - 200))
         {
-          uint16_t m = map(abs((int)adc_buff[ADC_AXIS_X] - (config.joycon_calibration.x_max - config.joycon_calibration.x_min)), 0, (config.joycon_calibration.x_max - config.joycon_calibration.x_min), 0, 16384);
+          uint16_t m = map(adc_buff[ADC_AXIS_X], (config.joycon_calibration.x_max - config.joycon_calibration.x_min) - 200, 0, 0, 16384);
           midi_send_modulation(m);
         }
         else if (was_key_pressed(RIGHT))
