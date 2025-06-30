@@ -8,7 +8,7 @@
 #include "scale.h"
 
 // Change this every every breaking change
-#define CONFIG_VERSION 1
+#define CONFIG_VERSION 2
 
 typedef struct
 {

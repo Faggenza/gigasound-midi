@@ -382,6 +382,7 @@ int main(void)
         }
         else if (was_key_pressed(RIGHT))
         {
+
           for (uint8_t i = 1; i < END_SCALE_LIST; i++)
           {
             uint8_t selected = (playback_state.scale + i) % END_SCALE_LIST;
@@ -391,11 +392,18 @@ int main(void)
               break;
             }
           }
+          // Clear all the previous notes
+          for (uint8_t i = 0; i < 8; i++)
+          {
+            midi_send_note_off(i, button_to_midi(playback_state.last_knob, playback_state.scale, playback_state.tone, i));
+            playback_state.key_pressed[i] = false;
+          }
 
           while (fb_updating)
             loop_task();
 
-          ggl_draw_rect_fill(*fb, 0, 0, 128, 15, 0);
+          ggl_clear_fb(*fb);
+          ggl_draw_icon(*fb, 0, 0, home_keys_icon, 0);
           ggl_draw_text(*fb, 4, 4, tone_to_string[playback_state.tone], font_data, 0);
           ggl_draw_text(*fb, 24, 4, scale_to_string[playback_state.scale], font_data, 0);
 
@@ -418,11 +426,12 @@ int main(void)
           dir = FORWARD;
           break;
         }
+        if (!fb_updating)
+        {
+          SSD1306_MINIMAL_transferFramebuffer();
+        }
       }
-      if (!fb_updating)
-      {
-        SSD1306_MINIMAL_transferFramebuffer();
-      }
+
       break;
     case MENU_SCREEN:
       ui_draw_menu(backbuffer, &menu_state);
@@ -532,15 +541,23 @@ int main(void)
         loop_task();
 
         animate_list(&selected_led.list, 3);
-        if (was_key_pressed(RIGHT))
+        if (is_key_down(RIGHT))
         {
           config_modified = true;
-          selected_led.color.rgb[selected_led.list.selected] += 5;
+          selected_led.color.rgb[selected_led.list.selected] += 1;
+          while (fb_updating)
+            loop_task();
+          ui_draw_leds(*fb, &selected_led);
+          SSD1306_MINIMAL_transferFramebuffer();
         }
-        else if (was_key_pressed(LEFT))
+        else if (is_key_down(LEFT))
         {
           config_modified = true;
-          selected_led.color.rgb[selected_led.list.selected] -= 5;
+          selected_led.color.rgb[selected_led.list.selected] -= 1;
+          while (fb_updating)
+            loop_task();
+          ui_draw_leds(*fb, &selected_led);
+          SSD1306_MINIMAL_transferFramebuffer();
         }
         if (selected_led.led_selected == LED_KNOB_BASE)
         {
@@ -560,7 +577,6 @@ int main(void)
           dir = BACK;
           break;
         }
-
         if (!fb_updating)
         {
           ui_draw_leds(*fb, &selected_led);
