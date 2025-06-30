@@ -382,6 +382,12 @@ int main(void)
         }
         else if (was_key_pressed(RIGHT))
         {
+          // Clear all the previous notes
+          for (uint8_t i = 0; i < 8; i++)
+          {
+            midi_send_note_off(i, button_to_midi(playback_state.last_knob, playback_state.scale, playback_state.tone, i));
+            playback_state.key_pressed[i] = false;
+          }
 
           for (uint8_t i = 1; i < END_SCALE_LIST; i++)
           {
@@ -391,12 +397,6 @@ int main(void)
               playback_state.scale = selected;
               break;
             }
-          }
-          // Clear all the previous notes
-          for (uint8_t i = 0; i < 8; i++)
-          {
-            midi_send_note_off(i, button_to_midi(playback_state.last_knob, playback_state.scale, playback_state.tone, i));
-            playback_state.key_pressed[i] = false;
           }
 
           while (fb_updating)
