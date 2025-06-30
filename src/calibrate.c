@@ -4,6 +4,7 @@
 joycon_calibration calibrate_joycon(uint16_t *adc_buff)
 {
     joycon_calibration cal = {
+        .calibrated = true,
         .x_min = 4095,
         .x_max = 0,
         .y_min = 4095,

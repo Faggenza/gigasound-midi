@@ -18,11 +18,16 @@ uint16_t adc_buff[ADC_CHANNELS] = {4096, 4096, 4096, 4096, 4096, 4096, 4096, 409
 static uint8_t dma_buffer[(128 * 8) + 1] = {0};
 framebuffer_t *fb = (framebuffer_t *)(dma_buffer + 1); // Point to the framebuffer part of the buffer
 
-config_t config = {};
+config_t config = {
+    .scales_enabled = {false},
+    .joycon_calibration = {
+        .calibrated = true,
+    },
+};
+
 bool config_modified = false;
 
 bool fb_updating = false;
-
 uint8_t led_buff[LED_BUFF_N] = {0};
 
 void set_led(size_t index, color_t color, float brightness)
@@ -184,6 +189,12 @@ void board_init_after_tusb()
 
 void tud_task()
 {
+    for (int i = 0; i < 8; i++)
+    {
+        int key = KEY_ONE + i; // Map keys 1 to 8
+        adc_buff[i] = IsKeyDown(key) ? 800 : 4096;
+    }
+
     EndDrawing();
     if (WindowShouldClose())
     {
@@ -226,8 +237,14 @@ void config_save_to_flash() { printf("[NOT IMPLEMENTED] config_save_to_flash\n")
 
 void midi_discard_packet(void) { printf("[STUB] midi_discard_packet called\n"); }
 void midi_mpe_init(void) { printf("[STUB] midi_mpe_init called\n"); }
-void midi_set_pitch_bend_sensitivity(uint8_t sensitivity) { printf("[STUB] midi_set_pitch_bend_sensitivity called with %u\n", sensitivity); }
-void midi_set_pitch_bend(uint16_t pitch) { printf("[STUB] midi_set_pitch_bend called with %u\n", pitch); }
+void midi_set_pitch_bend_sensitivity(uint8_t sensitivity)
+{
+    printf("[STUB] midi_set_pitch_bend_sensitivity called with %u\n", sensitivity);
+}
+void midi_set_pitch_bend(uint16_t pitch)
+{
+    // printf("[STUB] midi_set_pitch_bend called with %u\n", pitch);
+}
 void midi_set_channel_pressure(uint8_t channel, uint8_t pressure) { printf("[STUB] midi_set_channel_pressure called with channel %u, pressure %u\n", channel, pressure); }
 void midi_send_note_on(uint8_t channel, uint8_t note, uint8_t velocity) { printf("[STUB] midi_send_note_on called with channel %u, note %u, velocity %u\n", channel, note, velocity); }
 void midi_send_note_off(uint8_t channel, uint8_t note) { printf("[STUB] midi_send_note_off called with channel %u, note %u\n", channel, note); }

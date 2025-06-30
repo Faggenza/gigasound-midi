@@ -4,11 +4,36 @@
 #include "eeprom.h"
 #include "string.h"
 #include "config.h"
+#include "led.h"
 
 bool config_modified = false;
 
 static config_t default_config = {
-    .version = CONFIG_VERSION // Initial version
+    .version = CONFIG_VERSION, // Initial version
+    .joycon_calibration = {0},
+    .scales_enabled = {true},
+    .limit_updates = false,
+    .color = {
+        RED,
+        RED,
+        RED,
+        RED,
+        RED,
+        RED,
+        RED,
+        RED,
+        L_GREEN,
+        RED,
+        BLUE,
+        PURPLE,
+        PURPLE,
+        PURPLE,
+        PURPLE,
+        PURPLE,
+        PURPLE,
+        PURPLE,
+        PURPLE,
+    },
 };
 
 config_t config = {0};

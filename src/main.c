@@ -163,6 +163,40 @@ void animate_switch()
   ggl_clear_fb(backbuffer);
 }
 
+typedef struct
+{
+  uint8_t x;
+  uint8_t y;
+  bool inverted;
+} stroke_position_t;
+
+stroke_position_t strokes[24] = {
+    {.x = 4, .y = 48, false},   // Do scale 0
+    {.x = 8, .y = 32, true},    // Dod scale 0
+    {.x = 13, .y = 48, false},  // Re scale 0
+    {.x = 8, .y = 32, true},    // Red scale 0
+    {.x = 22, .y = 48, false},  // Mi scale 0
+    {.x = 31, .y = 48, false},  // Fa scale 0
+    {.x = 35, .y = 32, true},   // Fad scale 0
+    {.x = 40, .y = 48, false},  // Sol scale 0
+    {.x = 45, .y = 32, true},   // Sold scale 0
+    {.x = 49, .y = 48, false},  // La scale 0
+    {.x = 55, .y = 32, true},   // Lad scale 0
+    {.x = 58, .y = 48, false},  // Si scale 0
+    {.x = 67, .y = 48, false},  // Do scale 1
+    {.x = 71, .y = 32, true},   // Dod scale 1
+    {.x = 76, .y = 48, false},  // Re scale 1
+    {.x = 82, .y = 32, true},   // Red scale 1
+    {.x = 85, .y = 48, false},  // Mi scale 1
+    {.x = 94, .y = 48, false},  // Fa scale 1
+    {.x = 98, .y = 32, true},   // Fad scale 1
+    {.x = 103, .y = 48, false}, // Sol scale 1
+    {.x = 108, .y = 32, true},  // Sold scale 1
+    {.x = 112, .y = 48, false}, // La scale 1
+    {.x = 118, .y = 32, true},  // Lad scale 1
+    {.x = 121, .y = 48, false}, // Si scale 1
+};
+
 int main(void)
 {
 
@@ -214,16 +248,6 @@ int main(void)
       .key_pressed = {false},
   };
 
-  // Find the first available scale
-  for (uint8_t i = 0; i < END_SCALE_LIST; i++)
-  {
-    if (config.scales_enabled[i])
-    {
-      playback_state.scale = i;
-      break;
-    }
-  }
-
   menu_state_t menu_state = {
       .old_selection = 0,
       .selected = 0,
@@ -248,6 +272,11 @@ int main(void)
       .old_selection = 0,
   };
 
+  if (config.joycon_calibration.calibrated == false)
+  {
+    state = SENSITIVITY_SCREEN;
+  }
+
   // TODO: alla primissima inizializzazione si dovrebbe calibrare il joystick
   while (1)
   {
@@ -260,22 +289,22 @@ int main(void)
     {
     case MIDI_PLAYBACK:
       // So if we have deselected the scale, we want to select the first available one
-      if (config.scales_enabled[playback_state.scale] == false)
+
+      for (uint8_t i = 0; i < END_SCALE_LIST; i++)
       {
-        while (!config.scales_enabled[playback_state.scale])
+        if (config.scales_enabled[i])
         {
-          playback_state.scale = (playback_state.scale + 1) % END_SCALE_LIST;
+          playback_state.scale = i;
+          break;
         }
       }
+
       ggl_draw_icon(backbuffer, 0, 0, home_keys_icon, 0);
       ggl_draw_text(backbuffer, 4, 4, tone_to_string[playback_state.tone], font_data, 0);
       ggl_draw_text(backbuffer, 24, 4, scale_to_string[playback_state.scale], font_data, 0);
 
       animate_switch();
 
-      ggl_draw_icon(backbuffer, 0, 0, home_keys_icon, 0);
-      ggl_draw_text(backbuffer, 4, 4, tone_to_string[playback_state.tone], font_data, 0);
-      ggl_draw_text(backbuffer, 24, 4, scale_to_string[playback_state.scale], font_data, 0);
       playback_state.last_knob = 255;
 
       while (true)
@@ -322,17 +351,8 @@ int main(void)
             set_led(LED_BUTTON_BASE + i, config.color[LED_BUTTON_BASE + i], 0.1f);
 
             // Check if it's a black key (sharp/flat) using standard MIDI convention
-            uint8_t note_in_octave = note % 12;
-            bool is_black_key = (note_in_octave == 1 || note_in_octave == 3 || note_in_octave == 6 ||
-                                 note_in_octave == 8 || note_in_octave == 10);
-            uint8_t y_note = is_black_key ? 30 : 50;
-            uint8_t x_note = (i) * 9 + (is_black_key ? 0 : 4);
-            bool is_inverted = is_black_key;
-            ggl_draw_rect_fill(*fb, x_note, y_note, 4, 8, is_inverted);
-
-            while (fb_updating)
-              loop_task();
-            SSD1306_MINIMAL_transferFramebuffer();
+            uint8_t note_in_octaves = note - playback_state.current_knob * 12;
+            ggl_draw_rect_fill(*fb, strokes[note_in_octaves].x, strokes[note_in_octaves].y, strokes[note_in_octaves].inverted ? 3 : 4, 8, strokes[note_in_octaves].inverted);
           }
           else if (adc_buff[i] >= threshold && playback_state.key_pressed[i] == true)
           {
@@ -342,17 +362,8 @@ int main(void)
             midi_send_note_off(i, note);
             set_led(LED_BUTTON_BASE + i, OFF, 0.0f);
 
-            uint8_t note_in_octave = note % 12;
-            bool is_black_key = (note_in_octave == 1 || note_in_octave == 3 || note_in_octave == 6 ||
-                                 note_in_octave == 8 || note_in_octave == 10);
-            uint8_t y_note = is_black_key ? 30 : 50;
-            uint8_t x_note = (i) * 9 + (is_black_key ? 0 : 4);
-            bool is_inverted = !is_black_key;
-            ggl_draw_rect_fill(*fb, x_note, y_note, 4, 8, is_inverted);
-
-            while (fb_updating)
-              loop_task();
-            SSD1306_MINIMAL_transferFramebuffer();
+            uint8_t note_in_octaves = note - playback_state.current_knob * 12;
+            ggl_draw_rect_fill(*fb, strokes[note_in_octaves].x, strokes[note_in_octaves].y, strokes[note_in_octaves].inverted ? 3 : 4, 8, !strokes[note_in_octaves].inverted);
           }
 
           if (playback_state.key_pressed[i])
@@ -371,16 +382,23 @@ int main(void)
         }
         else if (was_key_pressed(RIGHT))
         {
-          playback_state.scale = (playback_state.scale + 1) % END_SCALE_LIST;
-          while (!config.scales_enabled[playback_state.scale])
+          for (uint8_t i = 1; i < END_SCALE_LIST; i++)
           {
-            playback_state.scale = (playback_state.scale + 1) % END_SCALE_LIST;
+            uint8_t selected = (playback_state.scale + i) % END_SCALE_LIST;
+            if (config.scales_enabled[selected])
+            {
+              playback_state.scale = selected;
+              break;
+            }
           }
+
+          while (fb_updating)
+            loop_task();
+
           ggl_draw_rect_fill(*fb, 0, 0, 128, 15, 0);
           ggl_draw_text(*fb, 4, 4, tone_to_string[playback_state.tone], font_data, 0);
           ggl_draw_text(*fb, 24, 4, scale_to_string[playback_state.scale], font_data, 0);
-          while (fb_updating)
-            loop_task();
+
           SSD1306_MINIMAL_transferFramebuffer();
         }
 
@@ -400,6 +418,10 @@ int main(void)
           dir = FORWARD;
           break;
         }
+      }
+      if (!fb_updating)
+      {
+        SSD1306_MINIMAL_transferFramebuffer();
       }
       break;
     case MENU_SCREEN:
@@ -439,7 +461,6 @@ int main(void)
       ggl_draw_text(backbuffer, 30, 28, "Click any axis", font_data, 0);
       ggl_draw_text(backbuffer, 30, 40, "to select LED", font_data, 0);
       animate_switch();
-      bool key_pressed[8] = {false};
       uint8_t current_knob = knob_step();
       uint8_t last_knob = current_knob;
 
@@ -466,14 +487,14 @@ int main(void)
             threshold = 3000;
           }
 
-          if (adc_buff[i] < threshold && key_pressed[i] == false)
+          if (adc_buff[i] < threshold)
           {
             selected_led.list.selected = LED_BUTTON_BASE + i;
             selected_led.color = config.color[selected_led.led_selected];
             selected_led.list = (list_animation_t){0};
             state = COLOR_SCREEN;
             dir = FORWARD;
-            break;
+            goto led_screen_exit;
           }
         }
 
@@ -508,6 +529,7 @@ int main(void)
           break;
         }
       }
+    led_screen_exit:
       break;
     case COLOR_SCREEN:
       ui_draw_leds(backbuffer, &selected_led);
@@ -617,6 +639,21 @@ int main(void)
         loop_task();
         if (was_key_pressed(LEFT) || was_key_pressed(STOP))
         {
+          bool consistant = false;
+          for (uint8_t i = 0; i < END_SCALE_LIST; i++)
+          {
+            if (config.scales_enabled[i])
+            {
+              consistant = true;
+              break;
+            }
+          }
+          // Make sure that at least the basic major scale is enabled
+          // if the user happens to deselect all of them
+          if (!consistant)
+          {
+            config.scales_enabled[MAJOR] = true;
+          }
           state = CONFIG_SCREEN;
           dir = BACK;
           break;
