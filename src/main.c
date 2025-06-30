@@ -489,7 +489,7 @@ int main(void)
 
           if (adc_buff[i] < threshold)
           {
-            selected_led.list.selected = LED_BUTTON_BASE + i;
+            selected_led.led_selected = LED_BUTTON_BASE + i;
             selected_led.color = config.color[selected_led.led_selected];
             selected_led.list = (list_animation_t){0};
             state = COLOR_SCREEN;
@@ -511,7 +511,6 @@ int main(void)
 
         in_key_t keys_to_check[] = {PLAY, STOP, MODE};
         uint8_t keys_leds[] = {LED_PLAY, LED_STOP, LED_MODE};
-        bool flag = false;
         for (size_t i = 0; i < sizeof(keys_to_check) / sizeof(keys_to_check[0]); i++)
         {
           if (was_key_pressed(keys_to_check[i]))
@@ -519,14 +518,8 @@ int main(void)
             selected_led.led_selected = keys_leds[i];
             selected_led.color = config.color[selected_led.led_selected];
             selected_led.list = (list_animation_t){};
-            flag = true;
+            goto led_screen_exit;
           }
-        }
-        if (flag)
-        {
-          state = COLOR_SCREEN;
-          dir = FORWARD;
-          break;
         }
       }
     led_screen_exit:
@@ -534,7 +527,6 @@ int main(void)
     case COLOR_SCREEN:
       ui_draw_leds(backbuffer, &selected_led);
       animate_switch();
-
       while (1)
       {
         loop_task();
