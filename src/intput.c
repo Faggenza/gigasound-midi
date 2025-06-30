@@ -48,9 +48,9 @@ uint8_t is_key_down(in_key_t key)
         return HAL_GPIO_ReadPin(GPIOC, MODE_Pin) == GPIO_PIN_RESET;
         // Todo: implement getting the calibration data
     case RIGHT:
-        return adc_buff[ADC_AXIS_X] > (config.joycon_calibration.x_max - 50);
+        return adc_buff[ADC_AXIS_X] > (config.joycon_calibration.x_max - 300);
     case LEFT:
-        return adc_buff[ADC_AXIS_X] < (config.joycon_calibration.x_min + 50);
+        return adc_buff[ADC_AXIS_X] < (config.joycon_calibration.x_min + 100);
     case UP:
         return adc_buff[ADC_AXIS_Y] < (config.joycon_calibration.y_min + 50);
     case DOWN:
@@ -90,5 +90,5 @@ uint8_t was_key_pressed(in_key_t key)
 
 uint8_t knob_step()
 {
-    return 8 - ((adc_buff[ADC_KNOB] + 300) / 512);
+    return 7 - ((adc_buff[ADC_KNOB] + 300) / 512);
 }

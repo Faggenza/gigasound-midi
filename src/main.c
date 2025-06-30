@@ -204,7 +204,6 @@ int main(void)
   {
     board_init_after_tusb();
   }
-
   midi_playback_state_t playback_state = {
       .current_knob = 0,
       .last_knob = 0,
@@ -214,6 +213,16 @@ int main(void)
       .scale = MAJOR,
       .key_pressed = {false},
   };
+
+  // Find the first available scale
+  for (uint8_t i = 0; i < END_SCALE_LIST; i++)
+  {
+    if (config.scales_enabled[i])
+    {
+      playback_state.scale = i;
+      break;
+    }
+  }
 
   menu_state_t menu_state = {
       .old_selection = 0,
@@ -250,11 +259,23 @@ int main(void)
     switch (state)
     {
     case MIDI_PLAYBACK:
+      // So if we have deselected the scale, we want to select the first available one
+      if (config.scales_enabled[playback_state.scale] == false)
+      {
+        while (!config.scales_enabled[playback_state.scale])
+        {
+          playback_state.scale = (playback_state.scale + 1) % END_SCALE_LIST;
+        }
+      }
       ggl_draw_icon(backbuffer, 0, 0, home_keys_icon, 0);
-      ggl_draw_text(backbuffer, 30, 4, tone_to_string[playback_state.tone], font_data, 0);
-      ggl_draw_text(backbuffer, 50, 4, scale_to_string[playback_state.scale], font_data, 0);
+      ggl_draw_text(backbuffer, 4, 4, tone_to_string[playback_state.tone], font_data, 0);
+      ggl_draw_text(backbuffer, 24, 4, scale_to_string[playback_state.scale], font_data, 0);
 
       animate_switch();
+
+      ggl_draw_icon(backbuffer, 0, 0, home_keys_icon, 0);
+      ggl_draw_text(backbuffer, 4, 4, tone_to_string[playback_state.tone], font_data, 0);
+      ggl_draw_text(backbuffer, 24, 4, scale_to_string[playback_state.scale], font_data, 0);
       playback_state.last_knob = 255;
 
       while (true)
@@ -266,7 +287,7 @@ int main(void)
           // Clear all the previous notes
           for (uint8_t i = 0; i < 8; i++)
           {
-            midi_send_note_off(i, button_to_midi(playback_state.last_knob, MAJOR, DO, i));
+            midi_send_note_off(i, button_to_midi(playback_state.last_knob, playback_state.scale, playback_state.tone, i));
             playback_state.key_pressed[i] = false;
           }
           playback_state.last_knob = playback_state.current_knob;
@@ -295,14 +316,43 @@ int main(void)
           if (adc_buff[i] < threshold && playback_state.key_pressed[i] == false)
           {
             playback_state.key_pressed[i] = true;
-            midi_send_note_on(i, button_to_midi(playback_state.current_knob, MAJOR, DO, i), 127);
+            uint8_t note = button_to_midi(playback_state.current_knob, playback_state.scale, playback_state.tone, i);
+
+            midi_send_note_on(i, note, 127);
             set_led(LED_BUTTON_BASE + i, config.color[LED_BUTTON_BASE + i], 0.1f);
+
+            // Check if it's a black key (sharp/flat) using standard MIDI convention
+            uint8_t note_in_octave = note % 12;
+            bool is_black_key = (note_in_octave == 1 || note_in_octave == 3 || note_in_octave == 6 ||
+                                 note_in_octave == 8 || note_in_octave == 10);
+            uint8_t y_note = is_black_key ? 30 : 50;
+            uint8_t x_note = (i) * 9 + (is_black_key ? 0 : 4);
+            bool is_inverted = is_black_key;
+            ggl_draw_rect_fill(*fb, x_note, y_note, 4, 8, is_inverted);
+
+            while (fb_updating)
+              loop_task();
+            SSD1306_MINIMAL_transferFramebuffer();
           }
           else if (adc_buff[i] >= threshold && playback_state.key_pressed[i] == true)
           {
             playback_state.key_pressed[i] = false;
-            midi_send_note_off(i, button_to_midi(playback_state.current_knob, MAJOR, DO, i));
+            uint8_t note = button_to_midi(playback_state.current_knob, playback_state.scale, playback_state.tone, i);
+
+            midi_send_note_off(i, note);
             set_led(LED_BUTTON_BASE + i, OFF, 0.0f);
+
+            uint8_t note_in_octave = note % 12;
+            bool is_black_key = (note_in_octave == 1 || note_in_octave == 3 || note_in_octave == 6 ||
+                                 note_in_octave == 8 || note_in_octave == 10);
+            uint8_t y_note = is_black_key ? 30 : 50;
+            uint8_t x_note = (i) * 9 + (is_black_key ? 0 : 4);
+            bool is_inverted = !is_black_key;
+            ggl_draw_rect_fill(*fb, x_note, y_note, 4, 8, is_inverted);
+
+            while (fb_updating)
+              loop_task();
+            SSD1306_MINIMAL_transferFramebuffer();
           }
 
           if (playback_state.key_pressed[i])
@@ -314,9 +364,25 @@ int main(void)
         uint16_t p = map(adc_buff[ADC_AXIS_Y], config.joycon_calibration.y_max + 40, config.joycon_calibration.y_min - 40, 0, 16384);
         midi_set_pitch_bend(p);
 
-        uint16_t m = map(abs((int)adc_buff[ADC_AXIS_X] - (config.joycon_calibration.x_max - config.joycon_calibration.x_min)), 0, (config.joycon_calibration.x_max - config.joycon_calibration.x_min), 0, 16384);
-
-        midi_send_modulation(m);
+        if (adc_buff[ADC_AXIS_X] < ((config.joycon_calibration.x_max - config.joycon_calibration.x_min) / 2))
+        {
+          uint16_t m = map(abs((int)adc_buff[ADC_AXIS_X] - (config.joycon_calibration.x_max - config.joycon_calibration.x_min)), 0, (config.joycon_calibration.x_max - config.joycon_calibration.x_min), 0, 16384);
+          midi_send_modulation(m);
+        }
+        else if (was_key_pressed(RIGHT))
+        {
+          playback_state.scale = (playback_state.scale + 1) % END_SCALE_LIST;
+          while (!config.scales_enabled[playback_state.scale])
+          {
+            playback_state.scale = (playback_state.scale + 1) % END_SCALE_LIST;
+          }
+          ggl_draw_rect_fill(*fb, 0, 0, 128, 15, 0);
+          ggl_draw_text(*fb, 4, 4, tone_to_string[playback_state.tone], font_data, 0);
+          ggl_draw_text(*fb, 24, 4, scale_to_string[playback_state.scale], font_data, 0);
+          while (fb_updating)
+            loop_task();
+          SSD1306_MINIMAL_transferFramebuffer();
+        }
 
         if (was_key_pressed(PLAY))
         {
@@ -570,6 +636,7 @@ int main(void)
         if (was_key_pressed(RIGHT))
         {
           config.scales_enabled[scale_select_state.selected] = !config.scales_enabled[scale_select_state.selected];
+          config_modified = true;
           while (fb_updating)
             loop_task();
           ui_draw_scale_selector(*fb, &scale_select_state);
