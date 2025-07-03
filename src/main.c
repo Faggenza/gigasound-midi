@@ -527,6 +527,8 @@ int main(void)
             selected_led.led_selected = keys_leds[i];
             selected_led.color = config.color[selected_led.led_selected];
             selected_led.list = (list_animation_t){};
+            state = COLOR_SCREEN;
+            dir = FORWARD;
             goto led_screen_exit;
           }
         }
