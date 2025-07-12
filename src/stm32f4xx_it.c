@@ -137,6 +137,11 @@ void EXTI15_10_IRQHandler(void)
   HAL_GPIO_EXTI_IRQHandler(MODE_Pin);
 }
 
+void EXTI3_IRQHandler(void)
+{
+  HAL_GPIO_EXTI_IRQHandler(JOYC_Pin);
+}
+
 extern I2C_HandleTypeDef hi2c1;
 
 void I2C1_EV_IRQHandler(void)

@@ -25,5 +25,6 @@ void Error_Handler(void);
 #define PLAY_Pin GPIO_PIN_13
 #define STOP_Pin GPIO_PIN_14
 #define MODE_Pin GPIO_PIN_15
+#define JOYC_Pin GPIO_PIN_3
 
 #endif /* __MAIN_H */

@@ -261,6 +261,8 @@ int key_to_ray(in_key_t key)
         return KEY_BACKSPACE;
     case MODE:
         return KEY_M;
+    case JOYC:
+        return KEY_N;
     case RIGHT:
         return KEY_L;
     case LEFT:
@@ -291,4 +293,8 @@ uint8_t was_key_pressed(in_key_t key)
 uint8_t knob_step()
 {
     return 0;
+}
+
+void HAL_Delay(int x)
+{
 }

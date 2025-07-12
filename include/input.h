@@ -11,6 +11,7 @@ typedef enum
     PLAY = 0,
     STOP,
     MODE,
+    JOYC,
     // Axis keys
     RIGHT,
     LEFT,

@@ -3,7 +3,7 @@
 
 char *scale_to_string[END_SCALE_LIST] = {"Major", "Major Harmonic", "Blues", "Minor Natural", "Minor Harmonic", "Minor Melodic"};
 
-char *tone_to_string[12] = {"Do", "Do#", "Re", "Re#", "Mi", "Fa", "Fa#", "Sol", "Sol#", "La", "La#", "Si"};
+char *tone_to_string[12] = {"Do", "DoD", "Re", "ReD", "Mi", "Fa", "FaD", "Sol", "SolD", "La", "LaD", "Si"};
 
 static uint8_t intervals[END_SCALE_LIST][8] = {
     {DO, RE, MI, FA, SOL, LA, SI, DO + 12},     // MAJOR

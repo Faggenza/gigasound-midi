@@ -24,7 +24,11 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     case MODE_Pin:
         key = MODE;
         break;
+    case JOYC_Pin:
+        key = JOYC;
+        break;
     default:
+        asm("bkpt");
         return;
     }
     if (timers[key] != 0 && HAL_GetTick() - timers[key] < DEBOUNCE_BUTTON_TIME_MS)
@@ -41,12 +45,13 @@ uint8_t is_key_down(in_key_t key)
     switch (key)
     {
     case PLAY:
-        return HAL_GPIO_ReadPin(GPIOC, PLAY_Pin) == GPIO_PIN_RESET;
+        return HAL_GPIO_ReadPin(GPIOB, PLAY_Pin) == GPIO_PIN_RESET;
     case STOP:
-        return HAL_GPIO_ReadPin(GPIOC, STOP_Pin) == GPIO_PIN_RESET;
+        return HAL_GPIO_ReadPin(GPIOB, STOP_Pin) == GPIO_PIN_RESET;
     case MODE:
-        return HAL_GPIO_ReadPin(GPIOC, MODE_Pin) == GPIO_PIN_RESET;
-        // Todo: implement getting the calibration data
+        return HAL_GPIO_ReadPin(GPIOB, MODE_Pin) == GPIO_PIN_RESET;
+    case JOYC:
+        return HAL_GPIO_ReadPin(GPIOB, JOYC_Pin) == GPIO_PIN_RESET;
     case RIGHT:
         return adc_buff[ADC_AXIS_X] > (config.joycon_calibration.x_max - 300);
     case LEFT:

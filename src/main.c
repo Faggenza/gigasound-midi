@@ -1,18 +1,19 @@
 
-#include "stdio.h"
+#include <stdlib.h>
+#include <stdio.h>
 #include "led.h"
 #include "midi.h"
 #include "adc.h"
 #include "input.h"
 #include "gigagl.h"
-#include "ui/menu.h"
 #include "assets.h"
 #include "calibrate.h"
-#include <stdlib.h>
-#include "ui/leds.h"
 #include "config.h"
 #include "scale.h"
+#include "ui/menu.h"
+#include "ui/leds.h"
 #include "ui/config.h"
+#include "ui/home.h"
 
 #ifdef EMULATOR
 #include "emulator.h"
@@ -89,17 +90,6 @@ uint8_t keyframes[] = {0, 23, 44, 61, 76,
                        89, 99, 107, 114, 118,
                        122, 124, 125, 126, 126, 128};
 
-typedef struct
-{
-  uint8_t current_knob;
-  uint8_t last_knob;
-  bool stopped;
-  bool playing;
-  bool key_pressed[8];
-  scale_t scale;
-  tone_t tone;
-} midi_playback_state_t;
-
 void animate_switch()
 {
   switch (dir)
@@ -163,40 +153,6 @@ void animate_switch()
   ggl_clear_fb(backbuffer);
 }
 
-typedef struct
-{
-  uint8_t x;
-  uint8_t y;
-  bool inverted;
-} stroke_position_t;
-
-stroke_position_t strokes[24] = {
-    {.x = 4, .y = 48, false},   // Do scale 0
-    {.x = 8, .y = 32, true},    // Dod scale 0
-    {.x = 13, .y = 48, false},  // Re scale 0
-    {.x = 8, .y = 32, true},    // Red scale 0
-    {.x = 22, .y = 48, false},  // Mi scale 0
-    {.x = 31, .y = 48, false},  // Fa scale 0
-    {.x = 35, .y = 32, true},   // Fad scale 0
-    {.x = 40, .y = 48, false},  // Sol scale 0
-    {.x = 45, .y = 32, true},   // Sold scale 0
-    {.x = 49, .y = 48, false},  // La scale 0
-    {.x = 55, .y = 32, true},   // Lad scale 0
-    {.x = 58, .y = 48, false},  // Si scale 0
-    {.x = 67, .y = 48, false},  // Do scale 1
-    {.x = 71, .y = 32, true},   // Dod scale 1
-    {.x = 76, .y = 48, false},  // Re scale 1
-    {.x = 82, .y = 32, true},   // Red scale 1
-    {.x = 85, .y = 48, false},  // Mi scale 1
-    {.x = 94, .y = 48, false},  // Fa scale 1
-    {.x = 98, .y = 32, true},   // Fad scale 1
-    {.x = 103, .y = 48, false}, // Sol scale 1
-    {.x = 108, .y = 32, true},  // Sold scale 1
-    {.x = 112, .y = 48, false}, // La scale 1
-    {.x = 118, .y = 32, true},  // Lad scale 1
-    {.x = 121, .y = 48, false}, // Si scale 1
-};
-
 int main(void)
 {
 
@@ -212,20 +168,20 @@ int main(void)
   MX_SPI3_Init();
   MX_USB_OTG_FS_PCD_Init();
 
+  HAL_Delay(50); // Wait for inputs to stabilize
+  if (is_key_down(MODE))
+  {
+    jump_to_bootloader();
+  }
+
   config_init();
 
   SSD1306_MINIMAL_init();
 
   adc_init_dma();
-  // Turn all LEDs off
-  for (size_t i = 0; i < N_LED; i++)
-  {
-    set_led(i, OFF, 0.0f);
-  }
 
-  HAL_SPI_Transmit(&hspi3, led_buff, LED_BUFF_N, 1000);
-  HAL_SPI_Transmit(&hspi3, led_buff, LED_BUFF_N, 1000);
-
+  // Turn all LEDs off and start DMA
+  clear_leds();
   HAL_SPI_Transmit_DMA(&hspi3, led_buff, LED_BUFF_N);
 
   // init device stack on configured roothub port
@@ -238,6 +194,7 @@ int main(void)
   {
     board_init_after_tusb();
   }
+
   midi_playback_state_t playback_state = {
       .current_knob = 0,
       .last_knob = 0,
@@ -272,12 +229,12 @@ int main(void)
       .old_selection = 0,
   };
 
+  // Calibrate the joystick at very first bootup
   if (config.joycon_calibration.calibrated == false)
   {
     state = SENSITIVITY_SCREEN;
   }
 
-  // TODO: alla primissima inizializzazione si dovrebbe calibrare il joystick
   while (1)
   {
     // Every time we change state, we want to clear the pressed buttons
@@ -299,10 +256,7 @@ int main(void)
         }
       }
 
-      ggl_draw_icon(backbuffer, 0, 0, home_keys_icon, 0);
-      ggl_draw_text(backbuffer, 4, 4, tone_to_string[playback_state.tone], font_data, 0);
-      ggl_draw_text(backbuffer, 24, 4, scale_to_string[playback_state.scale], font_data, 0);
-
+      ui_draw_home(backbuffer, &playback_state);
       animate_switch();
 
       playback_state.last_knob = 255;
@@ -380,7 +334,8 @@ int main(void)
           uint16_t m = map(adc_buff[ADC_AXIS_X], (config.joycon_calibration.x_max - config.joycon_calibration.x_min) - 200, 0, 0, 16384);
           midi_send_modulation(m);
         }
-        else if (was_key_pressed(RIGHT))
+
+        if (was_key_pressed(MODE))
         {
           // Clear all the previous notes
           for (uint8_t i = 0; i < 8; i++)
@@ -402,10 +357,26 @@ int main(void)
           while (fb_updating)
             loop_task();
 
-          ggl_clear_fb(*fb);
-          ggl_draw_icon(*fb, 0, 0, home_keys_icon, 0);
-          ggl_draw_text(*fb, 4, 4, tone_to_string[playback_state.tone], font_data, 0);
-          ggl_draw_text(*fb, 24, 4, scale_to_string[playback_state.scale], font_data, 0);
+          ui_draw_home(*fb, &playback_state);
+
+          SSD1306_MINIMAL_transferFramebuffer();
+        }
+
+        if (was_key_pressed(RIGHT))
+        {
+          // Clear all the previous notes
+          for (uint8_t i = 0; i < 8; i++)
+          {
+            midi_send_note_off(i, button_to_midi(playback_state.last_knob, playback_state.scale, playback_state.tone, i));
+            playback_state.key_pressed[i] = false;
+          }
+
+          playback_state.tone = (playback_state.tone + 1) % 12;
+
+          while (fb_updating)
+            loop_task();
+
+          ui_draw_home(*fb, &playback_state);
 
           SSD1306_MINIMAL_transferFramebuffer();
         }
@@ -420,7 +391,7 @@ int main(void)
           playback_state.stopped = !playback_state.stopped;
           set_led(LED_STOP, playback_state.stopped ? config.color[LED_STOP] : OFF, 1.0f);
         }
-        if (was_key_pressed(MODE))
+        if (was_key_pressed(JOYC))
         {
           state = MENU_SCREEN;
           dir = FORWARD;
@@ -439,7 +410,7 @@ int main(void)
       while (1)
       {
         loop_task();
-        if (was_key_pressed(MODE) || was_key_pressed(LEFT))
+        if (was_key_pressed(MODE) || was_key_pressed(LEFT) || was_key_pressed(JOYC))
         {
           config_save_to_flash();
           state = MIDI_PLAYBACK;
