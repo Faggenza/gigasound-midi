@@ -20,17 +20,36 @@ typedef union
 #define LED_STOP 9
 #define LED_PLAY 8
 
-#define YELLOW (color_t){255, 255, 0}
-#define RED (color_t){255, 0, 0}
-#define ORANGE (color_t){255, 140, 0}
-#define YELLOW (color_t){255, 255, 0}
-#define L_GREEN (color_t){0, 255, 0}
-#define TEAL (color_t){0, 220, 180}
-#define CYAN (color_t){0, 180, 255}
-#define SKY_BLUE (color_t){80, 180, 255}
-#define BLUE (color_t){0, 0, 255}
-#define PURPLE (color_t){180, 70, 255}
-#define MAGENTA (color_t){255, 0, 180}
+#define RED   \
+    (color_t) \
+    {{255, 0, 0}}
+#define ORANGE \
+    (color_t)  \
+    {{255, 140, 0}}
+#define YELLOW \
+    (color_t)  \
+    {{255, 255, 0}}
+#define L_GREEN \
+    (color_t)   \
+    {{0, 255, 0}}
+#define TEAL  \
+    (color_t) \
+    {{0, 220, 180}}
+#define CYAN  \
+    (color_t) \
+    {{0, 180, 255}}
+#define SKY_BLUE \
+    (color_t)    \
+    {{80, 180, 255}}
+#define BLUE  \
+    (color_t) \
+    {{0, 0, 255}}
+#define PURPLE \
+    (color_t)  \
+    {{180, 70, 255}}
+#define MAGENTA \
+    (color_t)   \
+    {{255, 0, 180}}
 #define PINK  \
     (color_t) \
     {{255, 105, 180}}
