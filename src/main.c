@@ -53,7 +53,6 @@ state_t state = MIDI_PLAYBACK;
 
 // Good artists copy, great artists steal -Pablo Picasso
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
-#define MAX(x, y) (((x) > (y)) ? (x) : (y))
 
 uint16_t map(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max)
 {

@@ -104,7 +104,25 @@ uint8_t was_key_pressed(in_key_t key)
     return res;
 }
 
+static uint8_t last_step = 0;
+
+#define MIN(x, y) (((x) < (y)) ? (x) : (y))
+#define PADDING 100
+
 uint8_t knob_step()
 {
-    return 7 - ((adc_buff[ADC_KNOB] + 300) / 512);
+    uint16_t knob_value = 4096 - adc_buff[ADC_KNOB];
+    uint8_t current_step = MIN(knob_value / 512, 7);
+
+    // Hysteresis cycle
+    if (current_step > last_step && (knob_value - (last_step * 512)) > PADDING)
+    {
+        last_step = current_step;
+    }
+    else if (current_step < last_step && ((last_step * 512) - knob_value) > PADDING)
+    {
+        last_step = current_step;
+    }
+
+    return last_step;
 }
