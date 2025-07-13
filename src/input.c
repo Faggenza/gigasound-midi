@@ -89,6 +89,17 @@ void clear_pressed()
 uint8_t was_key_pressed(in_key_t key)
 {
     uint8_t res = pressed & (1 << key);
+    // Only for buttons:
+    if (key < RIGHT)
+    {
+        // If it was pressed less than 50ms ago
+        // or it's not pressed anymore, ignore
+        if (!is_key_down(key) && (HAL_GetTick() - timers[key] < 50))
+        {
+            res = 0;
+        }
+    }
+
     pressed &= ~(1 << key);
     return res;
 }
