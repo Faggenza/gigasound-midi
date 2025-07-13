@@ -54,6 +54,7 @@ state_t state = MIDI_PLAYBACK;
 
 // Good artists copy, great artists steal -Pablo Picasso
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
+#define MAX(x, y) (((x) > (y)) ? (x) : (y))
 
 uint16_t map(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max)
 {
@@ -206,6 +207,7 @@ int main(void)
       .tone = DO,
       .scale = MAJOR,
       .key_pressed = {false},
+      .timers = {0},
   };
 
   menu_state_t menu_state = {
@@ -244,7 +246,6 @@ int main(void)
     // To avoid handling the stame inputs multiple time
     clear_pressed();
     clear_leds();
-    printf("Switching to state %d\n", state);
     switch (state)
     {
     case MIDI_PLAYBACK:
@@ -275,6 +276,8 @@ int main(void)
           {
             midi_send_note_off(i, button_to_midi(playback_state.last_knob, playback_state.scale, playback_state.tone, i));
             playback_state.key_pressed[i] = false;
+            playback_state.timers[i] = 0;
+            set_led(i, OFF, 0.0f);
           }
           playback_state.last_knob = playback_state.current_knob;
           // Update the knob LEDs
@@ -285,35 +288,59 @@ int main(void)
           set_led(LED_KNOB_BASE + playback_state.current_knob, config.color[LED_KNOB_BASE], 1.0f);
         }
 
-        uint16_t threshold = 4000;
+        // Calculate velocity based on two thresholds:
+        uint16_t threshold_p1 = 3800;
+        uint16_t threshold_p2 = 3600;
 
         for (uint8_t i = 0; i < 8; i++)
         {
           // Quirk for the second button that is broken
           if (i == 1)
           {
-            threshold = 1000;
+            threshold_p1 = 1000;
+            threshold_p2 = 850;
           }
           else
           {
-            threshold = 4000;
+            threshold_p1 = 3800;
+            threshold_p2 = 3600;
           }
 
-          if (adc_buff[i] < threshold && playback_state.key_pressed[i] == false)
+          if (adc_buff[i] < threshold_p2 && playback_state.key_pressed[i] == false)
           {
             playback_state.key_pressed[i] = true;
             uint8_t note = button_to_midi(playback_state.current_knob, playback_state.scale, playback_state.tone, i);
 
-            midi_send_note_on(i, note, 127);
+            uint8_t velocity = 127;
+            uint32_t t2 = HAL_GetTick();
+            uint32_t t1 = playback_state.timers[i];
+            // If t1 == 0 it means the user pressed so fast, the firmware didn't have time
+            // to register t1, so we leave max velocity
+            uint16_t dt = t2 - t1;
+            if (t1 != 0 && dt != 0 && i != 1)
+            {
+              uint16_t distance = (threshold_p1 - adc_buff[i]) << 4;
+              uint16_t v = distance / dt;
+
+              velocity = MIN(map(v, 0, 200, 0, 127), 127);
+            }
+
+            midi_send_note_on(i, note, velocity);
             set_led(LED_BUTTON_BASE + i, config.color[LED_BUTTON_BASE + i], 0.1f);
 
             // Check if it's a black key (sharp/flat) using standard MIDI convention
             uint8_t note_in_octaves = note - playback_state.current_knob * 12;
             ggl_draw_rect_fill(*fb, strokes[note_in_octaves].x, strokes[note_in_octaves].y, strokes[note_in_octaves].inverted ? 3 : 4, 8, strokes[note_in_octaves].inverted);
           }
-          else if (adc_buff[i] >= threshold && playback_state.key_pressed[i] == true)
+          else if (adc_buff[i] < threshold_p1 && playback_state.timers[i] == 0 && playback_state.key_pressed[i] == false)
+          {
+            playback_state.timers[i] = HAL_GetTick();
+          }
+          else if (adc_buff[i] >= threshold_p1 && playback_state.key_pressed[i] == true)
           {
             playback_state.key_pressed[i] = false;
+            playback_state.timers[i] = 0;
+
             uint8_t note = button_to_midi(playback_state.current_knob, playback_state.scale, playback_state.tone, i);
 
             midi_send_note_off(i, note);
@@ -325,7 +352,7 @@ int main(void)
 
           if (playback_state.key_pressed[i])
           {
-            midi_set_channel_pressure(i, MIN((threshold - adc_buff[i]) >> 4, 127));
+            midi_set_channel_pressure(i, MIN((threshold_p1 - adc_buff[i]) >> 4, 127));
             set_led(LED_BUTTON_BASE + i, config.color[LED_BUTTON_BASE + i], ((4096 - adc_buff[i]) >> 4) / 500.0f);
           }
         }
@@ -345,6 +372,7 @@ int main(void)
           {
             midi_send_note_off(i, button_to_midi(playback_state.last_knob, playback_state.scale, playback_state.tone, i));
             playback_state.key_pressed[i] = false;
+            playback_state.timers[i] = 0;
           }
 
           for (uint8_t i = 1; i < END_SCALE_LIST; i++)
@@ -372,6 +400,8 @@ int main(void)
           {
             midi_send_note_off(i, button_to_midi(playback_state.last_knob, playback_state.scale, playback_state.tone, i));
             playback_state.key_pressed[i] = false;
+            playback_state.timers[i] = 0;
+            set_led(LED_BUTTON_BASE + i, OFF, 0.0f);
           }
 
           playback_state.tone = (playback_state.tone + 1) % 12;

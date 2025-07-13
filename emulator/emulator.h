@@ -298,3 +298,8 @@ uint8_t knob_step()
 void HAL_Delay(int x)
 {
 }
+
+uint32_t HAL_GetTick()
+{
+    return GetTime() * 1000;
+}

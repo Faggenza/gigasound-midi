@@ -2,24 +2,7 @@
 #include <stdint.h>
 #include "assets.h"
 #include "scale.h"
-
-typedef struct
-{
-    uint8_t current_knob;
-    uint8_t last_knob;
-    bool stopped;
-    bool playing;
-    bool key_pressed[8];
-    scale_t scale;
-    tone_t tone;
-} midi_playback_state_t;
-
-typedef struct
-{
-    uint8_t x;
-    uint8_t y;
-    bool inverted;
-} stroke_position_t;
+#include "ui/home.h"
 
 stroke_position_t strokes[24] = {
     {.x = 4, .y = 48, false},   // Do scale 0

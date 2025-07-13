@@ -13,6 +13,8 @@ typedef struct
     bool stopped;
     bool playing;
     bool key_pressed[8];
+    // Stores the time when the button reach pressure < p1
+    uint32_t timers[8];
     scale_t scale;
     tone_t tone;
 } midi_playback_state_t;
