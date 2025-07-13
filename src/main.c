@@ -52,6 +52,9 @@ typedef enum
 state_t state = MIDI_PLAYBACK;
 
 // Good artists copy, great artists steal -Pablo Picasso
+#define MIN(x, y) (((x) < (y)) ? (x) : (y))
+#define MAX(x, y) (((x) > (y)) ? (x) : (y))
+
 uint16_t map(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max)
 {
   if ((in_max - in_min) == 0)
@@ -322,7 +325,7 @@ int main(void)
 
           if (playback_state.key_pressed[i])
           {
-            midi_set_channel_pressure(i, (threshold - adc_buff[i]) >> 4);
+            midi_set_channel_pressure(i, MIN((threshold - adc_buff[i]) >> 4, 127));
             set_led(LED_BUTTON_BASE + i, config.color[LED_BUTTON_BASE + i], ((4096 - adc_buff[i]) >> 4) / 500.0f);
           }
         }
