@@ -25,7 +25,7 @@ stroke_position_t strokes[24] = {
     {.x = 4, .y = 48, false},   // Do scale 0
     {.x = 8, .y = 32, true},    // Dod scale 0
     {.x = 13, .y = 48, false},  // Re scale 0
-    {.x = 8, .y = 32, true},    // Red scale 0
+    {.x = 19, .y = 32, true},   // Red scale 0
     {.x = 22, .y = 48, false},  // Mi scale 0
     {.x = 31, .y = 48, false},  // Fa scale 0
     {.x = 35, .y = 32, true},   // Fad scale 0
