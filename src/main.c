@@ -1,6 +1,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 #include "led.h"
 #include "midi.h"
 #include "adc.h"
@@ -481,12 +482,12 @@ int main(void)
       }
       break;
     case LED_SCREEN:
-      ggl_draw_text(backbuffer, 30, 28, "Click any axis", font_data, 0);
-      ggl_draw_text(backbuffer, 30, 40, "to select LED", font_data, 0);
+      ggl_draw_text(backbuffer, 25, 16, "Click any axis", font_data, 0);
+      ggl_draw_text(backbuffer, 25, 30, "to select LED", font_data, 0);
       animate_switch();
       uint8_t current_knob = knob_step();
       uint8_t last_knob = current_knob;
-
+      float intensity = 0.1f;
       while (1)
       {
         loop_task();
@@ -496,6 +497,21 @@ int main(void)
           dir = BACK;
           break;
         }
+
+        // Pulse all LEDs
+        for (uint8_t i = 0; i < 8; i++)
+        {
+          float wave = 0.5f + 0.5f * sinf(HAL_GetTick() / 300.0f + i);
+          set_led(LED_BUTTON_BASE + i, config.color[LED_BUTTON_BASE + i], wave * intensity);
+        }
+        for (uint8_t i = 0; i < 8; i++)
+        {
+          float wave = 0.5f + 0.5f * sinf(HAL_GetTick() / 300.0f + i + 8);
+          set_led(LED_KNOB_BASE + i, config.color[LED_KNOB_BASE], wave * intensity);
+        }
+        set_led(LED_PLAY, config.color[LED_PLAY], 0.2f + 0.8f * sinf(HAL_GetTick() / 500.0f));
+        set_led(LED_STOP, config.color[LED_STOP], 0.2f + 0.8f * sinf(HAL_GetTick() / 500.0f + 1));
+        set_led(LED_MODE, config.color[LED_MODE], 0.2f + 0.8f * sinf(HAL_GetTick() / 500.0f + 2));
 
         uint16_t threshold = 3600;
 
