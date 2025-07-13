@@ -391,6 +391,11 @@ int main(void)
           ui_draw_home(*fb, &playback_state);
 
           SSD1306_MINIMAL_transferFramebuffer();
+          // Clear leds after drawing to screen to minimize artifacts
+          for (uint8_t i = 0; i < 8; i++)
+          {
+            set_led(LED_BUTTON_BASE + i, OFF, 0.0f);
+          }
         }
 
         if (was_key_pressed(RIGHT))
@@ -401,7 +406,6 @@ int main(void)
             midi_send_note_off(i, button_to_midi(playback_state.last_knob, playback_state.scale, playback_state.tone, i));
             playback_state.key_pressed[i] = false;
             playback_state.timers[i] = 0;
-            set_led(LED_BUTTON_BASE + i, OFF, 0.0f);
           }
 
           playback_state.tone = (playback_state.tone + 1) % 12;
@@ -412,6 +416,12 @@ int main(void)
           ui_draw_home(*fb, &playback_state);
 
           SSD1306_MINIMAL_transferFramebuffer();
+
+          // Clear leds after drawing to screen to minimize artifacts
+          for (uint8_t i = 0; i < 8; i++)
+          {
+            set_led(LED_BUTTON_BASE + i, OFF, 0.0f);
+          }
         }
 
         if (was_key_pressed(PLAY))
