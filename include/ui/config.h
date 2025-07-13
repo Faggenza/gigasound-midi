@@ -7,7 +7,7 @@
 
 typedef enum
 {
-    CONFIG_UPDATE_RATE = 0,
+    CONFIG_SHOW_ADC = 0,
     CONFIG_SCALE,
     CONFIG_DFU,
 } config_states_enum;

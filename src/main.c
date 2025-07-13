@@ -47,6 +47,7 @@ typedef enum
   ABOUT_SCREEN,
   COLOR_SCREEN,
   SCALE_SCREEN,
+  ADC_SCREEN,
 } state_t;
 
 state_t state = MIDI_PLAYBACK;
@@ -284,7 +285,7 @@ int main(void)
           set_led(LED_KNOB_BASE + playback_state.current_knob, config.color[LED_KNOB_BASE], 1.0f);
         }
 
-        uint16_t threshold = 3600;
+        uint16_t threshold = 4000;
 
         for (uint8_t i = 0; i < 8; i++)
         {
@@ -295,7 +296,7 @@ int main(void)
           }
           else
           {
-            threshold = 3600;
+            threshold = 4000;
           }
 
           if (adc_buff[i] < threshold && playback_state.key_pressed[i] == false)
@@ -587,14 +588,10 @@ int main(void)
         {
           switch (config_state.selected)
           {
-          case CONFIG_UPDATE_RATE:
-            config.limit_updates = !config.limit_updates;
-            config_modified = true;
-            while (fb_updating)
-              loop_task();
-            ui_draw_config(*fb, &config_state);
-            SSD1306_MINIMAL_transferFramebuffer();
-            break;
+          case CONFIG_SHOW_ADC:
+            state = ADC_SCREEN;
+            dir = FORWARD;
+            goto exit_config_screen;
           case CONFIG_SCALE:
             state = SCALE_SCREEN;
             dir = FORWARD;
@@ -613,6 +610,34 @@ int main(void)
         }
       }
     exit_config_screen:
+      break;
+    case ADC_SCREEN:
+      ggl_draw_text(backbuffer, 26, 8, "ADC Debugging", font_data, 0);
+      animate_switch();
+      while (1)
+      {
+        loop_task();
+        if (was_key_pressed(STOP))
+        {
+          state = CONFIG_SCREEN;
+          dir = BACK;
+          break;
+        }
+        if (!fb_updating)
+        {
+          ggl_clear_fb(*fb);
+          ggl_draw_text(*fb, 26, 8, "ADC Debugging", font_data, 0);
+          for (uint8_t i = 0; i < 11; i++)
+          {
+            char buffer[16];
+            snprintf(buffer, sizeof(buffer), "%4d", adc_buff[i]);
+            uint8_t x = 6 + (i / 3) * 30;  // Each column starts 40 pixels apart
+            uint8_t y = 20 + (i % 3) * 10; // Each row is 10 pixels apart within a column
+            ggl_draw_text(*fb, x, y, buffer, font_data, 0);
+          }
+          SSD1306_MINIMAL_transferFramebuffer();
+        }
+      }
       break;
     case SCALE_SCREEN:
       ui_draw_scale_selector(backbuffer, &scale_select_state);
@@ -677,7 +702,7 @@ int main(void)
       break;
     case ABOUT_SCREEN:
       ggl_draw_text(backbuffer, 8, 10, "GigaSound", font_data, 0);
-      ggl_draw_text(backbuffer, 8, 30, "Version 1234", font_data, 0); // TODO: add numbers to font
+      ggl_draw_text(backbuffer, 8, 30, "Version 1234", font_data, 0);
       animate_switch();
       while (1)
       {

@@ -10,8 +10,7 @@ void ui_draw_config(framebuffer_t fb, config_state_t *state)
     ggl_clear_fb(fb);
 
     ggl_draw_rect_round_fill(fb, 10, 8 + animate(state, state->old_selection * 20, state->selected * 20), 110, 12, GGL_WHITE, 0);
-    ggl_draw_text(fb, 13, 8, "Update rate", font_data, 1);
-    ggl_draw_text(fb, 100, 8, config.limit_updates ? " 1k" : "inf", font_data, 1);
+    ggl_draw_text(fb, 13, 8, "Show ADC", font_data, 1);
     ggl_draw_text(fb, 13, 28, "Select scales", font_data, 1);
     ggl_draw_text(fb, 13, 48, "Enter DFU", font_data, 1);
 }

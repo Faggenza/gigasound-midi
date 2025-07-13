@@ -181,7 +181,7 @@ void ggl_draw_text(framebuffer_t fb, uint8_t x, uint8_t y, const char *text, con
             text++;
             continue;
         }
-        else if (char_index < '9')
+        else if (char_index <= '9')
         {
             char_index -= '0';
             printf("%d\n", char_index);
